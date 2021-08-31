@@ -1,0 +1,775 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  published Boolean  @default(false)
+  title     String   @db.VarChar(255)
+  content   String?
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  String?
+
+  @@map(name: "post")
+}
+
+model Award {
+  id           String    @id @default(cuid())
+  user         User?     @relation(fields: [userId], references: [id])
+  userId       String?
+  title        String    @db.VarChar(255)
+  organization String
+  issuedYear   Int
+  createdAt    DateTime  @default(now())
+  createdBy    String?
+  updatedAt    DateTime  @updatedAt
+  updatedBy    String?
+  deletedAt    DateTime?
+  deletedBy    String?
+
+  @@map(name: "award")
+}
+
+model BookmarkedJob {
+  id        String    @id @default(cuid())
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?
+  job       Job?      @relation(fields: [jobId], references: [id])
+  jobId     String?
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+
+  @@map(name: "bookmarked_job")
+}
+
+model BookmarkedProject {
+  id        String    @id @default(cuid())
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?
+  project   Project?  @relation(fields: [projectId], references: [id])
+  projectId String?
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+
+  @@map(name: "bookmarked_project")
+}
+
+model Circle {
+  id          String @id @default(cuid())
+  name        String
+  title       String
+  logo        String
+  description String
+
+  //* Relationship
+  userCircles UserCircle[]
+
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+  @@map(name: "circle")
+}
+
+model Company {
+  id                  String @id @default(cuid())
+  name                String // Same as user.name
+  industry            String
+  website             String
+  contactorName       String
+  contactorEmail      String
+  contactorPhone      String
+  contactorJobTitle   String
+  contactorDepartment String
+  introduction        String
+  employees           Int
+  skills              String
+  fields              String
+  user                User?
+
+  jobs      Job[]
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+  @@map(name: "company")
+}
+
+model Education {
+  id         String    @id @default(cuid())
+  user       User?     @relation(fields: [userId], references: [id])
+  userId     String?
+  schoolName String
+  title      String
+  startYear  Int
+  startMonth Int
+  endYear    Int
+  endMonth   Int
+  location   Location? @relation(fields: [locationId], references: [id])
+  locationId String?
+  created    DateTime
+  createdAt  DateTime  @default(now())
+  createdBy  String?
+  updatedAt  DateTime  @updatedAt
+  updatedBy  String?
+  deletedAt  DateTime?
+  deletedBy  String?
+
+  @@map(name: "education")
+}
+
+model Experience {
+  id          String    @id @default(cuid())
+  user        User?     @relation(fields: [userId], references: [id])
+  userId      String?
+  type        String
+  title       String
+  company     String
+  role        String
+  description String
+  startYear   Int
+  startMonth  Int
+  endYear     Int
+  endMonth    Int
+  location    Location? @relation(fields: [locationId], references: [id])
+  locationId  String?
+  createdAt   DateTime  @default(now())
+  createdBy   String?
+  updatedAt   DateTime  @updatedAt
+  updatedBy   String?
+  deletedAt   DateTime?
+  deletedBy   String?
+
+  @@map(name: "experience")
+}
+
+model ExternalCompany {
+  id          String        @id @default(cuid())
+  logoLink    String
+  companyName String
+  externalJob ExternalJob[]
+  createdAt   DateTime      @default(now())
+  createdBy   String?
+  updatedAt   DateTime      @updatedAt
+  updatedBy   String?
+  deletedAt   DateTime?
+  deletedBy   String?
+
+  @@map(name: "external_company")
+}
+
+model ExternalJob {
+  id                String           @id @default(cuid())
+  categories        String
+  jobLink           String
+  job               Job[]
+  externalCompany   ExternalCompany? @relation(fields: [externalCompanyId], references: [id])
+  externalCompanyId String?
+  createdAt         DateTime         @default(now())
+  createdBy         String?
+  updatedAt         DateTime         @updatedAt
+  updatedBy         String?
+  deletedAt         DateTime?
+  deletedBy         String?
+
+  @@map(name: "external_job")
+}
+
+model FileItem {
+  id                   String              @id @default(cuid())
+  name                 String
+  link                 String
+  fileType             FileType
+  user                 User?               @relation(fields: [userId], references: [id])
+  userId               String?
+  project              Project?            @relation(fields: [projectId], references: [id])
+  projectId            String?
+  job                  Job?                @relation(fields: [jobId], references: [id])
+  jobId                String?
+  jobApplication       JobApplication?
+  projectApplication   ProjectApplication? @relation(fields: [projectApplicationId], references: [id])
+  projectApplicationId String?
+  createdAt            DateTime            @default(now())
+  createdBy            String?
+  updatedAt            DateTime            @updatedAt
+  updatedBy            String?
+  deletedAt            DateTime?
+  deletedBy            String?
+
+  @@map(name: "file_item")
+}
+
+model FriendRequest {
+  id          String              @id @default(cuid())
+  requester   User?               @relation(name: "fr_requester", fields: [requesterId], references: [id])
+  requesterId String?
+  receiver    User?               @relation(name: "fr_receiver", fields: [receiverId], references: [id])
+  receiverId  String?
+  status      FriendRequestStatus
+
+  //* Relationships
+
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+  @@map(name: "friend_request")
+}
+
+model Job {
+  id                 String           @id @default(cuid())
+  company            Company?         @relation(fields: [companyId], references: [id])
+  companyId          String?
+  category           String
+  title              String
+  employmentType     String
+  description        String
+  location           Location?        @relation(fields: [locationId], references: [id])
+  locationId         String?
+  responsibility     String
+  requirements       String
+  salaryMin          Int
+  salaryMax          Int
+  experienceLevel    String
+  screeningQuestions String
+  tags               String
+  documents          FileItem[]
+  applications       JobApplication[]
+  posterDepartment   String
+  posterFirstName    String
+  posterLastName     String
+  posterEmail        String
+  posterPhone        String
+  status             JobStatus
+  created            DateTime
+  updated            DateTime
+  finished           DateTime
+  externalJob        ExternalJob?     @relation(fields: [externalJobId], references: [id])
+  externalJobId      String?
+
+  //! Relation Ship
+  bookmarkedJobs BookmarkedJob[]
+  viewedJobs     ViewedJob[]
+
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+  @@map(name: "job")
+}
+
+model JobApplication {
+  id               String            @id @default(cuid())
+  user             User?             @relation(fields: [userId], references: [id])
+  userId           String?
+  job              Job?              @relation(fields: [jobId], references: [id])
+  jobId            String?
+  coverLetter      String
+  cv               FileItem?         @relation(fields: [cvId], references: [id])
+  cvId             String?
+  screeningAnswers String
+  status           ApplicationStatus
+  saved            Boolean
+  createdAt        DateTime          @default(now())
+  createdBy        String?
+  updatedAt        DateTime          @updatedAt
+  updatedBy        String?
+  deletedAt        DateTime?
+  deletedBy        String?
+
+  @@map(name: "job_application")
+}
+
+model Location {
+  id        String           @id @default(cuid())
+  city      String
+  latitude  Float
+  longitude Float
+  state     LocationState?   @relation(fields: [stateId], references: [id])
+  stateId   String?
+  country   LocationCountry? @relation(fields: [countryId], references: [id])
+  countryId String?
+
+  //* Relationships
+  users       User[]
+  jobs        Job[]
+  experiences Experience[]
+  educations  Education[]
+  projects    Project[]
+
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+  @@map(name: "location")
+}
+
+model LocationCountry {
+  id   String @id @default(cuid())
+  name String
+  iso2 String
+  iso3 String
+
+  //* Relationships
+  locations Location[]
+
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+  @@map(name: "location_country")
+}
+
+model LocationState {
+  id           String @id @default(cuid())
+  name         String
+  abbreviation String
+
+  //* Relationships
+  locations Location[]
+
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+  @@map(name: "location_state")
+}
+
+model MentorshipUser {
+  id                       String             @id @default(cuid())
+  user                     User?              @relation(fields: [userId], references: [id])
+  userId                   String?
+  userType                 MentorshipUserType
+  professionalSelfDescribe String
+  professionalLevel        String
+  quarterStart             String
+  selfDescribe             String
+  reviewStatus             ReviewStatus
+  paired                   Boolean
+  updated                  DateTime
+  isHaveNullableFields     Boolean
+
+  //* Relationship
+  mentorshipUserFriendsAsRequester MentorshipUserFriend[] @relation(name: "mu_requester")
+  mentorshipUserFriendsAsReceiver  MentorshipUserFriend[] @relation(name: "mu_receiver")
+
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+  @@map(name: "mentorship_user")
+}
+
+model MentorshipUserFriend {
+  id          String              @id @default(cuid())
+  requester   MentorshipUser?     @relation(name: "mu_requester", fields: [requesterId], references: [id])
+  requesterId String?
+  receiver    MentorshipUser?     @relation(name: "mu_receiver", fields: [receiverId], references: [id])
+  receiverId  String?
+  status      FriendRequestStatus
+  createdAt   DateTime            @default(now())
+  createdBy   String?
+  updatedAt   DateTime            @updatedAt
+  updatedBy   String?
+  deletedAt   DateTime?
+  deletedBy   String?
+
+  @@map(name: "mentorship_user_friend")
+}
+
+model Picture {
+  id             String    @id @default(cuid())
+  page           String
+  pictureLink    String
+  redirectLink   String
+  numberPosition Int
+  title          String
+  description    String
+  isVideo        Boolean
+  createdAt      DateTime  @default(now())
+  createdBy      String?
+  updatedAt      DateTime  @updatedAt
+  updatedBy      String?
+  deletedAt      DateTime?
+  deletedBy      String?
+
+  @@map(name: "picture")
+}
+
+model Project {
+  id                String            @id @default(cuid())
+  user              User?             @relation(fields: [userId], references: [id])
+  userId            String?
+  coverImage        String
+  title             String
+  type              String
+  description       String
+  keywords          String
+  paid              Boolean
+  location          Location?         @relation(fields: [locationId], references: [id])
+  locationId        String?
+  status            JobStatus
+  projectPositions  ProjectPosition[]
+  documents         FileItem[]
+  schedule          String
+  housingDetails    String
+  childElderDetails String
+  finished          DateTime
+
+  //* Relationship
+  viewedProjects      ViewedProject[]
+  projectApplications ProjectApplication[]
+  bookmarkedProjects  BookmarkedProject[]
+
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+  @@map(name: "project")
+}
+
+model ProjectApplication {
+  id                String            @id @default(cuid())
+  user              User?             @relation(fields: [userId], references: [id])
+  userId            String?
+  projectPosition   ProjectPosition?  @relation(fields: [projectPositionId], references: [id])
+  projectPositionId String?
+  project           Project?          @relation(fields: [projectId], references: [id])
+  projectId         String?
+  coverLetter       String
+  cv                FileItem?
+  status            ApplicationStatus
+  saved             Boolean
+  createdAt         DateTime          @default(now())
+  createdBy         String?
+  updatedAt         DateTime          @updatedAt
+  updatedBy         String?
+  deletedAt         DateTime?
+  deletedBy         String?
+
+  @@map(name: "project_application")
+}
+
+model ProjectPosition {
+  id                     String         @id @default(cuid())
+  project                Project?       @relation(fields: [projectId], references: [id])
+  projectId              String?
+  type                   String
+  roleDescription        String
+  gender                 Gender
+  additionalRequirements String
+  minAge                 Int
+  maxAge                 Int
+  status                 PositionStatus
+  finished               DateTime
+
+  //* Relationships
+  projectApplications ProjectApplication[]
+
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+  @@map(name: "project_position")
+}
+
+model Setting {
+  id                                String    @id @default(cuid())
+  user                              User?     @relation(fields: [userId], references: [id])
+  userId                            String?
+  privateVisibleToAllTalents        Boolean
+  privateVisibleToAllCompanies      Boolean
+  emailPhoneVisibleToAllTalents     Boolean
+  notificationNewConnectionRequest  Boolean
+  notificationNewConnectionAccepted Boolean
+  notificationFeedUpdate            Boolean
+  createdAt                         DateTime  @default(now())
+  createdBy                         String?
+  updatedAt                         DateTime  @updatedAt
+  updatedBy                         String?
+  deletedAt                         DateTime?
+  deletedBy                         String?
+
+  @@map(name: "setting")
+}
+
+model Talent {
+  id                 String    @id @default(cuid())
+  user               User?     @relation(fields: [userId], references: [id])
+  userId             String?
+  website            String
+  weight             Float
+  weightUnit         String
+  height             Float
+  heightUnit         String
+  birthday           DateTime
+  gender             Gender
+  jobTitle           String
+  interests          String
+  biography          String
+  skills             String
+  industry           String
+  profession         String
+  ethnicity          String
+  availableLocations String
+  languages          String
+  unionStatus        String
+  createdAt          DateTime  @default(now())
+  createdBy          String?
+  updatedAt          DateTime  @updatedAt
+  updatedBy          String?
+  deletedAt          DateTime?
+  deletedBy          String?
+
+  @@map(name: "talent")
+}
+
+model User {
+  id                        String               @id @default(cuid())
+  name                      String?
+  firstname                 String?
+  lastname                  String?
+  role                      Role?                @default(USER)
+  email                     String?              @unique
+  avatarUrl                 String?
+  emailVerified             Boolean?
+  password                  String?
+  userType                  UserType?            @default(Talent)
+  provider                  AuthProvider?
+  providerId                String?
+  overview                  String?
+  facebookUrl               String?
+  linkedinUrl               String?
+  instagramUrl              String?
+  twitterUrl                String?
+  website                   String?
+  youtubeUrl                String?
+  company                   Company?             @relation(fields: [companyId], references: [id])
+  companyId                 String?
+  talent                    Talent?
+  files                     FileItem[]
+  experience                Experience[]
+  settings                  Setting?
+  address                   String?
+  phoneNumber               String?
+  accountStatus             AccountStatus?
+  location                  Location?            @relation(fields: [locationId], references: [id])
+  locationId                String?
+  coverImage                String?
+  streamJoined              Boolean?
+  sendbirdJoined            Boolean?
+  permissions               String?
+  restorePasswordCode       String?
+  //* Relationships
+  awards                    Award[]
+  posts                     Post[]
+  educations                Education[]
+  bookmarkedJobs            BookmarkedJob[]
+  viewedProjects            ViewedProject[]
+  bookmarkedProjects        BookmarkedProject[]
+  projectApplications       ProjectApplication[]
+  friendRequestsAsRequester FriendRequest[]      @relation(name: "fr_requester")
+  friendRequestsAsReceiver  FriendRequest[]      @relation(name: "fr_receiver")
+  jobApplications           JobApplication[]
+  mentorshipUsers           MentorshipUser[]
+  userCircles               UserCircle[]
+  viewedJobs                ViewedJob[]
+  projects                  Project[]
+
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+  @@map(name: "user")
+}
+
+model UserCircle {
+  id        String           @id @default(cuid())
+  user      User?            @relation(fields: [userId], references: [id])
+  userId    String?
+  circle    Circle?          @relation(fields: [circleId], references: [id])
+  circleId  String?
+  status    UserCircleStatus
+  createdAt DateTime         @default(now())
+  createdBy String?
+  updatedAt DateTime         @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+
+  @@map(name: "user_circle")
+}
+
+model ViewedJob {
+  id        String    @id @default(cuid())
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?
+  job       Job?      @relation(fields: [jobId], references: [id])
+  jobId     String?
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+
+  @@map(name: "viewed_job")
+}
+
+model ViewedProject {
+  id        String    @id @default(cuid())
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?
+  project   Project?  @relation(fields: [projectId], references: [id])
+  projectId String?
+  createdAt DateTime  @default(now())
+  createdBy String?
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+  deletedAt DateTime?
+  deletedBy String?
+
+  @@map(name: "viewed_project")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum AccountStatus {
+  Deactivated
+  Blocked
+  Deleted
+  None
+}
+
+enum ApplicationStatus {
+  Draft
+  Applied
+  Declined
+  Hired
+}
+
+enum AuthProvider {
+  local
+  facebook
+  google
+}
+
+enum FileType {
+  Photo
+  Video
+  Audio
+  Resume
+  Other
+  ProjectDocument
+  Gallery
+}
+
+enum FriendRequestAction {
+  Request
+  Accept
+  Ignore
+  Delete
+  Follow
+}
+
+enum FriendRequestStatus {
+  None
+  Pending
+  Connected
+  Ignored
+  Requested
+  Deleted
+  Following
+}
+
+enum Gender {
+  heHim
+  sheHer
+  theyThem
+  ratherNotSay
+  notListedSeeBio
+}
+
+enum JobStatus {
+  Draft
+  Posted
+  Hiring
+  Finished
+  Deleted
+}
+
+enum MentorshipUserType {
+  Mentor
+  Mentee
+  Both
+}
+
+enum PositionStatus {
+  Hiring
+  Filled
+}
+
+enum ReviewStatus {
+  Waiting
+  Approved
+  Rejected
+  Deleted
+}
+
+enum UserCircleStatus {
+  None
+  Follow
+  Join
+  Unfollow
+  Leave
+}
+
+enum UserType {
+  Talent
+  Company
+  Admin
+}
