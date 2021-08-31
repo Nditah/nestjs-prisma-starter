@@ -1,4 +1,12 @@
-import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { AwardService } from './award.service';
 import { Award } from './entities/award.entity';
@@ -9,15 +17,15 @@ import { User } from 'src/models/user.model';
 
 @Resolver(() => Award)
 export class AwardResolver {
-  constructor(private readonly awardService: AwardService,
-  ) {}
+  constructor(private readonly awardService: AwardService) {}
 
   @Mutation(() => Award)
-  async createAward(@UserEntity() user: User, @Args('data') data: CreateAwardInput) {
-    console.log({ user, data })
+  async createAward(
+    @UserEntity() user: User,
+    @Args('data') data: CreateAwardInput
+  ) {
     return this.awardService.create(data);
   }
-
 
   @Query(() => [Award], { name: 'allAwards' })
   findAll() {

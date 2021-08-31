@@ -5,7 +5,7 @@ import { User } from 'src/models/user.model';
 @ObjectType({ description: 'Award model' })
 export class Award extends BaseModel {
   @Field(() => User, { description: 'User to receive the Award(James Borne)' })
-  user: string;
+  user: User;
 
   @Field(() => String, { description: 'Award title (Best Actress)' })
   title: string;

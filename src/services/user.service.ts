@@ -1,4 +1,4 @@
-import { PrismaService } from 'nestjs-prisma';
+import { PrismaService } from './../prisma/prisma.service';
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { PasswordService } from './password.service';
 import { ChangePasswordInput } from '../resolvers/user/dto/change-password.input';
@@ -11,9 +11,17 @@ export class UserService {
     private passwordService: PasswordService
   ) {}
 
+  findOne(userId: string) {
+    return this.prisma.user.findUnique({ where: { id: userId } });
+  }
+
   updateUser(userId: string, newUserData: UpdateUserInput) {
     return this.prisma.user.update({
-      data: newUserData,
+      data: {
+        username: newUserData.username,
+        firstName: newUserData.firstName,
+        lastName: newUserData.lastName,
+      },
       where: {
         id: userId,
       },

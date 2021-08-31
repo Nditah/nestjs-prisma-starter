@@ -488,9 +488,9 @@ Table Talent {
 
 Table User {
   id String [pk]
-  name String
-  firstname String
-  lastname String
+  username String
+  firstName String
+  lastName String
   role Role [default: 'USER']
   email String [unique]
   avatarUrl String

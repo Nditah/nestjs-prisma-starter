@@ -15,8 +15,9 @@ registerEnumType(Role, {
 @ObjectType()
 export class User extends BaseModel {
   email: string;
-  firstname?: string;
-  lastname?: string;
+  username: string;
+  firstName?: string;
+  lastName?: string;
   role: Role;
   posts: Post[];
   @HideField()

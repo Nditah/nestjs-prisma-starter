@@ -25,5 +25,5 @@ export abstract class BaseModel {
     description: 'Identifies the object that has been soft deleted.',
   })
   @HideField()
-  deleted = false;
+  deleted: boolean;
 }
