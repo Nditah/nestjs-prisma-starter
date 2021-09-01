@@ -55,6 +55,7 @@ Starter template for 😻 [NestJS](https://nestjs.com/) and [Prisma](https://www
   - [Steps](#steps)
     - [Features](#features-1)
   - [Examples](#examples)
+  - [TODO](#todo)
 
 ## Prisma Setup
 
@@ -608,3 +609,6 @@ mutation {
 **[⬆ back to top](#overview)**
 
 
+## TODO
+
+- Talent Entity

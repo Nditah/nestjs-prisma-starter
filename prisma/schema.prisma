@@ -481,10 +481,8 @@ model ProjectPosition {
   maxAge                 Int
   status                 PositionStatus
   finished               DateTime
-
   //* Relationships
   projectApplications ProjectApplication[]
-
   createdAt DateTime  @default(now())
   createdBy String?
   updatedAt DateTime  @updatedAt
