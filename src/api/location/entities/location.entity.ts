@@ -34,8 +34,8 @@ export class Location extends BaseModel {
   @Field(() => [Experience], { description: 'Location experiences' })
   experiences: Experience[];
 
-  @Field(() => Education, { description: 'Location educations' })
-  educations: Education;
+  @Field(() => [Education], { description: 'Location educations' })
+  educations: Education[];
 
   @Field(() => [Project], { description: 'Location projects' })
   projects: Project[];

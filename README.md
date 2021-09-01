@@ -611,4 +611,4 @@ mutation {
 
 ## TODO
 
-- Talent Entity
+- Resolvers and Services

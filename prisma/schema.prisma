@@ -74,21 +74,20 @@ model BookmarkedProject {
 }
 
 model Circle {
-  id          String @id @default(cuid())
+  id          String       @id @default(cuid())
   name        String
   title       String
   logo        String
   description String
-
   //* Relationship
   userCircles UserCircle[]
+  createdAt   DateTime     @default(now())
+  createdBy   String?
+  updatedAt   DateTime     @updatedAt
+  updatedBy   String?
+  deletedAt   DateTime?
+  deletedBy   String?
 
-  createdAt DateTime  @default(now())
-  createdBy String?
-  updatedAt DateTime  @updatedAt
-  updatedBy String?
-  deletedAt DateTime?
-  deletedBy String?
   @@map(name: "circle")
 }
 
@@ -229,12 +228,13 @@ model FriendRequest {
   receiverId  String?
   status      FriendRequestStatus
   //* Relationships
-  createdAt DateTime  @default(now())
-  createdBy String?
-  updatedAt DateTime  @updatedAt
-  updatedBy String?
-  deletedAt DateTime?
-  deletedBy String?
+  createdAt   DateTime            @default(now())
+  createdBy   String?
+  updatedAt   DateTime            @updatedAt
+  updatedBy   String?
+  deletedAt   DateTime?
+  deletedBy   String?
+
   @@map(name: "friend_request")
 }
 
@@ -267,14 +267,15 @@ model Job {
   externalJob        ExternalJob?     @relation(fields: [externalJobId], references: [id])
   externalJobId      String?
   //! Relation Ship
-  bookmarkedJobs BookmarkedJob[]
-  viewedJobs     ViewedJob[]
-  createdAt DateTime  @default(now())
-  createdBy String?
-  updatedAt DateTime  @updatedAt
-  updatedBy String?
-  deletedAt DateTime?
-  deletedBy String?
+  bookmarkedJobs     BookmarkedJob[]
+  viewedJobs         ViewedJob[]
+  createdAt          DateTime         @default(now())
+  createdBy          String?
+  updatedAt          DateTime         @updatedAt
+  updatedBy          String?
+  deletedAt          DateTime?
+  deletedBy          String?
+
   @@map(name: "job")
 }
 
@@ -301,81 +302,85 @@ model JobApplication {
 }
 
 model Location {
-  id        String           @id @default(cuid())
-  city      String
-  latitude  Float
-  longitude Float
-  state     LocationState?   @relation(fields: [stateId], references: [id])
-  stateId   String?
-  country   LocationCountry? @relation(fields: [countryId], references: [id])
-  countryId String?
+  id          String           @id @default(cuid())
+  city        String
+  latitude    Float
+  longitude   Float
+  state       LocationState?   @relation(fields: [stateId], references: [id])
+  stateId     String?
+  country     LocationCountry? @relation(fields: [countryId], references: [id])
+  countryId   String?
   //* Relationships
   users       User[]
   jobs        Job[]
   experiences Experience[]
   educations  Education[]
   projects    Project[]
-  createdAt DateTime  @default(now())
-  createdBy String?
-  updatedAt DateTime  @updatedAt
-  updatedBy String?
-  deletedAt DateTime?
-  deletedBy String?
+  createdAt   DateTime         @default(now())
+  createdBy   String?
+  updatedAt   DateTime         @updatedAt
+  updatedBy   String?
+  deletedAt   DateTime?
+  deletedBy   String?
+
   @@map(name: "location")
 }
 
 model LocationCountry {
-  id   String @id @default(cuid())
-  name String
-  iso2 String
-  iso3 String
+  id        String     @id @default(cuid())
+  name      String
+  iso2      String
+  iso3      String
   //* Relationships
   locations Location[]
-  createdAt DateTime  @default(now())
+  createdAt DateTime   @default(now())
   createdBy String?
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime   @updatedAt
   updatedBy String?
   deletedAt DateTime?
   deletedBy String?
+
   @@map(name: "location_country")
 }
 
 model LocationState {
-  id           String @id @default(cuid())
+  id           String     @id @default(cuid())
   name         String
   abbreviation String
   //* Relationships
-  locations Location[]
-  createdAt DateTime  @default(now())
-  createdBy String?
-  updatedAt DateTime  @updatedAt
-  updatedBy String?
-  deletedAt DateTime?
-  deletedBy String?
+  locations    Location[]
+  createdAt    DateTime   @default(now())
+  createdBy    String?
+  updatedAt    DateTime   @updatedAt
+  updatedBy    String?
+  deletedAt    DateTime?
+  deletedBy    String?
+
   @@map(name: "location_state")
 }
 
 model MentorshipUser {
-  id                       String             @id @default(cuid())
-  user                     User?              @relation(fields: [userId], references: [id])
-  userId                   String?
-  userType                 MentorshipUserType
-  professionalSelfDescribe String
-  professionalLevel        String
-  quarterStart             String
-  selfDescribe             String
-  reviewStatus             ReviewStatus
-  paired                   Boolean
-  isHaveNullableFields     Boolean
+  id                               String                 @id @default(cuid())
+  user                             User?                  @relation(fields: [userId], references: [id])
+  userId                           String?
+  userType                         MentorshipUserType
+  professionalSelfDescribe         String
+  professionalLevel                String
+  quarterStart                     String
+  selfDescribe                     String
+  reviewStatus                     ReviewStatus
+  paired                           Boolean
+  isHaveNullableFields             Boolean
   //* Relationship
   mentorshipUserFriendsAsRequester MentorshipUserFriend[] @relation(name: "mu_requester")
   mentorshipUserFriendsAsReceiver  MentorshipUserFriend[] @relation(name: "mu_receiver")
-  createdAt DateTime  @default(now())
-  createdBy String?
-  updatedAt DateTime  @updatedAt
-  updatedBy String?
-  deletedAt DateTime?
-  deletedBy String?
+  createdAt                        DateTime               @default(now())
+  createdBy                        String?
+  updatedAt                        DateTime               @updatedAt
+  updatedBy                        String?
+  deletedAt                        DateTime?
+  deletedBy                        String?
+
   @@map(name: "mentorship_user")
 }
 
@@ -416,34 +421,35 @@ model Picture {
 }
 
 model Project {
-  id                String            @id @default(cuid())
-  user              User?             @relation(fields: [userId], references: [id])
-  userId            String?
-  coverImage        String
-  title             String
-  type              String
-  description       String
-  keywords          String
-  paid              Boolean
-  location          Location?         @relation(fields: [locationId], references: [id])
-  locationId        String?
-  status            JobStatus
-  projectPositions  ProjectPosition[]
-  documents         FileItem[]
-  schedule          String
-  housingDetails    String
-  childElderDetails String
-  finished          DateTime
+  id                  String               @id @default(cuid())
+  user                User?                @relation(fields: [userId], references: [id])
+  userId              String?
+  coverImage          String
+  title               String
+  type                String
+  description         String
+  keywords            String
+  paid                Boolean
+  location            Location?            @relation(fields: [locationId], references: [id])
+  locationId          String?
+  status              JobStatus
+  projectPositions    ProjectPosition[]
+  documents           FileItem[]
+  schedule            String
+  housingDetails      String
+  childElderDetails   String
+  finished            DateTime
   //* Relationship
   viewedProjects      ViewedProject[]
   projectApplications ProjectApplication[]
   bookmarkedProjects  BookmarkedProject[]
-  createdAt DateTime  @default(now())
-  createdBy String?
-  updatedAt DateTime  @updatedAt
-  updatedBy String?
-  deletedAt DateTime?
-  deletedBy String?
+  createdAt           DateTime             @default(now())
+  createdBy           String?
+  updatedAt           DateTime             @updatedAt
+  updatedBy           String?
+  deletedAt           DateTime?
+  deletedBy           String?
+
   @@map(name: "project")
 }
 
@@ -470,8 +476,8 @@ model ProjectApplication {
 }
 
 model ProjectPosition {
-  id                     String         @id @default(cuid())
-  project                Project?       @relation(fields: [projectId], references: [id])
+  id                     String               @id @default(cuid())
+  project                Project?             @relation(fields: [projectId], references: [id])
   projectId              String?
   type                   String
   roleDescription        String
@@ -482,13 +488,14 @@ model ProjectPosition {
   status                 PositionStatus
   finished               DateTime
   //* Relationships
-  projectApplications ProjectApplication[]
-  createdAt DateTime  @default(now())
-  createdBy String?
-  updatedAt DateTime  @updatedAt
-  updatedBy String?
-  deletedAt DateTime?
-  deletedBy String?
+  projectApplications    ProjectApplication[]
+  createdAt              DateTime             @default(now())
+  createdBy              String?
+  updatedAt              DateTime             @updatedAt
+  updatedBy              String?
+  deletedAt              DateTime?
+  deletedBy              String?
+
   @@map(name: "project_position")
 }
 
@@ -594,12 +601,13 @@ model User {
   userCircles               UserCircle[]
   viewedJobs                ViewedJob[]
   projects                  Project[]
-  createdAt DateTime  @default(now())
-  createdBy String?
-  updatedAt DateTime  @updatedAt
-  updatedBy String?
-  deletedAt DateTime?
-  deletedBy String?
+  createdAt                 DateTime             @default(now())
+  createdBy                 String?
+  updatedAt                 DateTime             @updatedAt
+  updatedBy                 String?
+  deletedAt                 DateTime?
+  deletedBy                 String?
+
   @@map(name: "user")
 }
 

@@ -9,8 +9,8 @@ export class BookmarkedJobResolver {
   constructor(private readonly bookmarkedJobService: BookmarkedJobService) {}
 
   @Mutation(() => BookmarkedJob)
-  createBookmarkedJob(@Args('createBookmarkedJobInput') createBookmarkedJobInput: CreateBookmarkedJobInput) {
-    return this.bookmarkedJobService.create(createBookmarkedJobInput);
+  createBookmarkedJob(@Args('data') data: CreateBookmarkedJobInput) {
+    return this.bookmarkedJobService.create(data);
   }
 
   @Query(() => [BookmarkedJob], { name: 'bookmarkedJob' })
@@ -24,8 +24,8 @@ export class BookmarkedJobResolver {
   }
 
   @Mutation(() => BookmarkedJob)
-  updateBookmarkedJob(@Args('updateBookmarkedJobInput') updateBookmarkedJobInput: UpdateBookmarkedJobInput) {
-    return this.bookmarkedJobService.update(updateBookmarkedJobInput.id, updateBookmarkedJobInput);
+  updateBookmarkedJob(@Args('data') data: UpdateBookmarkedJobInput) {
+    return this.bookmarkedJobService.update(data.id, data);
   }
 
   @Mutation(() => BookmarkedJob)

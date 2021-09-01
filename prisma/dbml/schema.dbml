@@ -107,7 +107,6 @@ Table Education {
   endMonth Int [not null]
   location Location
   locationId String
-  created DateTime [not null]
   createdAt DateTime [default: `now()`, not null]
   createdBy String
   updatedAt DateTime [not null]
@@ -229,8 +228,6 @@ Table Job {
   posterEmail String [not null]
   posterPhone String [not null]
   status JobStatus [not null]
-  created DateTime [not null]
-  updated DateTime [not null]
   finished DateTime [not null]
   externalJob ExternalJob
   externalJobId String
@@ -324,7 +321,6 @@ Table MentorshipUser {
   selfDescribe String [not null]
   reviewStatus ReviewStatus [not null]
   paired Boolean [not null]
-  updated DateTime [not null]
   isHaveNullableFields Boolean [not null]
   mentorshipUserFriendsAsRequester MentorshipUserFriend [not null]
   mentorshipUserFriendsAsReceiver MentorshipUserFriend [not null]

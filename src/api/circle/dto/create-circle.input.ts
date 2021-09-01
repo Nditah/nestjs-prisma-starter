@@ -2,6 +2,15 @@ import { InputType, Int, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateCircleInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => String, { description: 'Name of the Circle' })
+  name: string;
+
+  @Field(() => String, { description: 'Circle title ' })
+  title: string;
+
+  @Field(() => String, { description: 'Circle logo ' })
+  logo: string;
+
+  @Field(() => String, { description: 'Circle description ' })
+  description: string;
 }
