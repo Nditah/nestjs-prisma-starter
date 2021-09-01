@@ -1,6 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { BookmarkedProject } from 'src/api/bookmarked-project/entities/bookmarked-project.entity';
 import { FileItem } from 'src/api/file-item/entities/file-item.entity';
+import { Location } from 'src/api/location/entities/location.entity';
 import { ProjectApplication } from 'src/api/project-application/entities/project-application.entity';
 import { ProjectPosition } from 'src/api/project-position/entities/project-position.entity';
 import { ViewedProject } from 'src/api/viewed-project/entities/viewed-project.entity';

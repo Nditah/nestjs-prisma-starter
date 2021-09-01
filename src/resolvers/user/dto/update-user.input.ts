@@ -2,6 +2,7 @@ import { InputType, Field } from '@nestjs/graphql';
 import { Company } from 'src/api/company/entities/company.entity';
 import { Experience } from 'src/api/experience/entities/experience.entity';
 import { FileItem } from 'src/api/file-item/entities/file-item.entity';
+import { Location } from 'src/api/location/entities/location.entity';
 import { Setting } from 'src/api/setting/entities/setting.entity';
 import { Talent } from 'src/api/talent/entities/talent.entity';
 import { AccountStatus, AuthProvider, Role, UserType } from 'src/common/enum';

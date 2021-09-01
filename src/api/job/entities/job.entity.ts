@@ -3,6 +3,7 @@ import { Company } from 'src/api/company/entities/company.entity';
 import { ExternalJob } from 'src/api/external-job/entities/external-job.entity';
 import { FileItem } from 'src/api/file-item/entities/file-item.entity';
 import { JobApplication } from 'src/api/job-application/entities/job-application.entity';
+import { Location } from 'src/api/location/entities/location.entity';
 import { JobStatus } from 'src/common/enum';
 import { BaseModel } from 'src/models/base.model';
 

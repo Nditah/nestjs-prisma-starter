@@ -1,4 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { Location } from 'src/api/location/entities/location.entity';
 import { User } from 'src/models/user.model';
 
 @InputType()

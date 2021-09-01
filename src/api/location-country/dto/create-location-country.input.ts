@@ -1,4 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { Location } from 'src/api/location/entities/location.entity';
 
 @InputType()
 export class CreateLocationCountryInput {
