@@ -1,7 +1,13 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { Job } from 'src/api/job/entities/job.entity';
+import { BaseModel } from 'src/models/base.model';
+import { User } from 'src/models/user.model';
 
-@ObjectType()
-export class ViewedJob {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+@ObjectType({ description: 'Viewed Job model' })
+export class ViewedJob extends BaseModel {
+  @Field(() => User, { description: 'Viewed Job user' })
+  user: User;
+
+  @Field(() => Job, { description: 'Viewed Job' })
+  job: Job;
 }
