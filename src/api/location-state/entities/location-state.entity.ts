@@ -1,7 +1,15 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { Location } from 'src/api/location/entities/location.entity';
+import { BaseModel } from 'src/models/base.model';
 
-@ObjectType()
-export class LocationState {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+@ObjectType({ description: 'LocationState model' })
+export class LocationState extends BaseModel {
+  @Field(() => String, { description: 'Location State name' })
+  name: string;
+
+  @Field(() => String, { description: 'Location State abbreviation' })
+  abbreviation: string;
+
+  @Field(() => [Location], { description: 'Location State locations' })
+  locations: Location[];
 }

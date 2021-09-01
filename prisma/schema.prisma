@@ -130,7 +130,6 @@ model Education {
   endMonth   Int
   location   Location? @relation(fields: [locationId], references: [id])
   locationId String?
-  created    DateTime
   createdAt  DateTime  @default(now())
   createdBy  String?
   updatedAt  DateTime  @updatedAt
@@ -229,9 +228,7 @@ model FriendRequest {
   receiver    User?               @relation(name: "fr_receiver", fields: [receiverId], references: [id])
   receiverId  String?
   status      FriendRequestStatus
-
   //* Relationships
-
   createdAt DateTime  @default(now())
   createdBy String?
   updatedAt DateTime  @updatedAt
@@ -266,16 +263,12 @@ model Job {
   posterEmail        String
   posterPhone        String
   status             JobStatus
-  created            DateTime
-  updated            DateTime
   finished           DateTime
   externalJob        ExternalJob?     @relation(fields: [externalJobId], references: [id])
   externalJobId      String?
-
   //! Relation Ship
   bookmarkedJobs BookmarkedJob[]
   viewedJobs     ViewedJob[]
-
   createdAt DateTime  @default(now())
   createdBy String?
   updatedAt DateTime  @updatedAt
@@ -316,14 +309,12 @@ model Location {
   stateId   String?
   country   LocationCountry? @relation(fields: [countryId], references: [id])
   countryId String?
-
   //* Relationships
   users       User[]
   jobs        Job[]
   experiences Experience[]
   educations  Education[]
   projects    Project[]
-
   createdAt DateTime  @default(now())
   createdBy String?
   updatedAt DateTime  @updatedAt
@@ -338,10 +329,8 @@ model LocationCountry {
   name String
   iso2 String
   iso3 String
-
   //* Relationships
   locations Location[]
-
   createdAt DateTime  @default(now())
   createdBy String?
   updatedAt DateTime  @updatedAt
@@ -355,10 +344,8 @@ model LocationState {
   id           String @id @default(cuid())
   name         String
   abbreviation String
-
   //* Relationships
   locations Location[]
-
   createdAt DateTime  @default(now())
   createdBy String?
   updatedAt DateTime  @updatedAt
@@ -379,13 +366,10 @@ model MentorshipUser {
   selfDescribe             String
   reviewStatus             ReviewStatus
   paired                   Boolean
-  updated                  DateTime
   isHaveNullableFields     Boolean
-
   //* Relationship
   mentorshipUserFriendsAsRequester MentorshipUserFriend[] @relation(name: "mu_requester")
   mentorshipUserFriendsAsReceiver  MentorshipUserFriend[] @relation(name: "mu_receiver")
-
   createdAt DateTime  @default(now())
   createdBy String?
   updatedAt DateTime  @updatedAt
@@ -450,12 +434,10 @@ model Project {
   housingDetails    String
   childElderDetails String
   finished          DateTime
-
   //* Relationship
   viewedProjects      ViewedProject[]
   projectApplications ProjectApplication[]
   bookmarkedProjects  BookmarkedProject[]
-
   createdAt DateTime  @default(now())
   createdBy String?
   updatedAt DateTime  @updatedAt

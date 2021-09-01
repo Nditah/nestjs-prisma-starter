@@ -26,18 +26,20 @@ Starter template for 😻 [NestJS](https://nestjs.com/) and [Prisma](https://www
 ## Overview
 
 - [Instructions](#instructions)
+  - [Version](#version)
   - [Features](#features)
   - [Overview](#overview)
   - [Prisma Setup](#prisma-setup)
     - [1. Install Dependencies](#1-install-dependencies)
-    - [2. PostgreSQL with Docker](#2-PostgreSQL-with-docker)
-    - [3. Prisma: Prisma Migrate](#3-prisma-prisma-migrate)
-    - [4. Prisma: Prisma Client JS](#4-prisma-client-js)
+    - [2. PostgreSQL with Docker](#2-postgresql-with-docker)
+    - [3. Prisma Migrate](#3-prisma-migrate)
+    - [4. Prisma: Prisma Client JS](#4-prisma-prisma-client-js)
     - [5. Seed the database data with this script](#5-seed-the-database-data-with-this-script)
     - [6. Start NestJS Server](#6-start-nestjs-server)
   - [GraphQL Playground](#graphql-playground)
   - [Rest Api](#rest-api)
   - [Docker](#docker)
+    - [Docker Compose](#docker-compose)
   - [Schema Development](#schema-development)
   - [NestJS - Api Schema](#nestjs---api-schema)
     - [Resolver](#resolver)
@@ -48,6 +50,11 @@ Starter template for 😻 [NestJS](https://nestjs.com/) and [Prisma](https://www
       - [Mutations](#mutations)
       - [Subscriptions](#subscriptions)
       - [Authentication](#authentication)
+  - [Resources](#resources)
+  - [Graphql Sample](#graphql-sample)
+  - [Steps](#steps)
+    - [Features](#features-1)
+  - [Examples](#examples)
 
 ## Prisma Setup
 
@@ -472,3 +479,132 @@ providers: [
 After you configured the Interceptor and retrieved the `TOKEN` from storage your request will succeed on resolvers with `@UseGuards(GqlAuthGuard)`.
 
 **[⬆ back to top](#overview)**
+
+
+
+
+## Resources
+
+[Note](https://docs.nestjs.com/graphql/quick-start#code-first)
+
+[GraphQl Example](https://github.com/fivethree-team/nestjs-prisma-starter/blob/main/graphql/auth.graphql)
+
+
+
+## Graphql Sample
+
+```
+mutation {
+  login(data: { email: "ada@ensemble.com", password: "secret42" }){
+    accessToken
+  }
+}
+
+
+query {
+  post(postId: "cks38gheq0001x4jxad1bjyrd") {
+    title
+    published
+  }
+}
+
+{
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJja3MzOGdoZXEwMDAweDRqeDVwMzh3NW0zIiwiaWF0IjoxNjI4NDMwMjUyLCJleHAiOjE2Mjg0MzAzNzJ9.NzP70hWIMTLP5KZV9hPx6GtK0BnHnsdXbIsY1r3U-9g"
+}
+```
+
+## Steps
+
+1. Create the Prisma Schema Model _feature_
+2. Modify ```./prisma/schema.prisma```
+3. Run ```npx prisma format```
+4. Run ```npx prisma migrate dev```
+5. Run ```npx prisma generate```
+6. Generate Resource ``` npx nest generate resource api/feature```
+7. Use the Prisma Model to Update the Entity classes
+7. Use the Entity classes to complete the CreateDto and UpdateDto classes
+7. Complete the Service Providers and Resolvers.
+
+
+### Features
+
+- BookmarkedJob
+- BookmarkedProject
+- Circle
+- Company
+- Education
+- Experience
+- ExternalCompany
+- ExternalJob
+- FileItem
+- FriendRequest
+- Job
+- JobApplication
+- Location
+- LocationCountry
+- LocationState
+- MentorshipUser
+- MentorshipUserFriend
+- Picture
+- Project
+- ProjectApplication
+- ProjectPosition
+- Setting
+- Talent
+- User
+- UserCircle
+- ViewedJob
+- ViewedProject
+
+
+## Examples
+
+```gql
+
+mutation {
+  signup(data: { email: "nditah@gmail.com", name: "Nditah", password: "password1234"}){
+    user {
+      id
+      name
+      email
+      
+    }
+  }
+}
+```
+
+*Output*
+
+```json
+{
+  "data": {
+    "signup": {
+      "user": {
+        "id": "cksri724000079cjx0ybhegc4",
+        "name": "Nditah",
+        "email": "nditah@gmail.com"
+      }
+    }
+  }
+}
+```
+
+
+```gql
+mutation {
+  createAward(data: {
+    user: "cksri724000079cjx0ybhegc4",
+    title: "Reading Africa Award",
+    organization: "goodwill ambassador",
+    issuedYear: 2021,
+  }){
+    title
+    id
+    createdAt
+  }
+}
+```
+
+**[⬆ back to top](#overview)**
+
+
