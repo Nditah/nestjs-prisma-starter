@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { MentorshipUserFriendService } from './mentorship-user-friend.service';
 import { MentorshipUserFriend } from './entities/mentorship-user-friend.entity';
 import { CreateMentorshipUserFriendInput } from './dto/create-mentorship-user-friend.input';
@@ -6,11 +6,15 @@ import { UpdateMentorshipUserFriendInput } from './dto/update-mentorship-user-fr
 
 @Resolver(() => MentorshipUserFriend)
 export class MentorshipUserFriendResolver {
-  constructor(private readonly mentorshipUserFriendService: MentorshipUserFriendService) {}
+  constructor(
+    private readonly mentorshipUserFriendService: MentorshipUserFriendService
+  ) {}
 
   @Mutation(() => MentorshipUserFriend)
-  createMentorshipUserFriend(@Args('createMentorshipUserFriendInput') createMentorshipUserFriendInput: CreateMentorshipUserFriendInput) {
-    return this.mentorshipUserFriendService.create(createMentorshipUserFriendInput);
+  createMentorshipUserFriend(
+    @Args('data') data: CreateMentorshipUserFriendInput
+  ) {
+    return this.mentorshipUserFriendService.create(data);
   }
 
   @Query(() => [MentorshipUserFriend], { name: 'mentorshipUserFriend' })
@@ -19,17 +23,19 @@ export class MentorshipUserFriendResolver {
   }
 
   @Query(() => MentorshipUserFriend, { name: 'mentorshipUserFriend' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.mentorshipUserFriendService.findOne(id);
   }
 
   @Mutation(() => MentorshipUserFriend)
-  updateMentorshipUserFriend(@Args('updateMentorshipUserFriendInput') updateMentorshipUserFriendInput: UpdateMentorshipUserFriendInput) {
-    return this.mentorshipUserFriendService.update(updateMentorshipUserFriendInput.id, updateMentorshipUserFriendInput);
+  updateMentorshipUserFriend(
+    @Args('data') data: UpdateMentorshipUserFriendInput
+  ) {
+    return this.mentorshipUserFriendService.update(data.id, data);
   }
 
   @Mutation(() => MentorshipUserFriend)
-  removeMentorshipUserFriend(@Args('id', { type: () => Int }) id: number) {
+  removeMentorshipUserFriend(@Args('id', { type: () => String }) id: string) {
     return this.mentorshipUserFriendService.remove(id);
   }
 }

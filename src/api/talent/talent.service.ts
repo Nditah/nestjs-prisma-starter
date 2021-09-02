@@ -1,26 +1,74 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTalentInput } from './dto/create-talent.input';
 import { UpdateTalentInput } from './dto/update-talent.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class TalentService {
-  create(createTalentInput: CreateTalentInput) {
-    return 'This action adds a new talent';
+  constructor(private prisma: PrismaService) {}
+
+  async create(data: CreateTalentInput) {
+    return this.prisma.talent.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        website: data.website,
+        weight: data.weight,
+        weightUnit: data.weightUnit,
+        height: data.height,
+        heightUnit: data.heightUnit,
+        birthday: data.birthday,
+        gender: data.gender,
+        jobTitle: data.jobTitle,
+        interests: data.interests,
+        biography: data.biography,
+        skills: data.skills,
+        industry: data.industry,
+        profession: data.profession,
+        ethnicity: data.ethnicity,
+        availableLocations: data.availableLocations,
+        languages: data.languages,
+        unionStatus: data.unionStatus,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all talent`;
+  async findAll() {
+    return this.prisma.talent.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} talent`;
+  async findOne(id: string) {
+    return this.prisma.talent.findUnique({ where: { id } });
   }
 
-  update(id: number, updateTalentInput: UpdateTalentInput) {
-    return `This action updates a #${id} talent`;
+  async update(id: string, data: UpdateTalentInput) {
+    return this.prisma.talent.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        website: data.website,
+        weight: data.weight,
+        weightUnit: data.weightUnit,
+        height: data.height,
+        heightUnit: data.heightUnit,
+        birthday: data.birthday,
+        gender: data.gender,
+        jobTitle: data.jobTitle,
+        interests: data.interests,
+        biography: data.biography,
+        skills: data.skills,
+        industry: data.industry,
+        profession: data.profession,
+        ethnicity: data.ethnicity,
+        availableLocations: data.availableLocations,
+        languages: data.languages,
+        unionStatus: data.unionStatus,
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} talent`;
+  async remove(id: string) {
+    return this.prisma.talent.delete({ where: { id } });
   }
 }

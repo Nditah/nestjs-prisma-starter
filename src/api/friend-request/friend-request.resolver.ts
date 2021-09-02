@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { FriendRequestService } from './friend-request.service';
 import { FriendRequest } from './entities/friend-request.entity';
 import { CreateFriendRequestInput } from './dto/create-friend-request.input';
@@ -9,8 +9,8 @@ export class FriendRequestResolver {
   constructor(private readonly friendRequestService: FriendRequestService) {}
 
   @Mutation(() => FriendRequest)
-  createFriendRequest(@Args('createFriendRequestInput') createFriendRequestInput: CreateFriendRequestInput) {
-    return this.friendRequestService.create(createFriendRequestInput);
+  createFriendRequest(@Args('data') data: CreateFriendRequestInput) {
+    return this.friendRequestService.create(data);
   }
 
   @Query(() => [FriendRequest], { name: 'friendRequest' })
@@ -19,17 +19,17 @@ export class FriendRequestResolver {
   }
 
   @Query(() => FriendRequest, { name: 'friendRequest' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.friendRequestService.findOne(id);
   }
 
   @Mutation(() => FriendRequest)
-  updateFriendRequest(@Args('updateFriendRequestInput') updateFriendRequestInput: UpdateFriendRequestInput) {
-    return this.friendRequestService.update(updateFriendRequestInput.id, updateFriendRequestInput);
+  updateFriendRequest(@Args('data') data: UpdateFriendRequestInput) {
+    return this.friendRequestService.update(data.id, data);
   }
 
   @Mutation(() => FriendRequest)
-  removeFriendRequest(@Args('id', { type: () => Int }) id: number) {
+  removeFriendRequest(@Args('id', { type: () => String }) id: string) {
     return this.friendRequestService.remove(id);
   }
 }

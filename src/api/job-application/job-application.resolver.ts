@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { JobApplicationService } from './job-application.service';
 import { JobApplication } from './entities/job-application.entity';
 import { CreateJobApplicationInput } from './dto/create-job-application.input';
@@ -9,8 +9,8 @@ export class JobApplicationResolver {
   constructor(private readonly jobApplicationService: JobApplicationService) {}
 
   @Mutation(() => JobApplication)
-  createJobApplication(@Args('createJobApplicationInput') createJobApplicationInput: CreateJobApplicationInput) {
-    return this.jobApplicationService.create(createJobApplicationInput);
+  createJobApplication(@Args('data') data: CreateJobApplicationInput) {
+    return this.jobApplicationService.create(data);
   }
 
   @Query(() => [JobApplication], { name: 'jobApplication' })
@@ -19,17 +19,17 @@ export class JobApplicationResolver {
   }
 
   @Query(() => JobApplication, { name: 'jobApplication' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.jobApplicationService.findOne(id);
   }
 
   @Mutation(() => JobApplication)
-  updateJobApplication(@Args('updateJobApplicationInput') updateJobApplicationInput: UpdateJobApplicationInput) {
-    return this.jobApplicationService.update(updateJobApplicationInput.id, updateJobApplicationInput);
+  updateJobApplication(@Args('data') data: UpdateJobApplicationInput) {
+    return this.jobApplicationService.update(data.id, data);
   }
 
   @Mutation(() => JobApplication)
-  removeJobApplication(@Args('id', { type: () => Int }) id: number) {
+  removeJobApplication(@Args('id', { type: () => String }) id: string) {
     return this.jobApplicationService.remove(id);
   }
 }

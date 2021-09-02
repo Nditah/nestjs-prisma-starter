@@ -1,8 +1,11 @@
+import { InputType, Field, PartialType } from '@nestjs/graphql';
+import { IsNotEmpty, IsUUID } from 'class-validator';
 import { CreateTalentInput } from './create-talent.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateTalentInput extends PartialType(CreateTalentInput) {
-  @Field(() => Int)
-  id: number;
+  @IsUUID()
+  @IsNotEmpty()
+  @Field(() => String, { description: 'PrimaryKey' })
+  id: string;
 }

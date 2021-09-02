@@ -1,7 +1,30 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { Location } from 'src/api/location/entities/location.entity';
+import { User } from 'src/models/user.model';
 
 @InputType()
 export class CreateEducationInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => User, { description: 'Education owner as User' })
+  user: string;
+
+  @Field(() => String, { description: 'Education schoolName' })
+  schoolName: string;
+
+  @Field(() => String, { description: 'Education title' })
+  title: string;
+
+  @Field(() => Int, { description: 'Education start Year' })
+  startYear: number;
+
+  @Field(() => Int, { description: 'Education start Month' })
+  startMonth: number;
+
+  @Field(() => Int, { description: 'Education end Year' })
+  endYear: number;
+
+  @Field(() => Int, { description: 'Education end Month' })
+  endMonth: number;
+
+  @Field(() => Location, { description: 'Education location' })
+  location: string;
 }

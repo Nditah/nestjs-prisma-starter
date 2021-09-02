@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ExternalJobService } from './external-job.service';
 import { ExternalJob } from './entities/external-job.entity';
 import { CreateExternalJobInput } from './dto/create-external-job.input';
@@ -9,8 +9,8 @@ export class ExternalJobResolver {
   constructor(private readonly externalJobService: ExternalJobService) {}
 
   @Mutation(() => ExternalJob)
-  createExternalJob(@Args('createExternalJobInput') createExternalJobInput: CreateExternalJobInput) {
-    return this.externalJobService.create(createExternalJobInput);
+  createExternalJob(@Args('data') data: CreateExternalJobInput) {
+    return this.externalJobService.create(data);
   }
 
   @Query(() => [ExternalJob], { name: 'externalJob' })
@@ -19,17 +19,17 @@ export class ExternalJobResolver {
   }
 
   @Query(() => ExternalJob, { name: 'externalJob' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.externalJobService.findOne(id);
   }
 
   @Mutation(() => ExternalJob)
-  updateExternalJob(@Args('updateExternalJobInput') updateExternalJobInput: UpdateExternalJobInput) {
-    return this.externalJobService.update(updateExternalJobInput.id, updateExternalJobInput);
+  updateExternalJob(@Args('data') data: UpdateExternalJobInput) {
+    return this.externalJobService.update(data.id, data);
   }
 
   @Mutation(() => ExternalJob)
-  removeExternalJob(@Args('id', { type: () => Int }) id: number) {
+  removeExternalJob(@Args('id', { type: () => String }) id: string) {
     return this.externalJobService.remove(id);
   }
 }

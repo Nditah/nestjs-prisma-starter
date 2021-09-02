@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ViewedJobService } from './viewed-job.service';
 import { ViewedJob } from './entities/viewed-job.entity';
 import { CreateViewedJobInput } from './dto/create-viewed-job.input';
@@ -9,8 +9,8 @@ export class ViewedJobResolver {
   constructor(private readonly viewedJobService: ViewedJobService) {}
 
   @Mutation(() => ViewedJob)
-  createViewedJob(@Args('createViewedJobInput') createViewedJobInput: CreateViewedJobInput) {
-    return this.viewedJobService.create(createViewedJobInput);
+  createViewedJob(@Args('data') data: CreateViewedJobInput) {
+    return this.viewedJobService.create(data);
   }
 
   @Query(() => [ViewedJob], { name: 'viewedJob' })
@@ -19,17 +19,17 @@ export class ViewedJobResolver {
   }
 
   @Query(() => ViewedJob, { name: 'viewedJob' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.viewedJobService.findOne(id);
   }
 
   @Mutation(() => ViewedJob)
-  updateViewedJob(@Args('updateViewedJobInput') updateViewedJobInput: UpdateViewedJobInput) {
-    return this.viewedJobService.update(updateViewedJobInput.id, updateViewedJobInput);
+  updateViewedJob(@Args('data') data: UpdateViewedJobInput) {
+    return this.viewedJobService.update(data.id, data);
   }
 
   @Mutation(() => ViewedJob)
-  removeViewedJob(@Args('id', { type: () => Int }) id: number) {
+  removeViewedJob(@Args('id', { type: () => String }) id: string) {
     return this.viewedJobService.remove(id);
   }
 }

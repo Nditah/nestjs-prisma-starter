@@ -1,11 +1,22 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { IsNotEmpty, MinLength, MaxLength } from 'class-validator';
 
 @InputType()
 export class CreateAwardInput {
-  @Field(() => String, { description: 'User to receive the Award(Eze)' })
+  @IsNotEmpty()
+  @Field(() => String, {
+    nullable: true,
+    description: 'User to receive the Award(Eze)',
+  })
   user: string;
 
-  @Field(() => String, { description: 'Award title (Best Actor)' })
+  @MinLength(100)
+  @MaxLength(255)
+  @IsNotEmpty()
+  @Field(() => String, {
+    nullable: true,
+    description: 'User to receive the Award(Eze)',
+  })
   title: string;
 
   @Field(() => String, { description: 'Award organization (Ensemble)' })

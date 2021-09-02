@@ -107,7 +107,6 @@ Table Education {
   endMonth Int [not null]
   location Location
   locationId String
-  created DateTime [not null]
   createdAt DateTime [default: `now()`, not null]
   createdBy String
   updatedAt DateTime [not null]
@@ -143,7 +142,7 @@ Table ExternalCompany {
   id String [pk]
   logoLink String [not null]
   companyName String [not null]
-  externalJob ExternalJob [not null]
+  externalJobs ExternalJob [not null]
   createdAt DateTime [default: `now()`, not null]
   createdBy String
   updatedAt DateTime [not null]
@@ -156,7 +155,7 @@ Table ExternalJob {
   id String [pk]
   categories String [not null]
   jobLink String [not null]
-  job Job [not null]
+  jobs Job [not null]
   externalCompany ExternalCompany
   externalCompanyId String
   createdAt DateTime [default: `now()`, not null]
@@ -229,8 +228,6 @@ Table Job {
   posterEmail String [not null]
   posterPhone String [not null]
   status JobStatus [not null]
-  created DateTime [not null]
-  updated DateTime [not null]
   finished DateTime [not null]
   externalJob ExternalJob
   externalJobId String
@@ -324,7 +321,6 @@ Table MentorshipUser {
   selfDescribe String [not null]
   reviewStatus ReviewStatus [not null]
   paired Boolean [not null]
-  updated DateTime [not null]
   isHaveNullableFields Boolean [not null]
   mentorshipUserFriendsAsRequester MentorshipUserFriend [not null]
   mentorshipUserFriendsAsReceiver MentorshipUserFriend [not null]
@@ -510,7 +506,7 @@ Table User {
   companyId String
   talent Talent
   files FileItem [not null]
-  experience Experience [not null]
+  experiences Experience [not null]
   settings Setting
   address String
   phoneNumber String

@@ -1,26 +1,44 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFriendRequestInput } from './dto/create-friend-request.input';
 import { UpdateFriendRequestInput } from './dto/update-friend-request.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class FriendRequestService {
-  create(createFriendRequestInput: CreateFriendRequestInput) {
-    return 'This action adds a new friendRequest';
+  constructor(private prisma: PrismaService) {}
+
+  async create(data: CreateFriendRequestInput) {
+    return this.prisma.friendRequest.create({
+      data: {
+        status: data.status,
+        requester: data.requester && { connect: { id: data.requester } },
+        receiver: data.receiver && { connect: { id: data.receiver } },
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all friendRequest`;
+  async findAll() {
+    return this.prisma.friendRequest.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} friendRequest`;
+  async findOne(id: string) {
+    return this.prisma.friendRequest.findUnique({ where: { id } });
   }
 
-  update(id: number, updateFriendRequestInput: UpdateFriendRequestInput) {
-    return `This action updates a #${id} friendRequest`;
+  async update(id: string, data: UpdateFriendRequestInput) {
+    return this.prisma.friendRequest.update({
+      data: {
+        status: data.status,
+        requester: data.requester && { connect: { id: data.requester } },
+        receiver: data.receiver && { connect: { id: data.receiver } },
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} friendRequest`;
+  async remove(id: string) {
+    return this.prisma.friendRequest.delete({ where: { id } });
   }
 }

@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { LocationCountryService } from './location-country.service';
 import { LocationCountry } from './entities/location-country.entity';
 import { CreateLocationCountryInput } from './dto/create-location-country.input';
@@ -6,11 +6,13 @@ import { UpdateLocationCountryInput } from './dto/update-location-country.input'
 
 @Resolver(() => LocationCountry)
 export class LocationCountryResolver {
-  constructor(private readonly locationCountryService: LocationCountryService) {}
+  constructor(
+    private readonly locationCountryService: LocationCountryService
+  ) {}
 
   @Mutation(() => LocationCountry)
-  createLocationCountry(@Args('createLocationCountryInput') createLocationCountryInput: CreateLocationCountryInput) {
-    return this.locationCountryService.create(createLocationCountryInput);
+  createLocationCountry(@Args('data') data: CreateLocationCountryInput) {
+    return this.locationCountryService.create(data);
   }
 
   @Query(() => [LocationCountry], { name: 'locationCountry' })
@@ -19,17 +21,17 @@ export class LocationCountryResolver {
   }
 
   @Query(() => LocationCountry, { name: 'locationCountry' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.locationCountryService.findOne(id);
   }
 
   @Mutation(() => LocationCountry)
-  updateLocationCountry(@Args('updateLocationCountryInput') updateLocationCountryInput: UpdateLocationCountryInput) {
-    return this.locationCountryService.update(updateLocationCountryInput.id, updateLocationCountryInput);
+  updateLocationCountry(@Args('data') data: UpdateLocationCountryInput) {
+    return this.locationCountryService.update(data.id, data);
   }
 
   @Mutation(() => LocationCountry)
-  removeLocationCountry(@Args('id', { type: () => Int }) id: number) {
+  removeLocationCountry(@Args('id', { type: () => String }) id: string) {
     return this.locationCountryService.remove(id);
   }
 }

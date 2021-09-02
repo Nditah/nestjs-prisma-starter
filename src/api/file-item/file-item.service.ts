@@ -1,26 +1,46 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFileItemInput } from './dto/create-file-item.input';
 import { UpdateFileItemInput } from './dto/update-file-item.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class FileItemService {
-  create(createFileItemInput: CreateFileItemInput) {
-    return 'This action adds a new fileItem';
+  constructor(private prisma: PrismaService) {}
+
+  async create(data: CreateFileItemInput) {
+    return this.prisma.fileItem.create({
+      data: {
+        name: data.name,
+        link: data.link,
+        fileType: data.fileType,
+        user: data.user && { connect: { id: data.user } },
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all fileItem`;
+  async findAll() {
+    return this.prisma.fileItem.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} fileItem`;
+  async findOne(id: string) {
+    return this.prisma.fileItem.findUnique({ where: { id } });
   }
 
-  update(id: number, updateFileItemInput: UpdateFileItemInput) {
-    return `This action updates a #${id} fileItem`;
+  async update(id: string, data: UpdateFileItemInput) {
+    return this.prisma.fileItem.update({
+      data: {
+        name: data.name,
+        link: data.link,
+        fileType: data.fileType,
+        user: data.user && { connect: { id: data.user } },
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} fileItem`;
+  async remove(id: string) {
+    return this.prisma.fileItem.delete({ where: { id } });
   }
 }

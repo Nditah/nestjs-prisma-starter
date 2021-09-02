@@ -1,8 +1,11 @@
+import { InputType, Field, PartialType } from '@nestjs/graphql';
+import { IsNotEmpty, IsUUID } from 'class-validator';
 import { CreatePictureInput } from './create-picture.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
 export class UpdatePictureInput extends PartialType(CreatePictureInput) {
-  @Field(() => Int)
-  id: number;
+  @IsUUID()
+  @IsNotEmpty()
+  @Field(() => String, { description: 'PrimaryKey' })
+  id: string;
 }

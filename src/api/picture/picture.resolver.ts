@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { PictureService } from './picture.service';
 import { Picture } from './entities/picture.entity';
 import { CreatePictureInput } from './dto/create-picture.input';
@@ -9,8 +9,8 @@ export class PictureResolver {
   constructor(private readonly pictureService: PictureService) {}
 
   @Mutation(() => Picture)
-  createPicture(@Args('createPictureInput') createPictureInput: CreatePictureInput) {
-    return this.pictureService.create(createPictureInput);
+  createPicture(@Args('data') data: CreatePictureInput) {
+    return this.pictureService.create(data);
   }
 
   @Query(() => [Picture], { name: 'picture' })
@@ -19,17 +19,17 @@ export class PictureResolver {
   }
 
   @Query(() => Picture, { name: 'picture' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.pictureService.findOne(id);
   }
 
   @Mutation(() => Picture)
-  updatePicture(@Args('updatePictureInput') updatePictureInput: UpdatePictureInput) {
-    return this.pictureService.update(updatePictureInput.id, updatePictureInput);
+  updatePicture(@Args('data') data: UpdatePictureInput) {
+    return this.pictureService.update(data.id, data);
   }
 
   @Mutation(() => Picture)
-  removePicture(@Args('id', { type: () => Int }) id: number) {
+  removePicture(@Args('id', { type: () => String }) id: string) {
     return this.pictureService.remove(id);
   }
 }

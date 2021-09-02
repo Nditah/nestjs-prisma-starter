@@ -1,8 +1,13 @@
+import { InputType, Field, PartialType } from '@nestjs/graphql';
+import { IsNotEmpty, IsUUID } from 'class-validator';
 import { CreateProjectPositionInput } from './create-project-position.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateProjectPositionInput extends PartialType(CreateProjectPositionInput) {
-  @Field(() => Int)
-  id: number;
+export class UpdateProjectPositionInput extends PartialType(
+  CreateProjectPositionInput
+) {
+  @IsUUID()
+  @IsNotEmpty()
+  @Field(() => String, { description: 'PrimaryKey' })
+  id: string;
 }

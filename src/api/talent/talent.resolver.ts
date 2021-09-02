@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { TalentService } from './talent.service';
 import { Talent } from './entities/talent.entity';
 import { CreateTalentInput } from './dto/create-talent.input';
@@ -9,8 +9,8 @@ export class TalentResolver {
   constructor(private readonly talentService: TalentService) {}
 
   @Mutation(() => Talent)
-  createTalent(@Args('createTalentInput') createTalentInput: CreateTalentInput) {
-    return this.talentService.create(createTalentInput);
+  createTalent(@Args('data') data: CreateTalentInput) {
+    return this.talentService.create(data);
   }
 
   @Query(() => [Talent], { name: 'talent' })
@@ -19,17 +19,17 @@ export class TalentResolver {
   }
 
   @Query(() => Talent, { name: 'talent' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.talentService.findOne(id);
   }
 
   @Mutation(() => Talent)
-  updateTalent(@Args('updateTalentInput') updateTalentInput: UpdateTalentInput) {
-    return this.talentService.update(updateTalentInput.id, updateTalentInput);
+  updateTalent(@Args('data') data: UpdateTalentInput) {
+    return this.talentService.update(data.id, data);
   }
 
   @Mutation(() => Talent)
-  removeTalent(@Args('id', { type: () => Int }) id: number) {
+  removeTalent(@Args('id', { type: () => String }) id: string) {
     return this.talentService.remove(id);
   }
 }

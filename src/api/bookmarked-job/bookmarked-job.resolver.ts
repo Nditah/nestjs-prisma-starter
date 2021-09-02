@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { BookmarkedJobService } from './bookmarked-job.service';
 import { BookmarkedJob } from './entities/bookmarked-job.entity';
 import { CreateBookmarkedJobInput } from './dto/create-bookmarked-job.input';
@@ -9,8 +9,8 @@ export class BookmarkedJobResolver {
   constructor(private readonly bookmarkedJobService: BookmarkedJobService) {}
 
   @Mutation(() => BookmarkedJob)
-  createBookmarkedJob(@Args('createBookmarkedJobInput') createBookmarkedJobInput: CreateBookmarkedJobInput) {
-    return this.bookmarkedJobService.create(createBookmarkedJobInput);
+  createBookmarkedJob(@Args('data') data: CreateBookmarkedJobInput) {
+    return this.bookmarkedJobService.create(data);
   }
 
   @Query(() => [BookmarkedJob], { name: 'bookmarkedJob' })
@@ -19,17 +19,17 @@ export class BookmarkedJobResolver {
   }
 
   @Query(() => BookmarkedJob, { name: 'bookmarkedJob' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.bookmarkedJobService.findOne(id);
   }
 
   @Mutation(() => BookmarkedJob)
-  updateBookmarkedJob(@Args('updateBookmarkedJobInput') updateBookmarkedJobInput: UpdateBookmarkedJobInput) {
-    return this.bookmarkedJobService.update(updateBookmarkedJobInput.id, updateBookmarkedJobInput);
+  updateBookmarkedJob(@Args('data') data: UpdateBookmarkedJobInput) {
+    return this.bookmarkedJobService.update(data.id, data);
   }
 
   @Mutation(() => BookmarkedJob)
-  removeBookmarkedJob(@Args('id', { type: () => Int }) id: number) {
+  removeBookmarkedJob(@Args('id', { type: () => String }) id: string) {
     return this.bookmarkedJobService.remove(id);
   }
 }

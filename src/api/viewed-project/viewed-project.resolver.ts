@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ViewedProjectService } from './viewed-project.service';
 import { ViewedProject } from './entities/viewed-project.entity';
 import { CreateViewedProjectInput } from './dto/create-viewed-project.input';
@@ -9,8 +9,8 @@ export class ViewedProjectResolver {
   constructor(private readonly viewedProjectService: ViewedProjectService) {}
 
   @Mutation(() => ViewedProject)
-  createViewedProject(@Args('createViewedProjectInput') createViewedProjectInput: CreateViewedProjectInput) {
-    return this.viewedProjectService.create(createViewedProjectInput);
+  createViewedProject(@Args('data') data: CreateViewedProjectInput) {
+    return this.viewedProjectService.create(data);
   }
 
   @Query(() => [ViewedProject], { name: 'viewedProject' })
@@ -19,17 +19,17 @@ export class ViewedProjectResolver {
   }
 
   @Query(() => ViewedProject, { name: 'viewedProject' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.viewedProjectService.findOne(id);
   }
 
   @Mutation(() => ViewedProject)
-  updateViewedProject(@Args('updateViewedProjectInput') updateViewedProjectInput: UpdateViewedProjectInput) {
-    return this.viewedProjectService.update(updateViewedProjectInput.id, updateViewedProjectInput);
+  updateViewedProject(@Args('data') data: UpdateViewedProjectInput) {
+    return this.viewedProjectService.update(data.id, data);
   }
 
   @Mutation(() => ViewedProject)
-  removeViewedProject(@Args('id', { type: () => Int }) id: number) {
+  removeViewedProject(@Args('id', { type: () => String }) id: string) {
     return this.viewedProjectService.remove(id);
   }
 }

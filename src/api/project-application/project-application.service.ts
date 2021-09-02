@@ -1,26 +1,56 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProjectApplicationInput } from './dto/create-project-application.input';
 import { UpdateProjectApplicationInput } from './dto/update-project-application.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class ProjectApplicationService {
-  create(createProjectApplicationInput: CreateProjectApplicationInput) {
-    return 'This action adds a new projectApplication';
+  constructor(private prisma: PrismaService) {}
+
+  async create(data: CreateProjectApplicationInput) {
+    return this.prisma.projectApplication.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        projectPosition: data.projectPosition && {
+          connect: { id: data.projectPosition },
+        },
+        project: data.project && { connect: { id: data.project } },
+        coverLetter: data.coverLetter,
+        cv: data.cv && { connect: { id: data.cv } },
+        status: data.status,
+        saved: data.saved,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all projectApplication`;
+  async findAll() {
+    return this.prisma.projectApplication.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} projectApplication`;
+  async findOne(id: string) {
+    return this.prisma.projectApplication.findUnique({ where: { id } });
   }
 
-  update(id: number, updateProjectApplicationInput: UpdateProjectApplicationInput) {
-    return `This action updates a #${id} projectApplication`;
+  async update(id: string, data: UpdateProjectApplicationInput) {
+    return this.prisma.projectApplication.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        projectPosition: data.projectPosition && {
+          connect: { id: data.projectPosition },
+        },
+        project: data.project && { connect: { id: data.project } },
+        coverLetter: data.coverLetter,
+        cv: data.cv && { connect: { id: data.cv } },
+        status: data.status,
+        saved: data.saved,
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} projectApplication`;
+  async remove(id: string) {
+    return this.prisma.projectApplication.delete({ where: { id } });
   }
 }

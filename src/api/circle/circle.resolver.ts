@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CircleService } from './circle.service';
 import { Circle } from './entities/circle.entity';
 import { CreateCircleInput } from './dto/create-circle.input';
@@ -9,8 +9,8 @@ export class CircleResolver {
   constructor(private readonly circleService: CircleService) {}
 
   @Mutation(() => Circle)
-  createCircle(@Args('createCircleInput') createCircleInput: CreateCircleInput) {
-    return this.circleService.create(createCircleInput);
+  createCircle(@Args('data') data: CreateCircleInput) {
+    return this.circleService.create(data);
   }
 
   @Query(() => [Circle], { name: 'circle' })
@@ -19,17 +19,17 @@ export class CircleResolver {
   }
 
   @Query(() => Circle, { name: 'circle' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.circleService.findOne(id);
   }
 
   @Mutation(() => Circle)
-  updateCircle(@Args('updateCircleInput') updateCircleInput: UpdateCircleInput) {
-    return this.circleService.update(updateCircleInput.id, updateCircleInput);
+  updateCircle(@Args('data') data: UpdateCircleInput) {
+    return this.circleService.update(data.id, data);
   }
 
   @Mutation(() => Circle)
-  removeCircle(@Args('id', { type: () => Int }) id: number) {
+  removeCircle(@Args('id', { type: () => String }) id: string) {
     return this.circleService.remove(id);
   }
 }

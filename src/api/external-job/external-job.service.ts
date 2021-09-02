@@ -1,26 +1,46 @@
 import { Injectable } from '@nestjs/common';
 import { CreateExternalJobInput } from './dto/create-external-job.input';
 import { UpdateExternalJobInput } from './dto/update-external-job.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class ExternalJobService {
-  create(createExternalJobInput: CreateExternalJobInput) {
-    return 'This action adds a new externalJob';
+  constructor(private prisma: PrismaService) {}
+
+  async create(data: CreateExternalJobInput) {
+    return this.prisma.externalJob.create({
+      data: {
+        categories: data.categories,
+        jobLink: data.jobLink,
+        jobs: { create: data.jobs },
+        externalCompany: { create: data.externalCompany },
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all externalJob`;
+  async findAll() {
+    return this.prisma.externalJob.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} externalJob`;
+  async findOne(id: string) {
+    return this.prisma.externalJob.findUnique({ where: { id } });
   }
 
-  update(id: number, updateExternalJobInput: UpdateExternalJobInput) {
-    return `This action updates a #${id} externalJob`;
+  async update(id: string, data: UpdateExternalJobInput) {
+    return this.prisma.externalJob.update({
+      data: {
+        categories: data.categories,
+        jobLink: data.jobLink,
+        jobs: { create: data.jobs },
+        externalCompany: { create: data.externalCompany },
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} externalJob`;
+  async remove(id: string) {
+    return this.prisma.externalJob.delete({ where: { id } });
   }
 }

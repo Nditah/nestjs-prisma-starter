@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CompanyService } from './company.service';
 import { Company } from './entities/company.entity';
 import { CreateCompanyInput } from './dto/create-company.input';
@@ -9,8 +9,8 @@ export class CompanyResolver {
   constructor(private readonly companyService: CompanyService) {}
 
   @Mutation(() => Company)
-  createCompany(@Args('createCompanyInput') createCompanyInput: CreateCompanyInput) {
-    return this.companyService.create(createCompanyInput);
+  createCompany(@Args('data') data: CreateCompanyInput) {
+    return this.companyService.create(data);
   }
 
   @Query(() => [Company], { name: 'company' })
@@ -19,17 +19,17 @@ export class CompanyResolver {
   }
 
   @Query(() => Company, { name: 'company' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.companyService.findOne(id);
   }
 
   @Mutation(() => Company)
-  updateCompany(@Args('updateCompanyInput') updateCompanyInput: UpdateCompanyInput) {
-    return this.companyService.update(updateCompanyInput.id, updateCompanyInput);
+  updateCompany(@Args('data') data: UpdateCompanyInput) {
+    return this.companyService.update(data.id, data);
   }
 
   @Mutation(() => Company)
-  removeCompany(@Args('id', { type: () => Int }) id: number) {
+  removeCompany(@Args('id', { type: () => String }) id: string) {
     return this.companyService.remove(id);
   }
 }

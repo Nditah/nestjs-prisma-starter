@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ProjectPositionService } from './project-position.service';
 import { ProjectPosition } from './entities/project-position.entity';
 import { CreateProjectPositionInput } from './dto/create-project-position.input';
@@ -6,11 +6,13 @@ import { UpdateProjectPositionInput } from './dto/update-project-position.input'
 
 @Resolver(() => ProjectPosition)
 export class ProjectPositionResolver {
-  constructor(private readonly projectPositionService: ProjectPositionService) {}
+  constructor(
+    private readonly projectPositionService: ProjectPositionService
+  ) {}
 
   @Mutation(() => ProjectPosition)
-  createProjectPosition(@Args('createProjectPositionInput') createProjectPositionInput: CreateProjectPositionInput) {
-    return this.projectPositionService.create(createProjectPositionInput);
+  createProjectPosition(@Args('data') data: CreateProjectPositionInput) {
+    return this.projectPositionService.create(data);
   }
 
   @Query(() => [ProjectPosition], { name: 'projectPosition' })
@@ -19,17 +21,17 @@ export class ProjectPositionResolver {
   }
 
   @Query(() => ProjectPosition, { name: 'projectPosition' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.projectPositionService.findOne(id);
   }
 
   @Mutation(() => ProjectPosition)
-  updateProjectPosition(@Args('updateProjectPositionInput') updateProjectPositionInput: UpdateProjectPositionInput) {
-    return this.projectPositionService.update(updateProjectPositionInput.id, updateProjectPositionInput);
+  updateProjectPosition(@Args('data') data: UpdateProjectPositionInput) {
+    return this.projectPositionService.update(data.id, data);
   }
 
   @Mutation(() => ProjectPosition)
-  removeProjectPosition(@Args('id', { type: () => Int }) id: number) {
+  removeProjectPosition(@Args('id', { type: () => String }) id: string) {
     return this.projectPositionService.remove(id);
   }
 }

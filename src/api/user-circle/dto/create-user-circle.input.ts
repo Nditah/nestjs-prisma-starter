@@ -1,7 +1,16 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
+import { Circle } from 'src/api/circle/entities/circle.entity';
+import { UserCircleStatus } from 'src/common/enum';
+import { User } from 'src/models/user.model';
 
 @InputType()
 export class CreateUserCircleInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => User, { description: 'User Circle user' })
+  user: string;
+
+  @Field(() => Circle, { description: 'User Circle' })
+  circle: string;
+
+  @Field(() => UserCircleStatus, { description: 'User Circle status' })
+  status: UserCircleStatus;
 }
