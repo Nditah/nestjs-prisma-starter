@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, InputType } from '@nestjs/graphql';
 import { JobApplication } from 'src/api/job-application/entities/job-application.entity';
 import { Job } from 'src/api/job/entities/job.entity';
 import { ProjectApplication } from 'src/api/project-application/entities/project-application.entity';
@@ -7,6 +7,7 @@ import { FileType } from 'src/common/enum';
 import { BaseModel } from 'src/models/base.model';
 import { User } from 'src/models/user.model';
 
+@InputType('FileItemInput')
 @ObjectType({ description: 'File Item model' })
 export class FileItem extends BaseModel {
   @Field(() => User, { description: 'File Item user' })
@@ -29,9 +30,4 @@ export class FileItem extends BaseModel {
 
   @Field(() => JobApplication, { description: 'File Item job application' })
   jobApplication: JobApplication;
-
-  @Field(() => ProjectApplication, {
-    description: 'File Item project application',
-  })
-  projectApplication: ProjectApplication;
 }

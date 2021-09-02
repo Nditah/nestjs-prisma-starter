@@ -31,7 +31,7 @@ export class JobService {
         posterEmail: data.posterEmail,
         posterPhone: data.posterPhone,
         finished: data.finished,
-        externalJob: data.externalJob && { connect: { id: data.externalJob } },
+        // externalJob: data.externalJob && { connect: { id: data.externalJob } },
       },
     });
   }
@@ -68,7 +68,7 @@ export class JobService {
         posterEmail: data.posterEmail,
         posterPhone: data.posterPhone,
         finished: data.finished,
-        externalJob: data.externalJob && { connect: { id: data.externalJob } },
+        // externalJob: data.externalJob && { connect: { id: data.externalJob } },
       },
       where: {
         id,

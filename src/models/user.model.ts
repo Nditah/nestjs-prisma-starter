@@ -1,4 +1,4 @@
-import { ObjectType, Field, HideField } from '@nestjs/graphql';
+import { ObjectType, Field, HideField, InputType } from '@nestjs/graphql';
 
 import { AccountStatus, AuthProvider, Role, UserType } from 'src/common/enum';
 import { ViewedProject } from 'src/api/viewed-project/entities/viewed-project.entity';
@@ -22,6 +22,7 @@ import { UserCircle } from 'src/api/user-circle/entities/user-circle.entity';
 import { ViewedJob } from 'src/api/viewed-job/entities/viewed-job.entity';
 import { Project } from 'src/api/project/entities/project.entity';
 
+@InputType('UserInput')
 @ObjectType({ description: 'User model' })
 export class User extends BaseModel {
   @Field(() => String, { description: 'User email address' })

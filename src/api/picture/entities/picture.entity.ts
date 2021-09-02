@@ -1,6 +1,7 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
 import { BaseModel } from 'src/models/base.model';
 
+@InputType('PictureInput')
 @ObjectType({ description: 'Picture model' })
 export class Picture extends BaseModel {
   @Field(() => String, { description: 'Picture page' })

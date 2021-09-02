@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
 import { Company } from 'src/api/company/entities/company.entity';
 import { ExternalJob } from 'src/api/external-job/entities/external-job.entity';
 import { FileItem } from 'src/api/file-item/entities/file-item.entity';
@@ -7,6 +7,7 @@ import { Location } from 'src/api/location/entities/location.entity';
 import { JobStatus } from 'src/common/enum';
 import { BaseModel } from 'src/models/base.model';
 
+@InputType('JobInput')
 @ObjectType({ description: 'Job model' })
 export class Job extends BaseModel {
   @Field(() => Company, { description: 'Job company' })
@@ -75,6 +76,6 @@ export class Job extends BaseModel {
   @Field(() => Date, { description: 'Job DateTime' })
   finished: Date;
 
-  @Field(() => ExternalJob, { description: 'Job external job' })
-  externalJob: ExternalJob;
+  // @Field(() => ExternalJob, { description: 'Job external job' })
+  // externalJob: ExternalJob;
 }

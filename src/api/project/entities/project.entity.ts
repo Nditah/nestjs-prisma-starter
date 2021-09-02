@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, InputType } from '@nestjs/graphql';
 import { BookmarkedProject } from 'src/api/bookmarked-project/entities/bookmarked-project.entity';
 import { FileItem } from 'src/api/file-item/entities/file-item.entity';
 import { Location } from 'src/api/location/entities/location.entity';
@@ -9,6 +9,7 @@ import { JobStatus } from 'src/common/enum';
 import { BaseModel } from 'src/models/base.model';
 import { User } from 'src/models/user.model';
 
+@InputType('ProjectInput')
 @ObjectType({ description: 'Project model' })
 export class Project extends BaseModel {
   @Field(() => User, { description: 'Project user' })

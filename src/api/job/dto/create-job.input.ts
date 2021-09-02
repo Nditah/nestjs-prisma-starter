@@ -74,6 +74,6 @@ export class CreateJobInput {
   @Field(() => Date, { description: 'Job DateTime' })
   finished: Date;
 
-  @Field(() => ExternalJob, { description: 'Job external job' })
-  externalJob: string;
+  // @Field(() => ExternalJob, { description: 'Job external job' })
+  // externalJob: string;
 }

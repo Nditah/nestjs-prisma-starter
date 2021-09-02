@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, InputType } from '@nestjs/graphql';
 import { FileItem } from 'src/api/file-item/entities/file-item.entity';
 import { ProjectPosition } from 'src/api/project-position/entities/project-position.entity';
 import { Project } from 'src/api/project/entities/project.entity';
@@ -6,6 +6,7 @@ import { ApplicationStatus } from 'src/common/enum';
 import { BaseModel } from 'src/models/base.model';
 import { User } from 'src/models/user.model';
 
+@InputType('ProjectApplicationInput')
 @ObjectType({ description: 'Project Application model' })
 export class ProjectApplication extends BaseModel {
   @Field(() => User, { description: 'Project Application user' })

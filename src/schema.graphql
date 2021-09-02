@@ -2,6 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""Account status"""
+enum AccountStatus {
+  Blocked
+  Deactivated
+  Deleted
+  None
+}
+
+"""Application status"""
+enum ApplicationStatus {
+  Applied
+  Declined
+  Draft
+  Hired
+}
+
 type Auth {
   """JWT access token"""
   accessToken: String!
@@ -39,6 +55,20 @@ type Award {
   user: User!
 }
 
+input AwardInput {
+  """Year the award is given (2022)"""
+  issuedYear: Int!
+
+  """Award organization (Ensemble)"""
+  organization: String!
+
+  """Award title (Best Actress)"""
+  title: String!
+
+  """User to receive the Award(James Borne)"""
+  user: UserInput!
+}
+
 """BookmarkedJob model"""
 type BookmarkedJob {
   """Identifies the date and time when the object was created."""
@@ -61,6 +91,14 @@ type BookmarkedJob {
   user: User!
 }
 
+input BookmarkedJobInput {
+  """Job Bookmarked by User"""
+  job: JobInput!
+
+  """User who Bookmarked the Job"""
+  user: UserInput!
+}
+
 """BookmarkedProject model"""
 type BookmarkedProject {
   """Identifies the date and time when the object was created."""
@@ -81,6 +119,14 @@ type BookmarkedProject {
 
   """User who Bookmarked Project"""
   user: User!
+}
+
+input BookmarkedProjectInput {
+  """Bookmarked Project"""
+  project: ProjectInput!
+
+  """User who Bookmarked Project"""
+  user: UserInput!
 }
 
 input ChangePasswordInput {
@@ -116,9 +162,116 @@ type Circle {
   updatedAt: Date!
 }
 
+input CircleInput {
+  """Circle description """
+  description: String!
+
+  """Circle logo """
+  logo: String!
+
+  """Name of the Circle"""
+  name: String!
+
+  """Circle title """
+  title: String!
+}
+
+"""Company model"""
 type Company {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Company contactor Department"""
+  contactorDepartment: String!
+
+  """Company contactor Email"""
+  contactorEmail: String!
+
+  """Company contactor Job Title"""
+  contactorJobTitle: String!
+
+  """Company contactor Name"""
+  contactorName: String!
+
+  """Company contactor Phone"""
+  contactorPhone: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """Company number of employees"""
+  employees: Int!
+
+  """Company fields"""
+  fields: String!
+  id: ID!
+
+  """Company industry"""
+  industry: String!
+
+  """Company introduction"""
+  introduction: String!
+  jobs: [Job!]!
+
+  """Name of the Company"""
+  name: String!
+
+  """Company skills"""
+  skills: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """Company owner as User"""
+  user: User!
+
+  """Company website"""
+  website: String!
+}
+
+input CompanyInput {
+  """Company contactor Department"""
+  contactorDepartment: String!
+
+  """Company contactor Email"""
+  contactorEmail: String!
+
+  """Company contactor Job Title"""
+  contactorJobTitle: String!
+
+  """Company contactor Name"""
+  contactorName: String!
+
+  """Company contactor Phone"""
+  contactorPhone: String!
+
+  """Company number of employees"""
+  employees: Int!
+
+  """Company fields"""
+  fields: String!
+
+  """Company industry"""
+  industry: String!
+
+  """Company introduction"""
+  introduction: String!
+  jobs: [JobInput!]!
+
+  """Name of the Company"""
+  name: String!
+
+  """Company skills"""
+  skills: String!
+
+  """Company owner as User"""
+  user: UserInput!
+
+  """Company website"""
+  website: String!
 }
 
 input CreateAwardInput {
@@ -128,101 +281,392 @@ input CreateAwardInput {
   """Award organization (Ensemble)"""
   organization: String!
 
-  """Award title (Best Actor)"""
-  title: String!
+  """User to receive the Award(Eze)"""
+  title: String
 
   """User to receive the Award(Eze)"""
-  user: String!
+  user: String
 }
 
 input CreateBookmarkedJobInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Job Bookmarked by User"""
+  job: JobInput!
+
+  """BookmarkedJob by User"""
+  user: UserInput!
 }
 
 input CreateBookmarkedProjectInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Bookmarked Project"""
+  project: ProjectInput!
+
+  """User who Bookmarked Project"""
+  user: UserInput!
 }
 
 input CreateCircleInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Circle description """
+  description: String!
+
+  """Circle logo """
+  logo: String!
+
+  """Name of the Circle"""
+  name: String!
+
+  """Circle title """
+  title: String!
 }
 
 input CreateCompanyInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Company contactor Department"""
+  contactorDepartment: String!
+
+  """Company contactor Email"""
+  contactorEmail: String!
+
+  """Company contactor Job Title"""
+  contactorJobTitle: String!
+
+  """Company contactor Name"""
+  contactorName: String!
+
+  """Company contactor Phone"""
+  contactorPhone: String!
+
+  """Company number of employees"""
+  employees: Int!
+
+  """Company fields"""
+  fields: String!
+
+  """Company industry"""
+  industry: String!
+
+  """Company introduction"""
+  introduction: String!
+
+  """Company owner as User"""
+  jobs: JobInput!
+
+  """Name of the Company"""
+  name: String!
+
+  """Company skills"""
+  skills: String!
+
+  """Company owner as User"""
+  user: UserInput!
+
+  """Company website"""
+  website: String!
 }
 
 input CreateEducationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Education end Month"""
+  endMonth: Int!
+
+  """Education end Year"""
+  endYear: Int!
+
+  """Education location"""
+  location: LocationInput!
+
+  """Education schoolName"""
+  schoolName: String!
+
+  """Education start Month"""
+  startMonth: Int!
+
+  """Education start Year"""
+  startYear: Int!
+
+  """Education title"""
+  title: String!
+
+  """Education owner as User"""
+  user: UserInput!
 }
 
 input CreateExperienceInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Experience company"""
+  company: String!
+
+  """Experience description"""
+  description: String!
+
+  """Experience end Month"""
+  endMonth: Int!
+
+  """Experience end Year"""
+  endYear: Int!
+
+  """Experience location"""
+  location: LocationInput!
+
+  """Experience role"""
+  role: String!
+
+  """Experience start Month"""
+  startMonth: Int!
+
+  """Experience start Year"""
+  startYear: Int!
+
+  """Experience title"""
+  title: String!
+
+  """Experience type"""
+  type: String!
+
+  """Experience owner as User"""
+  user: UserInput!
 }
 
 input CreateExternalCompanyInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """External Company name"""
+  companyName: String!
+
+  """External Company externalJob"""
+  externalJobs: [ExternalJobInput!]!
+
+  """External Company logo link"""
+  logoLink: String!
 }
 
 input CreateExternalJobInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """External Job categories"""
+  categories: String!
+
+  """External Company"""
+  externalCompany: ExternalCompanyInput!
+
+  """External Job link"""
+  jobLink: String!
+
+  """External Job"""
+  jobs: [JobInput!]!
 }
 
 input CreateFileItemInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """File Item fileType"""
+  fileType: FileType!
+
+  """File Item link"""
+  link: String!
+
+  """File Item name"""
+  name: String!
+
+  """File Item user"""
+  user: UserInput!
 }
 
 input CreateFriendRequestInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Friend Request receiver"""
+  receiver: UserInput!
+
+  """Friend Request sender"""
+  requester: UserInput!
+
+  """Friend Request status"""
+  status: FriendRequestStatus!
 }
 
 input CreateJobApplicationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Job Application cover-letter"""
+  coverLetter: String!
+
+  """Job Application cv"""
+  cv: FileType!
+
+  """Job Application job"""
+  job: JobInput!
+
+  """Job Application saved"""
+  saved: Boolean!
+
+  """Job Application screening answers"""
+  screeningAnswers: String!
+
+  """Job Application status"""
+  status: ApplicationStatus!
+
+  """Job Application user"""
+  user: UserInput!
 }
 
 input CreateJobInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Job applications"""
+  applications: [JobApplicationInput!]!
+
+  """Job category"""
+  category: String!
+
+  """Job company"""
+  company: CompanyInput!
+
+  """Job description"""
+  description: String!
+
+  """Job documents"""
+  documents: [FileItemInput!]!
+
+  """Job employment type"""
+  employmentType: String!
+
+  """Job experience level"""
+  experienceLevel: String!
+
+  """Job DateTime"""
+  finished: Date!
+
+  """Job location"""
+  location: LocationInput!
+
+  """Job poster department"""
+  posterDepartment: String!
+
+  """Job poster email"""
+  posterEmail: String!
+
+  """Job poster first name"""
+  posterFirstName: String!
+
+  """Job poster last name"""
+  posterLastName: String!
+
+  """Job poster phone"""
+  posterPhone: String!
+
+  """Job requirements"""
+  requirements: String!
+
+  """Job responsibility"""
+  responsibility: String!
+
+  """Job maximum salary"""
+  salaryMax: Int!
+
+  """Job minimum salary"""
+  salaryMin: Int!
+
+  """Job screening questions"""
+  screeningQuestions: String!
+
+  """Job status"""
+  status: JobStatus!
+
+  """Job tags"""
+  tags: String!
+
+  """Job title"""
+  title: String!
 }
 
 input CreateLocationCountryInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Location Country iso2"""
+  iso2: String!
+
+  """Location Country iso3"""
+  iso3: String!
+
+  """Location Country locations"""
+  locations: [LocationInput!]!
+
+  """Location Country name"""
+  name: String!
 }
 
 input CreateLocationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Location city"""
+  city: String!
+
+  """Location country"""
+  country: LocationCountryInput!
+
+  """Location latitude"""
+  latitude: Float!
+
+  """Location longitude"""
+  longitude: Float!
+
+  """Location state"""
+  state: LocationStateInput!
 }
 
 input CreateLocationStateInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Location State abbreviation"""
+  abbreviation: String!
+
+  """Location State locations"""
+  locations: [LocationInput!]!
+
+  """Location State name"""
+  name: String!
 }
 
 input CreateMentorshipUserFriendInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Mentorship User Friend receiver"""
+  receiver: MentorshipUserInput!
+
+  """Mentorship User Friend sender"""
+  requester: MentorshipUserInput!
+
+  """Mentorship User Friend status"""
+  status: FriendRequestStatus!
 }
 
 input CreateMentorshipUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Is Mentorship have nullable fields"""
+  isHaveNullableFields: Boolean!
+
+  """Is Mentorship user paired"""
+  paired: Boolean!
+
+  """Mentorship User professional level"""
+  professionalLevel: String!
+
+  """Mentorship User professional self-describe"""
+  professionalSelfDescribe: String!
+
+  """Mentorship User quarter start"""
+  quarterStart: String!
+
+  """Mentorship user review status"""
+  reviewStatus: ReviewStatus!
+
+  """Mentorship User self-describe"""
+  selfDescribe: String!
+
+  """Mentorship User"""
+  user: UserInput!
+
+  """Mentorship user type"""
+  userType: MentorshipUserType!
 }
 
 input CreatePictureInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Picture description"""
+  description: String!
+
+  """Is Picture a video"""
+  isVideo: Boolean!
+
+  """Picture number position"""
+  numberPosition: Int!
+
+  """Picture page"""
+  page: String!
+
+  """Picture picture link"""
+  pictureLink: String!
+
+  """Picture redirect link"""
+  redirectLink: String!
+
+  """Picture title"""
+  title: String!
 }
 
 input CreatePostInput {
@@ -231,101 +675,941 @@ input CreatePostInput {
 }
 
 input CreateProjectApplicationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Project Application cover-letter"""
+  coverLetter: String!
+
+  """Project Application CV"""
+  cv: FileItemInput!
+
+  """Project Application project"""
+  project: ProjectInput!
+
+  """Project Application project position"""
+  projectPosition: ProjectPositionInput!
+
+  """Is Project Application saved"""
+  saved: Boolean!
+
+  """Project Application status"""
+  status: ApplicationStatus!
+
+  """Project Application user"""
+  user: UserInput!
 }
 
 input CreateProjectInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Project child elder details"""
+  childElderDetails: String!
+
+  """Project cover image"""
+  coverImage: String!
+
+  """Project description"""
+  description: String!
+
+  """Project documents"""
+  documents: [FileItemInput!]!
+
+  """Project finished"""
+  finished: Date!
+
+  """Project housing details"""
+  housingDetails: String!
+
+  """Project keywords"""
+  keywords: String!
+
+  """Project location"""
+  location: LocationInput!
+
+  """Is Project paid"""
+  paid: Boolean!
+
+  """Project project positions"""
+  projectPositions: [ProjectPositionInput!]!
+
+  """Project schedule"""
+  schedule: String!
+
+  """Project status"""
+  status: JobStatus!
+
+  """Project title"""
+  title: String!
+
+  """Project type"""
+  type: String!
+
+  """Project user"""
+  user: UserInput!
 }
 
 input CreateProjectPositionInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Project Position additional requirements"""
+  additionalRequirements: String!
+
+  """Project Position finished date"""
+  finished: Date!
+
+  """Project Position gender"""
+  gender: Gender!
+
+  """Project Position maximum age"""
+  maxAge: Int!
+
+  """Project Position minimum age"""
+  minAge: Int!
+
+  """Project Position project"""
+  project: ProjectInput!
+
+  """Project Position role description"""
+  roleDescription: String!
+
+  """Project Position status"""
+  status: PositionStatus!
+
+  """Project Position type"""
+  type: String!
 }
 
 input CreateSettingInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Setting email Phone Visible To All Talents"""
+  emailPhoneVisibleToAllTalents: Boolean!
+
+  """Setting notification Feed Update"""
+  notificationFeedUpdate: Boolean!
+
+  """Setting notification New Connection Accepted"""
+  notificationNewConnectionAccepted: Boolean!
+
+  """Setting notification New Connection Request"""
+  notificationNewConnectionRequest: Boolean!
+
+  """Setting private Visible To All Companies"""
+  privateVisibleToAllCompanies: Boolean!
+
+  """Setting private VisibleToAllTalents"""
+  privateVisibleToAllTalents: Boolean!
+
+  """Setting user"""
+  user: UserInput!
 }
 
 input CreateTalentInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Talent available locations"""
+  availableLocations: String!
+
+  """Talent biography"""
+  biography: String!
+
+  """Talent birthday"""
+  birthday: Date!
+
+  """Talent ethnicity"""
+  ethnicity: String!
+
+  """Talent gender"""
+  gender: Gender!
+
+  """Talent height"""
+  height: Int!
+
+  """Talent height unit"""
+  heightUnit: String!
+
+  """Talent industry"""
+  industry: String!
+
+  """Talent interests"""
+  interests: String!
+
+  """Talent job title"""
+  jobTitle: String!
+
+  """Talent languages"""
+  languages: String!
+
+  """Talent profession"""
+  profession: String!
+
+  """Talent skills"""
+  skills: String!
+
+  """Talent union status"""
+  unionStatus: String!
+
+  """Talent user"""
+  user: UserInput!
+
+  """Talent website"""
+  website: String!
+
+  """Talent weight"""
+  weight: Int!
+
+  """Talent weight unit"""
+  weightUnit: String!
 }
 
 input CreateUserCircleInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """User Circle"""
+  circle: CircleInput!
+
+  """User Circle status"""
+  status: UserCircleStatus!
+
+  """User Circle user"""
+  user: UserInput!
 }
 
 input CreateViewedJobInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Viewed Job"""
+  job: JobInput!
+
+  """Viewed Job user"""
+  user: UserInput!
 }
 
 input CreateViewedProjectInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Viewed Project"""
+  project: ProjectInput!
+
+  """Viewed Project user"""
+  user: UserInput!
 }
 
 """Date custom scalar type"""
 scalar Date
 
+"""Education model"""
 type Education {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """Education end Month"""
+  endMonth: Int!
+
+  """Education end Year"""
+  endYear: Int!
+  id: ID!
+
+  """Education location"""
+  location: Location!
+
+  """Education schoolName"""
+  schoolName: String!
+
+  """Education start Month"""
+  startMonth: Int!
+
+  """Education start Year"""
+  startYear: Int!
+
+  """Education title"""
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """Education owner as User"""
+  user: User!
 }
 
+input EducationInput {
+  """Education end Month"""
+  endMonth: Int!
+
+  """Education end Year"""
+  endYear: Int!
+
+  """Education location"""
+  location: LocationInput!
+
+  """Education schoolName"""
+  schoolName: String!
+
+  """Education start Month"""
+  startMonth: Int!
+
+  """Education start Year"""
+  startYear: Int!
+
+  """Education title"""
+  title: String!
+
+  """Education owner as User"""
+  user: UserInput!
+}
+
+"""Experience model"""
 type Experience {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Experience company"""
+  company: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """Experience description"""
+  description: String!
+
+  """Experience end Month"""
+  endMonth: Int!
+
+  """Experience end Year"""
+  endYear: Int!
+  id: ID!
+
+  """Experience location"""
+  location: Location!
+
+  """Experience role"""
+  role: String!
+
+  """Experience start Month"""
+  startMonth: Int!
+
+  """Experience start Year"""
+  startYear: Int!
+
+  """Experience title"""
+  title: String!
+
+  """Experience type"""
+  type: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """Experience owner as User"""
+  user: User!
 }
 
+input ExperienceInput {
+  """Experience company"""
+  company: String!
+
+  """Experience description"""
+  description: String!
+
+  """Experience end Month"""
+  endMonth: Int!
+
+  """Experience end Year"""
+  endYear: Int!
+
+  """Experience location"""
+  location: LocationInput!
+
+  """Experience role"""
+  role: String!
+
+  """Experience start Month"""
+  startMonth: Int!
+
+  """Experience start Year"""
+  startYear: Int!
+
+  """Experience title"""
+  title: String!
+
+  """Experience type"""
+  type: String!
+
+  """Experience owner as User"""
+  user: UserInput!
+}
+
+"""External Company model"""
 type ExternalCompany {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """External Company name"""
+  companyName: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """External Company externalJob"""
+  externalJobs: [ExternalJob!]!
+  id: ID!
+
+  """External Company logo link"""
+  logoLink: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
 }
 
+input ExternalCompanyInput {
+  """External Company name"""
+  companyName: String!
+
+  """External Company externalJob"""
+  externalJobs: [ExternalJobInput!]!
+
+  """External Company logo link"""
+  logoLink: String!
+}
+
+"""External Job model"""
 type ExternalJob {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """External Job categories"""
+  categories: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """External Company"""
+  externalCompany: ExternalCompany!
+  id: ID!
+
+  """External Job link"""
+  jobLink: String!
+
+  """External Job"""
+  jobs: [Job!]!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
 }
 
+input ExternalJobInput {
+  """External Job categories"""
+  categories: String!
+
+  """External Company"""
+  externalCompany: ExternalCompanyInput!
+
+  """External Job link"""
+  jobLink: String!
+
+  """External Job"""
+  jobs: [JobInput!]!
+}
+
+"""File Item model"""
 type FileItem {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """File Item fileType"""
+  fileType: FileType!
+  id: ID!
+
+  """File Item job"""
+  job: Job!
+
+  """File Item job application"""
+  jobApplication: JobApplication!
+
+  """File Item link"""
+  link: String!
+
+  """File Item name"""
+  name: String!
+
+  """File Item project"""
+  project: Project!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """File Item user"""
+  user: User!
 }
 
+input FileItemInput {
+  """File Item fileType"""
+  fileType: FileType!
+
+  """File Item job"""
+  job: JobInput!
+
+  """File Item job application"""
+  jobApplication: JobApplicationInput!
+
+  """File Item link"""
+  link: String!
+
+  """File Item name"""
+  name: String!
+
+  """File Item project"""
+  project: ProjectInput!
+
+  """File Item user"""
+  user: UserInput!
+}
+
+"""File Type"""
+enum FileType {
+  Audio
+  Gallery
+  Other
+  Photo
+  ProjectDocument
+  Resume
+  Video
+}
+
+"""Friend Request model"""
 type FriendRequest {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+  id: ID!
+
+  """Friend Request receiver"""
+  receiver: User!
+
+  """Friend Request sender"""
+  requester: User!
+
+  """Friend Request status"""
+  status: FriendRequestStatus!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
 }
 
+input FriendRequestInput {
+  """Friend Request receiver"""
+  receiver: UserInput!
+
+  """Friend Request sender"""
+  requester: UserInput!
+
+  """Friend Request status"""
+  status: FriendRequestStatus!
+}
+
+"""Friend request status"""
+enum FriendRequestStatus {
+  Connected
+  Deleted
+  Following
+  Ignored
+  None
+  Pending
+  Requested
+}
+
+"""Gender"""
+enum Gender {
+  heHim
+  notListedSeeBio
+  ratherNotSay
+  sheHer
+  theyThem
+}
+
+"""Job model"""
 type Job {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Job applications"""
+  applications: [JobApplication!]!
+
+  """Job category"""
+  category: String!
+
+  """Job company"""
+  company: Company!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """Job description"""
+  description: String!
+
+  """Job documents"""
+  documents: [FileItem!]!
+
+  """Job employment type"""
+  employmentType: String!
+
+  """Job experience level"""
+  experienceLevel: String!
+
+  """Job DateTime"""
+  finished: Date!
+  id: ID!
+
+  """Job location"""
+  location: Location!
+
+  """Job poster department"""
+  posterDepartment: String!
+
+  """Job poster email"""
+  posterEmail: String!
+
+  """Job poster first name"""
+  posterFirstName: String!
+
+  """Job poster last name"""
+  posterLastName: String!
+
+  """Job poster phone"""
+  posterPhone: String!
+
+  """Job requirements"""
+  requirements: String!
+
+  """Job responsibility"""
+  responsibility: String!
+
+  """Job maximum salary"""
+  salaryMax: Int!
+
+  """Job minimum salary"""
+  salaryMin: Int!
+
+  """Job screening questions"""
+  screeningQuestions: String!
+
+  """Job status"""
+  status: JobStatus!
+
+  """Job tags"""
+  tags: String!
+
+  """Job title"""
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
 }
 
+"""Job Application model"""
 type JobApplication {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Job Application cover-letter"""
+  coverLetter: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Job Application cv"""
+  cv: FileType!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+  id: ID!
+
+  """Job Application job"""
+  job: Job!
+
+  """Job Application saved"""
+  saved: Boolean!
+
+  """Job Application screening answers"""
+  screeningAnswers: String!
+
+  """Job Application status"""
+  status: ApplicationStatus!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """Job Application user"""
+  user: User!
 }
 
+input JobApplicationInput {
+  """Job Application cover-letter"""
+  coverLetter: String!
+
+  """Job Application cv"""
+  cv: FileType!
+
+  """Job Application job"""
+  job: JobInput!
+
+  """Job Application saved"""
+  saved: Boolean!
+
+  """Job Application screening answers"""
+  screeningAnswers: String!
+
+  """Job Application status"""
+  status: ApplicationStatus!
+
+  """Job Application user"""
+  user: UserInput!
+}
+
+input JobInput {
+  """Job applications"""
+  applications: [JobApplicationInput!]!
+
+  """Job category"""
+  category: String!
+
+  """Job company"""
+  company: CompanyInput!
+
+  """Job description"""
+  description: String!
+
+  """Job documents"""
+  documents: [FileItemInput!]!
+
+  """Job employment type"""
+  employmentType: String!
+
+  """Job experience level"""
+  experienceLevel: String!
+
+  """Job DateTime"""
+  finished: Date!
+
+  """Job location"""
+  location: LocationInput!
+
+  """Job poster department"""
+  posterDepartment: String!
+
+  """Job poster email"""
+  posterEmail: String!
+
+  """Job poster first name"""
+  posterFirstName: String!
+
+  """Job poster last name"""
+  posterLastName: String!
+
+  """Job poster phone"""
+  posterPhone: String!
+
+  """Job requirements"""
+  requirements: String!
+
+  """Job responsibility"""
+  responsibility: String!
+
+  """Job maximum salary"""
+  salaryMax: Int!
+
+  """Job minimum salary"""
+  salaryMin: Int!
+
+  """Job screening questions"""
+  screeningQuestions: String!
+
+  """Job status"""
+  status: JobStatus!
+
+  """Job tags"""
+  tags: String!
+
+  """Job title"""
+  title: String!
+}
+
+"""Job status"""
+enum JobStatus {
+  Deleted
+  Draft
+  Finished
+  Hiring
+  Posted
+}
+
+"""Location model"""
 type Location {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Location city"""
+  city: String!
+
+  """Location country"""
+  country: LocationCountry!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """Location educations"""
+  educations: [Education!]!
+
+  """Location experiences"""
+  experiences: [Experience!]!
+  id: ID!
+
+  """Location jobs"""
+  jobs: [Job!]!
+
+  """Location latitude"""
+  latitude: Float!
+
+  """Location longitude"""
+  longitude: Float!
+
+  """Location projects"""
+  projects: [Project!]!
+
+  """Location state"""
+  state: LocationState!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """Location users"""
+  users: [User!]!
 }
 
+"""LocationCountry model"""
 type LocationCountry {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+  id: ID!
+
+  """Location Country iso2"""
+  iso2: String!
+
+  """Location Country iso3"""
+  iso3: String!
+
+  """Location Country locations"""
+  locations: [Location!]!
+
+  """Location Country name"""
+  name: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
 }
 
+input LocationCountryInput {
+  """Location Country iso2"""
+  iso2: String!
+
+  """Location Country iso3"""
+  iso3: String!
+
+  """Location Country locations"""
+  locations: [LocationInput!]!
+
+  """Location Country name"""
+  name: String!
+}
+
+input LocationInput {
+  """Location city"""
+  city: String!
+
+  """Location country"""
+  country: LocationCountryInput!
+
+  """Location educations"""
+  educations: [EducationInput!]!
+
+  """Location experiences"""
+  experiences: [ExperienceInput!]!
+
+  """Location jobs"""
+  jobs: [JobInput!]!
+
+  """Location latitude"""
+  latitude: Float!
+
+  """Location longitude"""
+  longitude: Float!
+
+  """Location projects"""
+  projects: [ProjectInput!]!
+
+  """Location state"""
+  state: LocationStateInput!
+
+  """Location users"""
+  users: [UserInput!]!
+}
+
+"""LocationState model"""
 type LocationState {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Location State abbreviation"""
+  abbreviation: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+  id: ID!
+
+  """Location State locations"""
+  locations: [Location!]!
+
+  """Location State name"""
+  name: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+}
+
+input LocationStateInput {
+  """Location State abbreviation"""
+  abbreviation: String!
+
+  """Location State locations"""
+  locations: [LocationInput!]!
+
+  """Location State name"""
+  name: String!
 }
 
 input LoginInput {
@@ -333,104 +1617,221 @@ input LoginInput {
   password: String!
 }
 
+"""MentorshipUser model"""
 type MentorshipUser {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+  id: ID!
+
+  """Is Mentorship have nullable fields"""
+  isHaveNullableFields: Boolean!
+
+  """Is Mentorship have nullable fields"""
+  mentorshipUserFriendsAsReceiver: [MentorshipUserFriend!]!
+
+  """Is Mentorship have nullable fields"""
+  mentorshipUserFriendsAsRequester: [MentorshipUserFriend!]!
+
+  """Is Mentorship user paired"""
+  paired: Boolean!
+
+  """Mentorship User professional level"""
+  professionalLevel: String!
+
+  """Mentorship User professional self-describe"""
+  professionalSelfDescribe: String!
+
+  """Mentorship User quarter start"""
+  quarterStart: String!
+
+  """Mentorship user review status"""
+  reviewStatus: ReviewStatus!
+
+  """Mentorship User self-describe"""
+  selfDescribe: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """Mentorship User"""
+  user: User!
+
+  """Mentorship user type"""
+  userType: MentorshipUserType!
 }
 
+"""Mentorship User Friend model"""
 type MentorshipUserFriend {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+  id: ID!
+
+  """Mentorship User Friend receiver"""
+  receiver: MentorshipUser!
+
+  """Mentorship User Friend sender"""
+  requester: MentorshipUser!
+
+  """Mentorship User Friend status"""
+  status: FriendRequestStatus!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+}
+
+input MentorshipUserFriendInput {
+  """Mentorship User Friend receiver"""
+  receiver: MentorshipUserInput!
+
+  """Mentorship User Friend sender"""
+  requester: MentorshipUserInput!
+
+  """Mentorship User Friend status"""
+  status: FriendRequestStatus!
+}
+
+input MentorshipUserInput {
+  """Is Mentorship have nullable fields"""
+  isHaveNullableFields: Boolean!
+
+  """Is Mentorship have nullable fields"""
+  mentorshipUserFriendsAsReceiver: [MentorshipUserFriendInput!]!
+
+  """Is Mentorship have nullable fields"""
+  mentorshipUserFriendsAsRequester: [MentorshipUserFriendInput!]!
+
+  """Is Mentorship user paired"""
+  paired: Boolean!
+
+  """Mentorship User professional level"""
+  professionalLevel: String!
+
+  """Mentorship User professional self-describe"""
+  professionalSelfDescribe: String!
+
+  """Mentorship User quarter start"""
+  quarterStart: String!
+
+  """Mentorship user review status"""
+  reviewStatus: ReviewStatus!
+
+  """Mentorship User self-describe"""
+  selfDescribe: String!
+
+  """Mentorship User"""
+  user: UserInput!
+
+  """Mentorship user type"""
+  userType: MentorshipUserType!
+}
+
+"""Mentorship user type"""
+enum MentorshipUserType {
+  Both
+  Mentee
+  Mentor
 }
 
 type Mutation {
   changePassword(data: ChangePasswordInput!): User!
   createAward(data: CreateAwardInput!): Award!
-  createBookmarkedJob(createBookmarkedJobInput: CreateBookmarkedJobInput!): BookmarkedJob!
-  createBookmarkedProject(createBookmarkedProjectInput: CreateBookmarkedProjectInput!): BookmarkedProject!
-  createCircle(createCircleInput: CreateCircleInput!): Circle!
-  createCompany(createCompanyInput: CreateCompanyInput!): Company!
-  createEducation(createEducationInput: CreateEducationInput!): Education!
-  createExperience(createExperienceInput: CreateExperienceInput!): Experience!
-  createExternalCompany(createExternalCompanyInput: CreateExternalCompanyInput!): ExternalCompany!
-  createExternalJob(createExternalJobInput: CreateExternalJobInput!): ExternalJob!
-  createFileItem(createFileItemInput: CreateFileItemInput!): FileItem!
-  createFriendRequest(createFriendRequestInput: CreateFriendRequestInput!): FriendRequest!
-  createJob(createJobInput: CreateJobInput!): Job!
-  createJobApplication(createJobApplicationInput: CreateJobApplicationInput!): JobApplication!
-  createLocation(createLocationInput: CreateLocationInput!): Location!
-  createLocationCountry(createLocationCountryInput: CreateLocationCountryInput!): LocationCountry!
-  createLocationState(createLocationStateInput: CreateLocationStateInput!): LocationState!
-  createMentorshipUser(createMentorshipUserInput: CreateMentorshipUserInput!): MentorshipUser!
-  createMentorshipUserFriend(createMentorshipUserFriendInput: CreateMentorshipUserFriendInput!): MentorshipUserFriend!
-  createPicture(createPictureInput: CreatePictureInput!): Picture!
+  createBookmarkedJob(data: CreateBookmarkedJobInput!): BookmarkedJob!
+  createBookmarkedProject(data: CreateBookmarkedProjectInput!): BookmarkedProject!
+  createCircle(data: CreateCircleInput!): Circle!
+  createCompany(data: CreateCompanyInput!): Company!
+  createEducation(data: CreateEducationInput!): Education!
+  createExperience(data: CreateExperienceInput!): Experience!
+  createExternalCompany(data: CreateExternalCompanyInput!): ExternalCompany!
+  createExternalJob(data: CreateExternalJobInput!): ExternalJob!
+  createFileItem(data: CreateFileItemInput!): FileItem!
+  createFriendRequest(data: CreateFriendRequestInput!): FriendRequest!
+  createJob(data: CreateJobInput!): Job!
+  createJobApplication(data: CreateJobApplicationInput!): JobApplication!
+  createLocation(data: CreateLocationInput!): Location!
+  createLocationCountry(data: CreateLocationCountryInput!): LocationCountry!
+  createLocationState(data: CreateLocationStateInput!): LocationState!
+  createMentorshipUser(data: CreateMentorshipUserInput!): MentorshipUser!
+  createMentorshipUserFriend(data: CreateMentorshipUserFriendInput!): MentorshipUserFriend!
+  createPicture(data: CreatePictureInput!): Picture!
   createPost(data: CreatePostInput!): Post!
-  createProject(createProjectInput: CreateProjectInput!): Project!
-  createProjectApplication(createProjectApplicationInput: CreateProjectApplicationInput!): ProjectApplication!
-  createProjectPosition(createProjectPositionInput: CreateProjectPositionInput!): ProjectPosition!
-  createSetting(createSettingInput: CreateSettingInput!): Setting!
-  createTalent(createTalentInput: CreateTalentInput!): Talent!
-  createUserCircle(createUserCircleInput: CreateUserCircleInput!): UserCircle!
-  createViewedJob(createViewedJobInput: CreateViewedJobInput!): ViewedJob!
-  createViewedProject(createViewedProjectInput: CreateViewedProjectInput!): ViewedProject!
+  createProject(data: CreateProjectInput!): Project!
+  createProjectApplication(data: CreateProjectApplicationInput!): ProjectApplication!
+  createProjectPosition(data: CreateProjectPositionInput!): ProjectPosition!
+  createSetting(data: CreateSettingInput!): Setting!
+  createTalent(data: CreateTalentInput!): Talent!
+  createUserCircle(data: CreateUserCircleInput!): UserCircle!
+  createViewedJob(data: CreateViewedJobInput!): ViewedJob!
+  createViewedProject(data: CreateViewedProjectInput!): ViewedProject!
   login(data: LoginInput!): Auth!
   refreshToken(token: String!): Token!
-  removeAward(id: Int!): Award!
-  removeBookmarkedJob(id: Int!): BookmarkedJob!
-  removeBookmarkedProject(id: Int!): BookmarkedProject!
-  removeCircle(id: Int!): Circle!
-  removeCompany(id: Int!): Company!
-  removeEducation(id: Int!): Education!
-  removeExperience(id: Int!): Experience!
-  removeExternalCompany(id: Int!): ExternalCompany!
-  removeExternalJob(id: Int!): ExternalJob!
-  removeFileItem(id: Int!): FileItem!
-  removeFriendRequest(id: Int!): FriendRequest!
-  removeJob(id: Int!): Job!
-  removeJobApplication(id: Int!): JobApplication!
-  removeLocation(id: Int!): Location!
-  removeLocationCountry(id: Int!): LocationCountry!
-  removeLocationState(id: Int!): LocationState!
-  removeMentorshipUser(id: Int!): MentorshipUser!
-  removeMentorshipUserFriend(id: Int!): MentorshipUserFriend!
-  removePicture(id: Int!): Picture!
-  removeProject(id: Int!): Project!
-  removeProjectApplication(id: Int!): ProjectApplication!
-  removeProjectPosition(id: Int!): ProjectPosition!
-  removeSetting(id: Int!): Setting!
-  removeTalent(id: Int!): Talent!
-  removeUserCircle(id: Int!): UserCircle!
-  removeViewedJob(id: Int!): ViewedJob!
-  removeViewedProject(id: Int!): ViewedProject!
+  removeAward(id: String!): Award!
+  removeBookmarkedJob(id: String!): BookmarkedJob!
+  removeBookmarkedProject(id: String!): BookmarkedProject!
+  removeCircle(id: String!): Circle!
+  removeCompany(id: String!): Company!
+  removeEducation(id: String!): Education!
+  removeExperience(id: String!): Experience!
+  removeExternalCompany(id: String!): ExternalCompany!
+  removeExternalJob(id: String!): ExternalJob!
+  removeFileItem(id: String!): FileItem!
+  removeFriendRequest(id: String!): FriendRequest!
+  removeJob(id: String!): Job!
+  removeJobApplication(id: String!): JobApplication!
+  removeLocation(id: String!): Location!
+  removeLocationCountry(id: String!): LocationCountry!
+  removeLocationState(id: String!): LocationState!
+  removeMentorshipUser(id: String!): MentorshipUser!
+  removeMentorshipUserFriend(id: String!): MentorshipUserFriend!
+  removePicture(id: String!): Picture!
+  removeProject(id: String!): Project!
+  removeProjectApplication(id: String!): ProjectApplication!
+  removeProjectPosition(id: String!): ProjectPosition!
+  removeSetting(id: String!): Setting!
+  removeTalent(id: String!): Talent!
+  removeUserCircle(id: String!): UserCircle!
+  removeViewedJob(id: String!): ViewedJob!
+  removeViewedProject(id: String!): ViewedProject!
   signup(data: SignupInput!): Auth!
   updateAward(data: UpdateAwardInput!): Award!
-  updateBookmarkedJob(updateBookmarkedJobInput: UpdateBookmarkedJobInput!): BookmarkedJob!
-  updateBookmarkedProject(updateBookmarkedProjectInput: UpdateBookmarkedProjectInput!): BookmarkedProject!
-  updateCircle(updateCircleInput: UpdateCircleInput!): Circle!
-  updateCompany(updateCompanyInput: UpdateCompanyInput!): Company!
-  updateEducation(updateEducationInput: UpdateEducationInput!): Education!
-  updateExperience(updateExperienceInput: UpdateExperienceInput!): Experience!
-  updateExternalCompany(updateExternalCompanyInput: UpdateExternalCompanyInput!): ExternalCompany!
-  updateExternalJob(updateExternalJobInput: UpdateExternalJobInput!): ExternalJob!
-  updateFileItem(updateFileItemInput: UpdateFileItemInput!): FileItem!
-  updateFriendRequest(updateFriendRequestInput: UpdateFriendRequestInput!): FriendRequest!
-  updateJob(updateJobInput: UpdateJobInput!): Job!
-  updateJobApplication(updateJobApplicationInput: UpdateJobApplicationInput!): JobApplication!
-  updateLocation(updateLocationInput: UpdateLocationInput!): Location!
-  updateLocationCountry(updateLocationCountryInput: UpdateLocationCountryInput!): LocationCountry!
-  updateLocationState(updateLocationStateInput: UpdateLocationStateInput!): LocationState!
-  updateMentorshipUser(updateMentorshipUserInput: UpdateMentorshipUserInput!): MentorshipUser!
-  updateMentorshipUserFriend(updateMentorshipUserFriendInput: UpdateMentorshipUserFriendInput!): MentorshipUserFriend!
-  updatePicture(updatePictureInput: UpdatePictureInput!): Picture!
-  updateProject(updateProjectInput: UpdateProjectInput!): Project!
-  updateProjectApplication(updateProjectApplicationInput: UpdateProjectApplicationInput!): ProjectApplication!
-  updateProjectPosition(updateProjectPositionInput: UpdateProjectPositionInput!): ProjectPosition!
-  updateSetting(updateSettingInput: UpdateSettingInput!): Setting!
-  updateTalent(updateTalentInput: UpdateTalentInput!): Talent!
+  updateBookmarkedJob(data: UpdateBookmarkedJobInput!): BookmarkedJob!
+  updateBookmarkedProject(data: UpdateBookmarkedProjectInput!): BookmarkedProject!
+  updateCircle(data: UpdateCircleInput!): Circle!
+  updateCompany(data: UpdateCompanyInput!): Company!
+  updateEducation(data: UpdateEducationInput!): Education!
+  updateExperience(data: UpdateExperienceInput!): Experience!
+  updateExternalCompany(data: UpdateExternalCompanyInput!): ExternalCompany!
+  updateExternalJob(data: UpdateExternalJobInput!): ExternalJob!
+  updateFileItem(data: UpdateFileItemInput!): FileItem!
+  updateFriendRequest(data: UpdateFriendRequestInput!): FriendRequest!
+  updateJob(data: UpdateJobInput!): Job!
+  updateJobApplication(data: UpdateJobApplicationInput!): JobApplication!
+  updateLocation(data: UpdateLocationInput!): Location!
+  updateLocationCountry(data: UpdateLocationCountryInput!): LocationCountry!
+  updateLocationState(data: UpdateLocationStateInput!): LocationState!
+  updateMentorshipUser(data: UpdateMentorshipUserInput!): MentorshipUser!
+  updateMentorshipUserFriend(data: UpdateMentorshipUserFriendInput!): MentorshipUserFriend!
+  updatePicture(data: UpdatePictureInput!): Picture!
+  updateProject(data: UpdateProjectInput!): Project!
+  updateProjectApplication(data: UpdateProjectApplicationInput!): ProjectApplication!
+  updateProjectPosition(data: UpdateProjectPositionInput!): ProjectPosition!
+  updateSetting(data: UpdateSettingInput!): Setting!
+  updateTalent(data: UpdateTalentInput!): Talent!
   updateUser(data: UpdateUserInput!): User!
-  updateUserCircle(updateUserCircleInput: UpdateUserCircleInput!): UserCircle!
-  updateViewedJob(updateViewedJobInput: UpdateViewedJobInput!): ViewedJob!
-  updateViewedProject(updateViewedProjectInput: UpdateViewedProjectInput!): ViewedProject!
+  updateUserCircle(data: UpdateUserCircleInput!): UserCircle!
+  updateViewedJob(data: UpdateViewedJobInput!): ViewedJob!
+  updateViewedProject(data: UpdateViewedProjectInput!): ViewedProject!
 }
 
 """
@@ -448,9 +1849,70 @@ type PageInfo {
   startCursor: String
 }
 
+"""Picture model"""
 type Picture {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """Picture description"""
+  description: String!
+  id: ID!
+
+  """Is Picture a video"""
+  isVideo: Boolean!
+
+  """Picture number position"""
+  numberPosition: Int!
+
+  """Picture page"""
+  page: String!
+
+  """Picture picture link"""
+  pictureLink: String!
+
+  """Picture redirect link"""
+  redirectLink: String!
+
+  """Picture title"""
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+}
+
+input PictureInput {
+  """Picture description"""
+  description: String!
+
+  """Is Picture a video"""
+  isVideo: Boolean!
+
+  """Picture number position"""
+  numberPosition: Int!
+
+  """Picture page"""
+  page: String!
+
+  """Picture picture link"""
+  pictureLink: String!
+
+  """Picture redirect link"""
+  redirectLink: String!
+
+  """Picture title"""
+  title: String!
+}
+
+"""Position status"""
+enum PositionStatus {
+  Filled
+  Hiring
 }
 
 type Post {
@@ -484,6 +1946,13 @@ type PostEdge {
   node: Post!
 }
 
+input PostInput {
+  author: UserInput!
+  content: String!
+  published: Boolean!
+  title: String!
+}
+
 input PostOrder {
   direction: OrderDirection!
   field: PostOrderField!
@@ -499,56 +1968,313 @@ enum PostOrderField {
   updatedAt
 }
 
+"""Project model"""
 type Project {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Project bookmarked"""
+  bookmarkedProjects: [BookmarkedProject!]!
+
+  """Project child elder details"""
+  childElderDetails: String!
+
+  """Project cover image"""
+  coverImage: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """Project description"""
+  description: String!
+
+  """Project documents"""
+  documents: [FileItem!]!
+
+  """Project finished"""
+  finished: Date!
+
+  """Project housing details"""
+  housingDetails: String!
+  id: ID!
+
+  """Project keywords"""
+  keywords: String!
+
+  """Project location"""
+  location: Location!
+
+  """Is Project paid"""
+  paid: Boolean!
+
+  """Project applications"""
+  projectApplications: [ProjectApplication!]!
+
+  """Project project positions"""
+  projectPositions: [ProjectPosition!]!
+
+  """Project schedule"""
+  schedule: String!
+
+  """Project status"""
+  status: JobStatus!
+
+  """Project title"""
+  title: String!
+
+  """Project type"""
+  type: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """Project user"""
+  user: User!
+
+  """Project views"""
+  viewedProjects: [ViewedProject!]!
 }
 
+"""Project Application model"""
 type ProjectApplication {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Project Application cover-letter"""
+  coverLetter: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Project Application CV"""
+  cv: FileItem!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+  id: ID!
+
+  """Project Application project"""
+  project: Project!
+
+  """Project Application project position"""
+  projectPosition: ProjectPosition!
+
+  """Is Project Application saved"""
+  saved: Boolean!
+
+  """Project Application status"""
+  status: ApplicationStatus!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """Project Application user"""
+  user: User!
 }
 
+input ProjectApplicationInput {
+  """Project Application cover-letter"""
+  coverLetter: String!
+
+  """Project Application CV"""
+  cv: FileItemInput!
+
+  """Project Application project"""
+  project: ProjectInput!
+
+  """Project Application project position"""
+  projectPosition: ProjectPositionInput!
+
+  """Is Project Application saved"""
+  saved: Boolean!
+
+  """Project Application status"""
+  status: ApplicationStatus!
+
+  """Project Application user"""
+  user: UserInput!
+}
+
+input ProjectInput {
+  """Project bookmarked"""
+  bookmarkedProjects: [BookmarkedProjectInput!]!
+
+  """Project child elder details"""
+  childElderDetails: String!
+
+  """Project cover image"""
+  coverImage: String!
+
+  """Project description"""
+  description: String!
+
+  """Project documents"""
+  documents: [FileItemInput!]!
+
+  """Project finished"""
+  finished: Date!
+
+  """Project housing details"""
+  housingDetails: String!
+
+  """Project keywords"""
+  keywords: String!
+
+  """Project location"""
+  location: LocationInput!
+
+  """Is Project paid"""
+  paid: Boolean!
+
+  """Project applications"""
+  projectApplications: [ProjectApplicationInput!]!
+
+  """Project project positions"""
+  projectPositions: [ProjectPositionInput!]!
+
+  """Project schedule"""
+  schedule: String!
+
+  """Project status"""
+  status: JobStatus!
+
+  """Project title"""
+  title: String!
+
+  """Project type"""
+  type: String!
+
+  """Project user"""
+  user: UserInput!
+
+  """Project views"""
+  viewedProjects: [ViewedProjectInput!]!
+}
+
+"""Project Position model"""
 type ProjectPosition {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Project Position additional requirements"""
+  additionalRequirements: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """Project Position finished date"""
+  finished: Date!
+
+  """Project Position gender"""
+  gender: Gender!
+  id: ID!
+
+  """Project Position maximum age"""
+  maxAge: Int!
+
+  """Project Position minimum age"""
+  minAge: Int!
+
+  """Project Position project"""
+  project: Project!
+
+  """Project Position applications"""
+  projectApplications: [ProjectApplication!]!
+
+  """Project Position role description"""
+  roleDescription: String!
+
+  """Project Position status"""
+  status: PositionStatus!
+
+  """Project Position type"""
+  type: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+}
+
+input ProjectPositionInput {
+  """Project Position additional requirements"""
+  additionalRequirements: String!
+
+  """Project Position finished date"""
+  finished: Date!
+
+  """Project Position gender"""
+  gender: Gender!
+
+  """Project Position maximum age"""
+  maxAge: Int!
+
+  """Project Position minimum age"""
+  minAge: Int!
+
+  """Project Position project"""
+  project: ProjectInput!
+
+  """Project Position applications"""
+  projectApplications: [ProjectApplicationInput!]!
+
+  """Project Position role description"""
+  roleDescription: String!
+
+  """Project Position status"""
+  status: PositionStatus!
+
+  """Project Position type"""
+  type: String!
 }
 
 type Query {
   allAwards: [Award!]!
-  award(id: Int!): Award!
-  bookmarkedJob(id: Int!): BookmarkedJob!
-  bookmarkedProject(id: Int!): BookmarkedProject!
-  circle(id: Int!): Circle!
-  company(id: Int!): Company!
-  education(id: Int!): Education!
-  experience(id: Int!): Experience!
-  externalCompany(id: Int!): ExternalCompany!
-  externalJob(id: Int!): ExternalJob!
-  fileItem(id: Int!): FileItem!
-  friendRequest(id: Int!): FriendRequest!
+  award(id: String!): Award!
+  bookmarkedJob(id: String!): BookmarkedJob!
+  bookmarkedProject(id: String!): BookmarkedProject!
+  circle(id: String!): Circle!
+  company(id: String!): Company!
+  education(id: String!): Education!
+  experience(id: String!): Experience!
+  externalCompany(id: String!): ExternalCompany!
+  externalJob(id: String!): ExternalJob!
+  fileItem(id: String!): FileItem!
+  friendRequest(id: String!): FriendRequest!
   hello(name: String!): String!
   helloWorld: String!
-  job(id: Int!): Job!
-  jobApplication(id: Int!): JobApplication!
-  location(id: Int!): Location!
-  locationCountry(id: Int!): LocationCountry!
-  locationState(id: Int!): LocationState!
+  job(id: String!): Job!
+  jobApplication(id: String!): JobApplication!
+  location(id: String!): Location!
+  locationCountry(id: String!): LocationCountry!
+  locationState(id: String!): LocationState!
   me: User!
-  mentorshipUser(id: Int!): MentorshipUser!
-  mentorshipUserFriend(id: Int!): MentorshipUserFriend!
-  picture(id: Int!): Picture!
+  mentorshipUser(id: String!): MentorshipUser!
+  mentorshipUserFriend(id: String!): MentorshipUserFriend!
+  picture(id: String!): Picture!
   post(postId: String!): Post!
-  project(id: Int!): Project!
-  projectApplication(id: Int!): ProjectApplication!
-  projectPosition(id: Int!): ProjectPosition!
+  project(id: String!): Project!
+  projectApplication(id: String!): ProjectApplication!
+  projectPosition(id: String!): ProjectPosition!
   publishedPosts(after: String, before: String, first: Int, last: Int, orderBy: PostOrder, query: String, skip: Int): PostConnection!
-  setting(id: Int!): Setting!
-  talent(id: Int!): Talent!
-  userCircle(id: Int!): UserCircle!
+  setting(id: String!): Setting!
+  talent(id: String!): Talent!
+  userCircle(id: String!): UserCircle!
   userPosts(userId: String!): [Post!]!
-  viewedJob(id: Int!): ViewedJob!
-  viewedProject(id: Int!): ViewedProject!
+  viewedJob(id: String!): ViewedJob!
+  viewedProject(id: String!): ViewedProject!
+}
+
+"""Review status"""
+enum ReviewStatus {
+  Approved
+  Deleted
+  Rejected
+  Waiting
 }
 
 """User role"""
@@ -557,9 +2283,64 @@ enum Role {
   USER
 }
 
+"""Setting model"""
 type Setting {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """Setting email Phone Visible To All Talents"""
+  emailPhoneVisibleToAllTalents: Boolean!
+  id: ID!
+
+  """Setting notification Feed Update"""
+  notificationFeedUpdate: Boolean!
+
+  """Setting notification New Connection Accepted"""
+  notificationNewConnectionAccepted: Boolean!
+
+  """Setting notification New Connection Request"""
+  notificationNewConnectionRequest: Boolean!
+
+  """Setting private Visible To All Companies"""
+  privateVisibleToAllCompanies: Boolean!
+
+  """Setting private VisibleToAllTalents"""
+  privateVisibleToAllTalents: Boolean!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """Setting user"""
+  user: User!
+}
+
+input SettingInput {
+  """Setting email Phone Visible To All Talents"""
+  emailPhoneVisibleToAllTalents: Boolean!
+
+  """Setting notification Feed Update"""
+  notificationFeedUpdate: Boolean!
+
+  """Setting notification New Connection Accepted"""
+  notificationNewConnectionAccepted: Boolean!
+
+  """Setting notification New Connection Request"""
+  notificationNewConnectionRequest: Boolean!
+
+  """Setting private Visible To All Companies"""
+  privateVisibleToAllCompanies: Boolean!
+
+  """Setting private VisibleToAllTalents"""
+  privateVisibleToAllTalents: Boolean!
+
+  """Setting user"""
+  user: UserInput!
 }
 
 input SignupInput {
@@ -574,9 +2355,130 @@ type Subscription {
   postCreated: Post!
 }
 
+"""Talent model"""
 type Talent {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Talent available locations"""
+  availableLocations: String!
+
+  """Talent biography"""
+  biography: String!
+
+  """Talent birthday"""
+  birthday: Date!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+
+  """Talent ethnicity"""
+  ethnicity: String!
+
+  """Talent gender"""
+  gender: Gender!
+
+  """Talent height"""
+  height: Int!
+
+  """Talent height unit"""
+  heightUnit: String!
+  id: ID!
+
+  """Talent industry"""
+  industry: String!
+
+  """Talent interests"""
+  interests: String!
+
+  """Talent job title"""
+  jobTitle: String!
+
+  """Talent languages"""
+  languages: String!
+
+  """Talent profession"""
+  profession: String!
+
+  """Talent skills"""
+  skills: String!
+
+  """Talent union status"""
+  unionStatus: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """Talent user"""
+  user: User!
+
+  """Talent website"""
+  website: String!
+
+  """Talent weight"""
+  weight: Int!
+
+  """Talent weight unit"""
+  weightUnit: String!
+}
+
+input TalentInput {
+  """Talent available locations"""
+  availableLocations: String!
+
+  """Talent biography"""
+  biography: String!
+
+  """Talent birthday"""
+  birthday: Date!
+
+  """Talent ethnicity"""
+  ethnicity: String!
+
+  """Talent gender"""
+  gender: Gender!
+
+  """Talent height"""
+  height: Int!
+
+  """Talent height unit"""
+  heightUnit: String!
+
+  """Talent industry"""
+  industry: String!
+
+  """Talent interests"""
+  interests: String!
+
+  """Talent job title"""
+  jobTitle: String!
+
+  """Talent languages"""
+  languages: String!
+
+  """Talent profession"""
+  profession: String!
+
+  """Talent skills"""
+  skills: String!
+
+  """Talent union status"""
+  unionStatus: String!
+
+  """Talent user"""
+  user: UserInput!
+
+  """Talent website"""
+  website: String!
+
+  """Talent weight"""
+  weight: Int!
+
+  """Talent weight unit"""
+  weightUnit: String!
 }
 
 type Token {
@@ -588,7 +2490,7 @@ type Token {
 }
 
 input UpdateAwardInput {
-  """PrimaryKey of Award(placeholder)"""
+  """PrimaryKey"""
   id: String!
 
   """Year the award is given (2022)"""
@@ -597,7 +2499,7 @@ input UpdateAwardInput {
   """Award organization (Ensemble)"""
   organization: String
 
-  """Award title (Best Actor)"""
+  """User to receive the Award(Eze)"""
   title: String
 
   """User to receive the Award(Eze)"""
@@ -605,201 +2507,781 @@ input UpdateAwardInput {
 }
 
 input UpdateBookmarkedJobInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  id: String!
+
+  """Job Bookmarked by User"""
+  job: JobInput
+
+  """BookmarkedJob by User"""
+  user: UserInput
 }
 
 input UpdateBookmarkedProjectInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """PrimaryKey"""
+  id: String!
+
+  """Bookmarked Project"""
+  project: ProjectInput
+
+  """User who Bookmarked Project"""
+  user: UserInput
 }
 
 input UpdateCircleInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Circle description """
+  description: String
+
+  """PrimaryKey"""
+  id: String!
+
+  """Circle logo """
+  logo: String
+
+  """Name of the Circle"""
+  name: String
+
+  """Circle title """
+  title: String
 }
 
 input UpdateCompanyInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Company contactor Department"""
+  contactorDepartment: String
+
+  """Company contactor Email"""
+  contactorEmail: String
+
+  """Company contactor Job Title"""
+  contactorJobTitle: String
+
+  """Company contactor Name"""
+  contactorName: String
+
+  """Company contactor Phone"""
+  contactorPhone: String
+
+  """Company number of employees"""
+  employees: Int
+
+  """Company fields"""
+  fields: String
+
+  """PrimaryKey"""
+  id: String!
+
+  """Company industry"""
+  industry: String
+
+  """Company introduction"""
+  introduction: String
+
+  """Company owner as User"""
+  jobs: JobInput
+
+  """Name of the Company"""
+  name: String
+
+  """Company skills"""
+  skills: String
+
+  """Company owner as User"""
+  user: UserInput
+
+  """Company website"""
+  website: String
 }
 
 input UpdateEducationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Education end Month"""
+  endMonth: Int
+
+  """Education end Year"""
+  endYear: Int
+
+  """PrimaryKey"""
+  id: String!
+
+  """Education location"""
+  location: LocationInput
+
+  """Education schoolName"""
+  schoolName: String
+
+  """Education start Month"""
+  startMonth: Int
+
+  """Education start Year"""
+  startYear: Int
+
+  """Education title"""
+  title: String
+
+  """Education owner as User"""
+  user: UserInput
 }
 
 input UpdateExperienceInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Experience company"""
+  company: String
+
+  """Experience description"""
+  description: String
+
+  """Experience end Month"""
+  endMonth: Int
+
+  """Experience end Year"""
+  endYear: Int
+
+  """PrimaryKey"""
+  id: String!
+
+  """Experience location"""
+  location: LocationInput
+
+  """Experience role"""
+  role: String
+
+  """Experience start Month"""
+  startMonth: Int
+
+  """Experience start Year"""
+  startYear: Int
+
+  """Experience title"""
+  title: String
+
+  """Experience type"""
+  type: String
+
+  """Experience owner as User"""
+  user: UserInput
 }
 
 input UpdateExternalCompanyInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """External Company name"""
+  companyName: String
+
+  """External Company externalJob"""
+  externalJobs: [ExternalJobInput!]
+
+  """PrimaryKey"""
+  id: String!
+
+  """External Company logo link"""
+  logoLink: String
 }
 
 input UpdateExternalJobInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """External Job categories"""
+  categories: String
+
+  """External Company"""
+  externalCompany: ExternalCompanyInput
+
+  """PrimaryKey"""
+  id: String!
+
+  """External Job link"""
+  jobLink: String
+
+  """External Job"""
+  jobs: [JobInput!]
 }
 
 input UpdateFileItemInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """File Item fileType"""
+  fileType: FileType
+
+  """PrimaryKey"""
+  id: String!
+
+  """File Item link"""
+  link: String
+
+  """File Item name"""
+  name: String
+
+  """File Item user"""
+  user: UserInput
 }
 
 input UpdateFriendRequestInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """PrimaryKey"""
+  id: String!
+
+  """Friend Request receiver"""
+  receiver: UserInput
+
+  """Friend Request sender"""
+  requester: UserInput
+
+  """Friend Request status"""
+  status: FriendRequestStatus
 }
 
 input UpdateJobApplicationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Job Application cover-letter"""
+  coverLetter: String
+
+  """Job Application cv"""
+  cv: FileType
+
+  """PrimaryKey"""
+  id: String!
+
+  """Job Application job"""
+  job: JobInput
+
+  """Job Application saved"""
+  saved: Boolean
+
+  """Job Application screening answers"""
+  screeningAnswers: String
+
+  """Job Application status"""
+  status: ApplicationStatus
+
+  """Job Application user"""
+  user: UserInput
 }
 
 input UpdateJobInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Job applications"""
+  applications: [JobApplicationInput!]
+
+  """Job category"""
+  category: String
+
+  """Job company"""
+  company: CompanyInput
+
+  """Job description"""
+  description: String
+
+  """Job documents"""
+  documents: [FileItemInput!]
+
+  """Job employment type"""
+  employmentType: String
+
+  """Job experience level"""
+  experienceLevel: String
+
+  """Job DateTime"""
+  finished: Date
+
+  """PrimaryKey"""
+  id: String!
+
+  """Job location"""
+  location: LocationInput
+
+  """Job poster department"""
+  posterDepartment: String
+
+  """Job poster email"""
+  posterEmail: String
+
+  """Job poster first name"""
+  posterFirstName: String
+
+  """Job poster last name"""
+  posterLastName: String
+
+  """Job poster phone"""
+  posterPhone: String
+
+  """Job requirements"""
+  requirements: String
+
+  """Job responsibility"""
+  responsibility: String
+
+  """Job maximum salary"""
+  salaryMax: Int
+
+  """Job minimum salary"""
+  salaryMin: Int
+
+  """Job screening questions"""
+  screeningQuestions: String
+
+  """Job status"""
+  status: JobStatus
+
+  """Job tags"""
+  tags: String
+
+  """Job title"""
+  title: String
 }
 
 input UpdateLocationCountryInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """PrimaryKey"""
+  id: String!
+
+  """Location Country iso2"""
+  iso2: String
+
+  """Location Country iso3"""
+  iso3: String
+
+  """Location Country locations"""
+  locations: [LocationInput!]
+
+  """Location Country name"""
+  name: String
 }
 
 input UpdateLocationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Location city"""
+  city: String
+
+  """Location country"""
+  country: LocationCountryInput
+
+  """PrimaryKey"""
+  id: String!
+
+  """Location latitude"""
+  latitude: Float
+
+  """Location longitude"""
+  longitude: Float
+
+  """Location state"""
+  state: LocationStateInput
 }
 
 input UpdateLocationStateInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Location State abbreviation"""
+  abbreviation: String
+
+  """PrimaryKey"""
+  id: String!
+
+  """Location State locations"""
+  locations: [LocationInput!]
+
+  """Location State name"""
+  name: String
 }
 
 input UpdateMentorshipUserFriendInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """PrimaryKey"""
+  id: String!
+
+  """Mentorship User Friend receiver"""
+  receiver: MentorshipUserInput
+
+  """Mentorship User Friend sender"""
+  requester: MentorshipUserInput
+
+  """Mentorship User Friend status"""
+  status: FriendRequestStatus
 }
 
 input UpdateMentorshipUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """PrimaryKey"""
+  id: String!
+
+  """Is Mentorship have nullable fields"""
+  isHaveNullableFields: Boolean
+
+  """Is Mentorship user paired"""
+  paired: Boolean
+
+  """Mentorship User professional level"""
+  professionalLevel: String
+
+  """Mentorship User professional self-describe"""
+  professionalSelfDescribe: String
+
+  """Mentorship User quarter start"""
+  quarterStart: String
+
+  """Mentorship user review status"""
+  reviewStatus: ReviewStatus
+
+  """Mentorship User self-describe"""
+  selfDescribe: String
+
+  """Mentorship User"""
+  user: UserInput
+
+  """Mentorship user type"""
+  userType: MentorshipUserType
 }
 
 input UpdatePictureInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Picture description"""
+  description: String
+
+  """PrimaryKey"""
+  id: String!
+
+  """Is Picture a video"""
+  isVideo: Boolean
+
+  """Picture number position"""
+  numberPosition: Int
+
+  """Picture page"""
+  page: String
+
+  """Picture picture link"""
+  pictureLink: String
+
+  """Picture redirect link"""
+  redirectLink: String
+
+  """Picture title"""
+  title: String
 }
 
 input UpdateProjectApplicationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Project Application cover-letter"""
+  coverLetter: String
+
+  """Project Application CV"""
+  cv: FileItemInput
+
+  """PrimaryKey"""
+  id: String!
+
+  """Project Application project"""
+  project: ProjectInput
+
+  """Project Application project position"""
+  projectPosition: ProjectPositionInput
+
+  """Is Project Application saved"""
+  saved: Boolean
+
+  """Project Application status"""
+  status: ApplicationStatus
+
+  """Project Application user"""
+  user: UserInput
 }
 
 input UpdateProjectInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Project child elder details"""
+  childElderDetails: String
+
+  """Project cover image"""
+  coverImage: String
+
+  """Project description"""
+  description: String
+
+  """Project documents"""
+  documents: [FileItemInput!]
+
+  """Project finished"""
+  finished: Date
+
+  """Project housing details"""
+  housingDetails: String
+
+  """PrimaryKey"""
+  id: String!
+
+  """Project keywords"""
+  keywords: String
+
+  """Project location"""
+  location: LocationInput
+
+  """Is Project paid"""
+  paid: Boolean
+
+  """Project project positions"""
+  projectPositions: [ProjectPositionInput!]
+
+  """Project schedule"""
+  schedule: String
+
+  """Project status"""
+  status: JobStatus
+
+  """Project title"""
+  title: String
+
+  """Project type"""
+  type: String
+
+  """Project user"""
+  user: UserInput
 }
 
 input UpdateProjectPositionInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Project Position additional requirements"""
+  additionalRequirements: String
+
+  """Project Position finished date"""
+  finished: Date
+
+  """Project Position gender"""
+  gender: Gender
+
+  """PrimaryKey"""
+  id: String!
+
+  """Project Position maximum age"""
+  maxAge: Int
+
+  """Project Position minimum age"""
+  minAge: Int
+
+  """Project Position project"""
+  project: ProjectInput
+
+  """Project Position role description"""
+  roleDescription: String
+
+  """Project Position status"""
+  status: PositionStatus
+
+  """Project Position type"""
+  type: String
 }
 
 input UpdateSettingInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Setting email Phone Visible To All Talents"""
+  emailPhoneVisibleToAllTalents: Boolean
+
+  """PrimaryKey"""
+  id: String!
+
+  """Setting notification Feed Update"""
+  notificationFeedUpdate: Boolean
+
+  """Setting notification New Connection Accepted"""
+  notificationNewConnectionAccepted: Boolean
+
+  """Setting notification New Connection Request"""
+  notificationNewConnectionRequest: Boolean
+
+  """Setting private Visible To All Companies"""
+  privateVisibleToAllCompanies: Boolean
+
+  """Setting private VisibleToAllTalents"""
+  privateVisibleToAllTalents: Boolean
+
+  """Setting user"""
+  user: UserInput
 }
 
 input UpdateTalentInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Talent available locations"""
+  availableLocations: String
+
+  """Talent biography"""
+  biography: String
+
+  """Talent birthday"""
+  birthday: Date
+
+  """Talent ethnicity"""
+  ethnicity: String
+
+  """Talent gender"""
+  gender: Gender
+
+  """Talent height"""
+  height: Int
+
+  """Talent height unit"""
+  heightUnit: String
+
+  """PrimaryKey"""
+  id: String!
+
+  """Talent industry"""
+  industry: String
+
+  """Talent interests"""
+  interests: String
+
+  """Talent job title"""
+  jobTitle: String
+
+  """Talent languages"""
+  languages: String
+
+  """Talent profession"""
+  profession: String
+
+  """Talent skills"""
+  skills: String
+
+  """Talent union status"""
+  unionStatus: String
+
+  """Talent user"""
+  user: UserInput
+
+  """Talent website"""
+  website: String
+
+  """Talent weight"""
+  weight: Int
+
+  """Talent weight unit"""
+  weightUnit: String
 }
 
 input UpdateUserCircleInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """User Circle"""
+  circle: CircleInput
+
+  """PrimaryKey"""
+  id: String!
+
+  """User Circle status"""
+  status: UserCircleStatus
+
+  """User Circle user"""
+  user: UserInput
 }
 
 input UpdateUserInput {
-  accountStatus: String
+  """User account status"""
+  accountStatus: AccountStatus
+
+  """User address"""
   address: String
+
+  """User avatar URL"""
   avatarUrl: String
-  company: String
-  companyId: String
+
+  """User Company"""
+  company: CompanyInput
+
+  """User coverImage"""
   coverImage: String
-  emailVerified: String
-  experience: String
+
+  """Has User email been verified"""
+  emailVerified: Boolean
+
+  """User experiences"""
+  experiences: [ExperienceInput!]
+
+  """User facebook URL"""
   facebookUrl: String
-  files: String
+
+  """User files"""
+  files: [FileItemInput!]
+
+  """User first name"""
   firstName: String
+
+  """User instagram URL"""
   instagramUrl: String
+
+  """User last name"""
   lastName: String
+
+  """User linkedin URL"""
   linkedinUrl: String
-  location: String
-  locationId: String
+
+  """User location"""
+  location: LocationInput
+
+  """User overview"""
   overview: String
+
+  """User permissions"""
   permissions: String
+
+  """User phone number"""
   phoneNumber: String
+
+  """User authentication provider"""
   provider: String
-  providerId: String
+
+  """User restore password code"""
   restorePasswordCode: String
-  sendbirdJoined: String
+
+  """User role"""
+  role: Role!
+
+  """User sendbird joined"""
+  sendbirdJoined: Boolean
+
+  """User settings"""
   settings: String
-  streamJoined: String
-  talent: String
+
+  """User stream joined"""
+  streamJoined: Boolean
+
+  """User Talent"""
+  talent: TalentInput
+
+  """User twitter URL"""
   twitterUrl: String
+
+  """User type"""
   userType: String
+
+  """User username"""
   username: String
+
+  """User website"""
   website: String
+
+  """User youtube URL"""
   youtubeUrl: String
 }
 
 input UpdateViewedJobInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """PrimaryKey"""
+  id: String!
+
+  """Viewed Job"""
+  job: JobInput
+
+  """Viewed Job user"""
+  user: UserInput
 }
 
 input UpdateViewedProjectInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """PrimaryKey"""
+  id: String!
+
+  """Viewed Project"""
+  project: ProjectInput
+
+  """Viewed Project user"""
+  user: UserInput
 }
 
+"""User model"""
 type User {
-  accountStatus: String
+  """User account status"""
+  accountStatus: AccountStatus
+
+  """User address"""
   address: String
+
+  """User avatar URL"""
   avatarUrl: String
-  company: String
-  companyId: String
+
+  """User awards"""
+  awards: [Award!]
+
+  """User bookmarked jobs"""
+  bookmarkedJobs: [BookmarkedJob!]
+
+  """User bookmarked projects"""
+  bookmarkedProjects: [BookmarkedProject!]
+
+  """User Company"""
+  company: Company
+
+  """User coverImage"""
   coverImage: String
 
   """Identifies the date and time when the object was created."""
@@ -810,51 +3292,355 @@ type User {
 
   """Identifies the date and time when the object was created."""
   deletedAt: Date!
+
+  """User education history"""
+  educations: [Education!]
+
+  """User email address"""
   email: String!
-  emailVerified: String
-  experience: String
+
+  """Has User email been verified"""
+  emailVerified: Boolean
+
+  """User experiences"""
+  experiences: [Experience!]
+
+  """User facebook URL"""
   facebookUrl: String
-  files: String
+
+  """User files"""
+  files: [FileItem!]
+
+  """User first name"""
   firstName: String
+
+  """User friend-requests as receiver"""
+  friendRequestsAsReceiver: [FriendRequest!]
+
+  """User friend-requests as sender"""
+  friendRequestsAsRequester: [FriendRequest!]
   id: ID!
+
+  """User instagram URL"""
   instagramUrl: String
+
+  """User job applications"""
+  jobApplications: [JobApplication!]
+
+  """User last name"""
   lastName: String
+
+  """User linkedin URL"""
   linkedinUrl: String
-  location: String
-  locationId: String
+
+  """User location"""
+  location: Location
+
+  """User mentorship users"""
+  mentorshipUsers: [MentorshipUser!]
+
+  """User overview"""
   overview: String
+
+  """User permissions"""
   permissions: String
+
+  """User phone number"""
   phoneNumber: String
-  posts: [Post!]!
+
+  """User posts"""
+  posts: [Post!]
+
+  """User project applications"""
+  projectApplications: [ProjectApplication!]
+
+  """User projects"""
+  projects: [Project!]
+
+  """User authentication provider"""
   provider: String
-  providerId: String
+
+  """User restore password code"""
   restorePasswordCode: String
+
+  """User role"""
   role: Role!
-  sendbirdJoined: String
+
+  """User sendbird joined"""
+  sendbirdJoined: Boolean
+
+  """User settings"""
   settings: String
-  streamJoined: String
-  talent: String
+
+  """User stream joined"""
+  streamJoined: Boolean
+
+  """User Talent"""
+  talent: Talent
+
+  """User twitter URL"""
   twitterUrl: String
 
   """Identifies the date and time when the object was last updated."""
   updatedAt: Date!
+
+  """User circles"""
+  userCircles: [UserCircle!]
+
+  """User type"""
   userType: String
+
+  """User username"""
   username: String!
+
+  """User viewed jobs"""
+  viewedJobs: [ViewedJob!]
+
+  """User viewed projects"""
+  viewedProjects: [ViewedProject!]
+
+  """User website"""
   website: String
+
+  """User youtube URL"""
   youtubeUrl: String
 }
 
+"""User Circle model"""
 type UserCircle {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """User Circle"""
+  circle: Circle!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+  id: ID!
+
+  """User Circle status"""
+  status: UserCircleStatus!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """User Circle user"""
+  user: User!
 }
 
+input UserCircleInput {
+  """User Circle"""
+  circle: CircleInput!
+
+  """User Circle status"""
+  status: UserCircleStatus!
+
+  """User Circle user"""
+  user: UserInput!
+}
+
+"""User circle status"""
+enum UserCircleStatus {
+  Follow
+  Join
+  Leave
+  None
+  Unfollow
+}
+
+input UserInput {
+  """User account status"""
+  accountStatus: AccountStatus
+
+  """User address"""
+  address: String
+
+  """User avatar URL"""
+  avatarUrl: String
+
+  """User awards"""
+  awards: [AwardInput!]
+
+  """User bookmarked jobs"""
+  bookmarkedJobs: [BookmarkedJobInput!]
+
+  """User bookmarked projects"""
+  bookmarkedProjects: [BookmarkedProjectInput!]
+
+  """User Company"""
+  company: CompanyInput
+
+  """User coverImage"""
+  coverImage: String
+
+  """User education history"""
+  educations: [EducationInput!]
+
+  """User email address"""
+  email: String!
+
+  """Has User email been verified"""
+  emailVerified: Boolean
+
+  """User experiences"""
+  experiences: [ExperienceInput!]
+
+  """User facebook URL"""
+  facebookUrl: String
+
+  """User files"""
+  files: [FileItemInput!]
+
+  """User first name"""
+  firstName: String
+
+  """User friend-requests as receiver"""
+  friendRequestsAsReceiver: [FriendRequestInput!]
+
+  """User friend-requests as sender"""
+  friendRequestsAsRequester: [FriendRequestInput!]
+
+  """User instagram URL"""
+  instagramUrl: String
+
+  """User job applications"""
+  jobApplications: [JobApplicationInput!]
+
+  """User last name"""
+  lastName: String
+
+  """User linkedin URL"""
+  linkedinUrl: String
+
+  """User location"""
+  location: LocationInput
+
+  """User mentorship users"""
+  mentorshipUsers: [MentorshipUserInput!]
+
+  """User overview"""
+  overview: String
+
+  """User permissions"""
+  permissions: String
+
+  """User phone number"""
+  phoneNumber: String
+
+  """User posts"""
+  posts: [PostInput!]
+
+  """User project applications"""
+  projectApplications: [ProjectApplicationInput!]
+
+  """User projects"""
+  projects: [ProjectInput!]
+
+  """User authentication provider"""
+  provider: String
+
+  """User restore password code"""
+  restorePasswordCode: String
+
+  """User role"""
+  role: Role!
+
+  """User sendbird joined"""
+  sendbirdJoined: Boolean
+
+  """User settings"""
+  settings: String
+
+  """User stream joined"""
+  streamJoined: Boolean
+
+  """User Talent"""
+  talent: TalentInput
+
+  """User twitter URL"""
+  twitterUrl: String
+
+  """User circles"""
+  userCircles: [UserCircleInput!]
+
+  """User type"""
+  userType: String
+
+  """User username"""
+  username: String!
+
+  """User viewed jobs"""
+  viewedJobs: [ViewedJobInput!]
+
+  """User viewed projects"""
+  viewedProjects: [ViewedProjectInput!]
+
+  """User website"""
+  website: String
+
+  """User youtube URL"""
+  youtubeUrl: String
+}
+
+"""Viewed Job model"""
 type ViewedJob {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+  id: ID!
+
+  """Viewed Job"""
+  job: Job!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """Viewed Job user"""
+  user: User!
 }
 
+input ViewedJobInput {
+  """Viewed Job"""
+  job: JobInput!
+
+  """Viewed Job user"""
+  user: UserInput!
+}
+
+"""Viewed Project model"""
 type ViewedProject {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+
+  """Identifies the object that has been soft deleted."""
+  deleted: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  deletedAt: Date!
+  id: ID!
+
+  """Viewed Project"""
+  project: Project!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+
+  """Viewed Project user"""
+  user: User!
+}
+
+input ViewedProjectInput {
+  """Viewed Project"""
+  project: ProjectInput!
+
+  """Viewed Project user"""
+  user: UserInput!
 }

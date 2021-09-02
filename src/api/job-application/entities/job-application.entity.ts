@@ -1,9 +1,10 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, InputType } from '@nestjs/graphql';
 import { Job } from 'src/api/job/entities/job.entity';
 import { ApplicationStatus, FileType } from 'src/common/enum';
 import { BaseModel } from 'src/models/base.model';
 import { User } from 'src/models/user.model';
 
+@InputType('JobApplicationInput')
 @ObjectType({ description: 'Job Application model' })
 export class JobApplication extends BaseModel {
   @Field(() => User, { description: 'Job Application user' })

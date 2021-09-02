@@ -1,8 +1,9 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
 import { Location } from 'src/api/location/entities/location.entity';
 import { BaseModel } from 'src/models/base.model';
 import { User } from 'src/models/user.model';
 
+@InputType('EducationInput')
 @ObjectType({ description: 'Education model' })
 export class Education extends BaseModel {
   @Field(() => User, { description: 'Education owner as User' })

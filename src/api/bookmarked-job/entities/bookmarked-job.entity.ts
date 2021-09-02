@@ -1,8 +1,9 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, InputType } from '@nestjs/graphql';
 import { BaseModel } from 'src/models/base.model';
 import { User } from 'src/models/user.model';
 import { Job } from 'src/api/job/entities/job.entity';
 
+@InputType('BookmarkedJobInput')
 @ObjectType({ description: 'BookmarkedJob model' })
 export class BookmarkedJob extends BaseModel {
   @Field(() => User, { description: 'User who Bookmarked the Job' })
