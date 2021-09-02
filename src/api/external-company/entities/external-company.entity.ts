@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { ExternalJob } from 'src/api/external-job/entities/external-job.entity';
 import { BaseModel } from 'src/models/base.model';
 

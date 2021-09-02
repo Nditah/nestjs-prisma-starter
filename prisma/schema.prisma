@@ -106,7 +106,7 @@ model Company {
   skills              String
   fields              String
   user                User?
-
+  //* Relationship
   jobs      Job[]
   createdAt DateTime  @default(now())
   createdBy String?
@@ -168,7 +168,7 @@ model ExternalCompany {
   id          String        @id @default(cuid())
   logoLink    String
   companyName String
-  externalJob ExternalJob[]
+  externalJobs ExternalJob[]
   createdAt   DateTime      @default(now())
   createdBy   String?
   updatedAt   DateTime      @updatedAt
@@ -183,7 +183,7 @@ model ExternalJob {
   id                String           @id @default(cuid())
   categories        String
   jobLink           String
-  job               Job[]
+  jobs               Job[]
   externalCompany   ExternalCompany? @relation(fields: [externalCompanyId], references: [id])
   externalCompanyId String?
   createdAt         DateTime         @default(now())
@@ -574,7 +574,7 @@ model User {
   companyId                 String?
   talent                    Talent?
   files                     FileItem[]
-  experience                Experience[]
+  experiences                Experience[]
   settings                  Setting?
   address                   String?
   phoneNumber               String?

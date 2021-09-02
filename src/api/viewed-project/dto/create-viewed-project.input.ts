@@ -5,8 +5,8 @@ import { User } from 'src/models/user.model';
 @InputType()
 export class CreateViewedProjectInput {
   @Field(() => User, { description: 'Viewed Project user' })
-  user: User;
+  user: string;
 
   @Field(() => Project, { description: 'Viewed Project' })
-  project: Project;
+  project: string;
 }

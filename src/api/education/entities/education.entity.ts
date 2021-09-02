@@ -21,7 +21,7 @@ export class Education extends BaseModel {
   startMonth: number;
 
   @Field(() => Int, { description: 'Education end Year' })
-  endYear: string;
+  endYear: number;
 
   @Field(() => Int, { description: 'Education end Month' })
   endMonth: number;

@@ -7,23 +7,36 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class ViewedJobService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateViewedJobInput) {
-    return 'This action adds a new viewedJob';
+  async create(data: CreateViewedJobInput) {
+    return this.prisma.viewedJob.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        job: data.job && { connect: { id: data.job } },
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all viewedJob`;
+  async findAll() {
+    return this.prisma.viewedJob.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} viewedJob`;
+  async findOne(id: string) {
+    return this.prisma.viewedJob.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateViewedJobInput) {
-    return `This action updates a #${id} viewedJob`;
+  async update(id: string, data: UpdateViewedJobInput) {
+    return this.prisma.viewedJob.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        job: data.job && { connect: { id: data.job } },
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} viewedJob`;
+  async remove(id: string) {
+    return this.prisma.viewedJob.delete({ where: { id } });
   }
 }

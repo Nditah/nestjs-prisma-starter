@@ -7,23 +7,54 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class ExperienceService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateExperienceInput) {
-    return 'This action adds a new experience';
+  async create(data: CreateExperienceInput) {
+    return this.prisma.experience.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        type: data.type,
+        title: data.title,
+        company: data.company,
+        role: data.role,
+        description: data.description,
+        startYear: data.startYear,
+        startMonth: data.startMonth,
+        endYear: data.endYear,
+        endMonth: data.endMonth,
+        location: data.location && { connect: { id: data.location } },
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all experience`;
+  async findAll() {
+    return this.prisma.experience.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} experience`;
+  async findOne(id: string) {
+    return this.prisma.experience.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateExperienceInput) {
-    return `This action updates a #${id} experience`;
+  async update(id: string, data: UpdateExperienceInput) {
+    return this.prisma.experience.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        type: data.type,
+        title: data.title,
+        company: data.company,
+        role: data.role,
+        description: data.description,
+        startYear: data.startYear,
+        startMonth: data.startMonth,
+        endYear: data.endYear,
+        endMonth: data.endMonth,
+        location: data.location && { connect: { id: data.location } },
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} experience`;
+  async remove(id: string) {
+    return this.prisma.experience.delete({ where: { id } });
   }
 }

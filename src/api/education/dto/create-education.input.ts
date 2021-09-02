@@ -5,13 +5,13 @@ import { User } from 'src/models/user.model';
 @InputType()
 export class CreateEducationInput {
   @Field(() => User, { description: 'Education owner as User' })
-  user: User;
+  user: string;
 
   @Field(() => String, { description: 'Education schoolName' })
   schoolName: string;
 
   @Field(() => String, { description: 'Education title' })
-  title: number;
+  title: string;
 
   @Field(() => Int, { description: 'Education start Year' })
   startYear: number;
@@ -20,11 +20,11 @@ export class CreateEducationInput {
   startMonth: number;
 
   @Field(() => Int, { description: 'Education end Year' })
-  endYear: string;
+  endYear: number;
 
   @Field(() => Int, { description: 'Education end Month' })
   endMonth: number;
 
   @Field(() => Location, { description: 'Education location' })
-  location: Location;
+  location: string;
 }

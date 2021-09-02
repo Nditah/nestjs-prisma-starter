@@ -7,23 +7,38 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class MentorshipUserFriendService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateMentorshipUserFriendInput) {
-    return 'This action adds a new mentorshipUserFriend';
+  async create(data: CreateMentorshipUserFriendInput) {
+    return this.prisma.mentorshipUserFriend.create({
+      data: {
+        requester: data.requester && { connect: { id: data.requester } },
+        receiver: data.receiver && { connect: { id: data.receiver } },
+        status: data.status,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all mentorshipUserFriend`;
+  async findAll() {
+    return this.prisma.mentorshipUserFriend.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} mentorshipUserFriend`;
+  async findOne(id: string) {
+    return this.prisma.mentorshipUserFriend.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateMentorshipUserFriendInput) {
-    return `This action updates a #${id} mentorshipUserFriend`;
+  async update(id: string, data: UpdateMentorshipUserFriendInput) {
+    return this.prisma.mentorshipUserFriend.update({
+      data: {
+        requester: data.requester && { connect: { id: data.requester } },
+        receiver: data.receiver && { connect: { id: data.receiver } },
+        status: data.status,
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} mentorshipUserFriend`;
+  async remove(id: string) {
+    return this.prisma.mentorshipUserFriend.delete({ where: { id } });
   }
 }

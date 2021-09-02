@@ -8,21 +8,21 @@ import { User } from 'src/models/user.model';
 @InputType()
 export class CreateProjectApplicationInput {
   @Field(() => User, { description: 'Project Application user' })
-  user: User;
+  user: string;
 
   @Field(() => ProjectPosition, {
     description: 'Project Application project position',
   })
-  projectPosition: ProjectPosition;
+  projectPosition: string;
 
   @Field(() => Project, { description: 'Project Application project' })
-  project: Project;
+  project: string;
 
   @Field(() => String, { description: 'Project Application cover-letter' })
   coverLetter: string;
 
   @Field(() => FileItem, { description: 'Project Application CV' })
-  cv: FileItem;
+  cv: string;
 
   @Field(() => ApplicationStatus, { description: 'Project Application status' })
   status: ApplicationStatus;

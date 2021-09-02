@@ -7,23 +7,40 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class ExternalCompanyService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateExternalCompanyInput) {
-    return 'This action adds a new externalCompany';
+  async create(data: CreateExternalCompanyInput) {
+    return this.prisma.externalCompany.create({
+      data: {
+        logoLink: data.logoLink,
+        companyName: data.companyName,
+        externalJobs: {
+          create: data.externalJobs,
+        },
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all externalCompany`;
+  async findAll() {
+    return this.prisma.externalCompany.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} externalCompany`;
+  async findOne(id: string) {
+    return this.prisma.externalCompany.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateExternalCompanyInput) {
-    return `This action updates a #${id} externalCompany`;
+  async update(id: string, data: UpdateExternalCompanyInput) {
+    return this.prisma.externalCompany.update({
+      data: {
+        logoLink: data.logoLink,
+        companyName: data.companyName,
+        externalJobs: { create: data.externalJobs },
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} externalCompany`;
+  async remove(id: string) {
+    return this.prisma.externalCompany.delete({ where: { id } });
   }
 }

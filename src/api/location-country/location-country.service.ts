@@ -7,23 +7,40 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class LocationCountryService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateLocationCountryInput) {
-    return 'This action adds a new locationCountry';
+  async create(data: CreateLocationCountryInput) {
+    return this.prisma.locationCountry.create({
+      data: {
+        name: data.name,
+        iso2: data.iso2,
+        iso3: data.iso3,
+        locations: { create: data.locations },
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all locationCountry`;
+  async findAll() {
+    return this.prisma.locationCountry.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} locationCountry`;
+  async findOne(id: string) {
+    return this.prisma.locationCountry.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateLocationCountryInput) {
-    return `This action updates a #${id} locationCountry`;
+  async update(id: string, data: UpdateLocationCountryInput) {
+    return this.prisma.locationCountry.update({
+      data: {
+        name: data.name,
+        iso2: data.iso2,
+        iso3: data.iso3,
+        locations: { create: data.locations },
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} locationCountry`;
+  async remove(id: string) {
+    return this.prisma.locationCountry.delete({ where: { id } });
   }
 }

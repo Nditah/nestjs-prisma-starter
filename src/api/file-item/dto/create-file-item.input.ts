@@ -1,15 +1,15 @@
-import { JobApplication } from 'src/api/job-application/entities/job-application.entity';
-import { InputType, Int, Field } from '@nestjs/graphql';
-import { Job } from 'src/api/job/entities/job.entity';
-import { Project } from 'src/api/project/entities/project.entity';
+import { InputType, Field } from '@nestjs/graphql';
 import { FileType } from 'src/common/enum';
 import { User } from 'src/models/user.model';
+import { JobApplication } from 'src/api/job-application/entities/job-application.entity';
+import { Job } from 'src/api/job/entities/job.entity';
+import { Project } from 'src/api/project/entities/project.entity';
 import { ProjectApplication } from 'src/api/project-application/entities/project-application.entity';
 
 @InputType()
 export class CreateFileItemInput {
   @Field(() => User, { description: 'File Item user' })
-  user: User;
+  user: string;
 
   @Field(() => String, { description: 'File Item name' })
   name: string;
@@ -19,18 +19,4 @@ export class CreateFileItemInput {
 
   @Field(() => FileType, { description: 'File Item fileType' })
   fileType: FileType;
-
-  @Field(() => Project, { description: 'File Item project' })
-  project: Project;
-
-  @Field(() => Job, { description: 'File Item job' })
-  job: Job;
-
-  @Field(() => JobApplication, { description: 'File Item job application' })
-  jobApplication: JobApplication;
-
-  @Field(() => ProjectApplication, {
-    description: 'File Item project application',
-  })
-  projectApplication: ProjectApplication;
 }

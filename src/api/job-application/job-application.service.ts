@@ -7,23 +7,46 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class JobApplicationService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateJobApplicationInput) {
-    return 'This action adds a new jobApplication';
+  async create(data: CreateJobApplicationInput) {
+    return this.prisma.jobApplication.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        job: data.job && { connect: { id: data.job } },
+        coverLetter: data.coverLetter,
+        cv: data.cv && { connect: { id: data.cv } },
+        screeningAnswers: data.screeningAnswers,
+        status: data.status,
+        saved: data.saved,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all jobApplication`;
+  async findAll() {
+    return this.prisma.jobApplication.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} jobApplication`;
+  async findOne(id: string) {
+    return this.prisma.jobApplication.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateJobApplicationInput) {
-    return `This action updates a #${id} jobApplication`;
+  async update(id: string, data: UpdateJobApplicationInput) {
+    return this.prisma.jobApplication.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        job: data.job && { connect: { id: data.job } },
+        coverLetter: data.coverLetter,
+        cv: data.cv && { connect: { id: data.cv } },
+        screeningAnswers: data.screeningAnswers,
+        status: data.status,
+        saved: data.saved,
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} jobApplication`;
+  async remove(id: string) {
+    return this.prisma.jobApplication.delete({ where: { id } });
   }
 }

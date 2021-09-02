@@ -1,6 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Job } from 'src/api/job/entities/job.entity';
-import { Project } from 'src/api/project/entities/project.entity';
 import { ApplicationStatus, FileType } from 'src/common/enum';
 import { BaseModel } from 'src/models/base.model';
 import { User } from 'src/models/user.model';
@@ -19,8 +18,8 @@ export class JobApplication extends BaseModel {
   @Field(() => FileType, { description: 'Job Application cv' })
   cv: FileType;
 
-  @Field(() => Project, { description: 'Job Application screening answers' })
-  screeningAnswers: Project;
+  @Field(() => String, { description: 'Job Application screening answers' })
+  screeningAnswers: string;
 
   @Field(() => ApplicationStatus, { description: 'Job Application status' })
   status: ApplicationStatus;

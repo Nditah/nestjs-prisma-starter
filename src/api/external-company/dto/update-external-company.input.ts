@@ -1,8 +1,13 @@
+import { InputType, Field, PartialType } from '@nestjs/graphql';
+import { IsNotEmpty, IsUUID } from 'class-validator';
 import { CreateExternalCompanyInput } from './create-external-company.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateExternalCompanyInput extends PartialType(CreateExternalCompanyInput) {
-  @Field(() => Int)
-  id: number;
+export class UpdateExternalCompanyInput extends PartialType(
+  CreateExternalCompanyInput
+) {
+  @IsUUID()
+  @IsNotEmpty()
+  @Field(() => String, { description: 'PrimaryKey' })
+  id: string;
 }

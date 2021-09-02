@@ -4,7 +4,7 @@ import { User } from 'src/models/user.model';
 @InputType()
 export class CreateSettingInput {
   @Field(() => User, { description: 'Setting user' })
-  user: User;
+  user: string;
 
   @Field(() => Boolean, { description: 'Setting private VisibleToAllTalents' })
   privateVisibleToAllTalents: boolean;

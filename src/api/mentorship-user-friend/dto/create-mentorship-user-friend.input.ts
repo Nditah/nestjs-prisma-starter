@@ -5,12 +5,12 @@ import { FriendRequestStatus } from 'src/common/enum';
 @InputType()
 export class CreateMentorshipUserFriendInput {
   @Field(() => MentorshipUser, { description: 'Mentorship User Friend sender' })
-  requester: MentorshipUser;
+  requester: string;
 
   @Field(() => MentorshipUser, {
     description: 'Mentorship User Friend receiver',
   })
-  receiver: MentorshipUser;
+  receiver: string;
 
   @Field(() => FriendRequestStatus, {
     description: 'Mentorship User Friend status',

@@ -7,23 +7,50 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class MentorshipUserService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateMentorshipUserInput) {
-    return 'This action adds a new mentorshipUser';
+  async create(data: CreateMentorshipUserInput) {
+    return this.prisma.mentorshipUser.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        userType: data.userType,
+        professionalSelfDescribe: data.professionalSelfDescribe,
+        professionalLevel: data.professionalLevel,
+        quarterStart: data.quarterStart,
+        selfDescribe: data.selfDescribe,
+        reviewStatus: data.reviewStatus,
+        paired: data.paired,
+        isHaveNullableFields: data.isHaveNullableFields,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all mentorshipUser`;
+  async findAll() {
+    return this.prisma.mentorshipUser.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} mentorshipUser`;
+  async findOne(id: string) {
+    return this.prisma.mentorshipUser.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateMentorshipUserInput) {
-    return `This action updates a #${id} mentorshipUser`;
+  async update(id: string, data: UpdateMentorshipUserInput) {
+    return this.prisma.mentorshipUser.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        userType: data.userType,
+        professionalSelfDescribe: data.professionalSelfDescribe,
+        professionalLevel: data.professionalLevel,
+        quarterStart: data.quarterStart,
+        selfDescribe: data.selfDescribe,
+        reviewStatus: data.reviewStatus,
+        paired: data.paired,
+        isHaveNullableFields: data.isHaveNullableFields,
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} mentorshipUser`;
+  async remove(id: string) {
+    return this.prisma.mentorshipUser.delete({ where: { id } });
   }
 }

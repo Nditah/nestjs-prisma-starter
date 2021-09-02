@@ -14,6 +14,9 @@ export class Experience extends BaseModel {
   @Field(() => String, { description: 'Experience title' })
   title: string;
 
+  @Field(() => String, { description: 'Experience company' })
+  company: string;
+
   @Field(() => String, { description: 'Experience role' })
   role: string;
 

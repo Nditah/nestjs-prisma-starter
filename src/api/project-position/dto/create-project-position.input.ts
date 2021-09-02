@@ -1,12 +1,11 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
-import { ProjectApplication } from 'src/api/project-application/entities/project-application.entity';
 import { Project } from 'src/api/project/entities/project.entity';
 import { Gender, PositionStatus } from 'src/common/enum';
 
 @InputType()
 export class CreateProjectPositionInput {
   @Field(() => Project, { description: 'Project Position project' })
-  project: Project;
+  project: string;
 
   @Field(() => String, { description: 'Project Position type' })
   type: string;
@@ -33,9 +32,4 @@ export class CreateProjectPositionInput {
 
   @Field(() => Date, { description: 'Project Position finished date' })
   finished: Date;
-
-  @Field(() => [ProjectApplication], {
-    description: 'Project Position applications',
-  })
-  projectApplications: ProjectApplication[];
 }

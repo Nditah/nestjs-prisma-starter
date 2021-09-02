@@ -7,23 +7,62 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class CompanyService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateCompanyInput) {
-    return 'This action adds a new company';
+  async create(data: CreateCompanyInput) {
+    return this.prisma.company.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        name: data.name,
+        industry: data.industry,
+        website: data.website,
+        contactorName: data.contactorName,
+        contactorEmail: data.contactorEmail,
+        contactorPhone: data.contactorPhone,
+        contactorJobTitle: data.contactorJobTitle,
+        contactorDepartment: data.contactorDepartment,
+        introduction: data.introduction,
+        employees: data.employees,
+        skills: data.skills,
+        fields: data.fields,
+        jobs: {
+          create: data.jobs,
+        },
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all company`;
+  async findAll() {
+    return this.prisma.company.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+  async findOne(id: string) {
+    return this.prisma.company.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateCompanyInput) {
-    return `This action updates a #${id} company`;
+  async update(id: string, data: UpdateCompanyInput) {
+    return this.prisma.company.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        name: data.name,
+        industry: data.industry,
+        website: data.website,
+        contactorName: data.contactorName,
+        contactorEmail: data.contactorEmail,
+        contactorPhone: data.contactorPhone,
+        contactorJobTitle: data.contactorJobTitle,
+        contactorDepartment: data.contactorDepartment,
+        introduction: data.introduction,
+        employees: data.employees,
+        skills: data.skills,
+        fields: data.fields,
+        jobs: { create: data.jobs },
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} company`;
+  async remove(id: string) {
+    return this.prisma.company.delete({ where: { id } });
   }
 }

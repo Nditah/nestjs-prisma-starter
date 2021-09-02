@@ -7,23 +7,62 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class ProjectService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateProjectInput) {
-    return 'This action adds a new project';
+  async create(data: CreateProjectInput) {
+    return this.prisma.project.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        coverImage: data.coverImage,
+        title: data.title,
+        type: data.type,
+        description: data.description,
+        keywords: data.keywords,
+        paid: data.paid,
+        location: data.location && { connect: { id: data.location } },
+        status: data.status,
+        projectPositions: { create: data.projectPositions },
+        documents: { create: data.documents },
+        schedule: data.schedule,
+        housingDetails: data.housingDetails,
+        childElderDetails: data.childElderDetails,
+        finished: data.finished,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all project`;
+  async findAll() {
+    return this.prisma.project.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  async findOne(id: string) {
+    return this.prisma.project.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateProjectInput) {
-    return `This action updates a #${id} project`;
+  async update(id: string, data: UpdateProjectInput) {
+    return this.prisma.project.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        coverImage: data.coverImage,
+        title: data.title,
+        type: data.type,
+        description: data.description,
+        keywords: data.keywords,
+        paid: data.paid,
+        location: data.location && { connect: { id: data.location } },
+        status: data.status,
+        projectPositions: { create: data.projectPositions },
+        documents: { create: data.documents },
+        schedule: data.schedule,
+        housingDetails: data.housingDetails,
+        childElderDetails: data.childElderDetails,
+        finished: data.finished,
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async remove(id: string) {
+    return this.prisma.project.delete({ where: { id } });
   }
 }

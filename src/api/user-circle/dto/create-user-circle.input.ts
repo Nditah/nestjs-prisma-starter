@@ -6,10 +6,10 @@ import { User } from 'src/models/user.model';
 @InputType()
 export class CreateUserCircleInput {
   @Field(() => User, { description: 'User Circle user' })
-  user: User;
+  user: string;
 
   @Field(() => Circle, { description: 'User Circle' })
-  circle: Circle;
+  circle: string;
 
   @Field(() => UserCircleStatus, { description: 'User Circle status' })
   status: UserCircleStatus;

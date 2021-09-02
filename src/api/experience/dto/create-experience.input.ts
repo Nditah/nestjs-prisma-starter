@@ -5,13 +5,16 @@ import { User } from 'src/models/user.model';
 @InputType()
 export class CreateExperienceInput {
   @Field(() => User, { description: 'Experience owner as User' })
-  user: User;
+  user: string;
 
   @Field(() => String, { description: 'Experience type' })
   type: string;
 
   @Field(() => String, { description: 'Experience title' })
   title: string;
+
+  @Field(() => String, { description: 'Experience company' })
+  company: string;
 
   @Field(() => String, { description: 'Experience role' })
   role: string;
@@ -32,5 +35,5 @@ export class CreateExperienceInput {
   endMonth: number;
 
   @Field(() => Location, { description: 'Experience location' })
-  location: Location;
+  location: string;
 }

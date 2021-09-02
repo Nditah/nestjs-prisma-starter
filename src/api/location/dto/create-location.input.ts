@@ -1,11 +1,6 @@
 import { InputType, Float, Field } from '@nestjs/graphql';
-import { Education } from 'src/api/education/entities/education.entity';
-import { Experience } from 'src/api/experience/entities/experience.entity';
-import { Job } from 'src/api/job/entities/job.entity';
 import { LocationCountry } from 'src/api/location-country/entities/location-country.entity';
 import { LocationState } from 'src/api/location-state/entities/location-state.entity';
-import { Project } from 'src/api/project/entities/project.entity';
-import { User } from 'src/models/user.model';
 
 @InputType()
 export class CreateLocationInput {
@@ -19,23 +14,8 @@ export class CreateLocationInput {
   longitude: number;
 
   @Field(() => LocationCountry, { description: 'Location country' })
-  country: LocationCountry;
+  country: string;
 
   @Field(() => LocationState, { description: 'Location state' })
-  state: LocationState;
-
-  @Field(() => [User], { description: 'Location users' })
-  users: User[];
-
-  @Field(() => [Job], { description: 'Location jobs' })
-  jobs: Job[];
-
-  @Field(() => [Experience], { description: 'Location experiences' })
-  experiences: Experience[];
-
-  @Field(() => [Education], { description: 'Location educations' })
-  educations: Education[];
-
-  @Field(() => [Project], { description: 'Location projects' })
-  projects: Project[];
+  state: string;
 }

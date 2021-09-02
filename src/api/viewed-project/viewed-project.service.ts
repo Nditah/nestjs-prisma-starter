@@ -7,23 +7,36 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class ViewedProjectService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateViewedProjectInput) {
-    return 'This action adds a new viewedProject';
+  async create(data: CreateViewedProjectInput) {
+    return this.prisma.viewedProject.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        project: data.project && { connect: { id: data.project } },
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all viewedProject`;
+  async findAll() {
+    return this.prisma.viewedProject.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} viewedProject`;
+  async findOne(id: string) {
+    return this.prisma.viewedProject.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateViewedProjectInput) {
-    return `This action updates a #${id} viewedProject`;
+  async update(id: string, data: UpdateViewedProjectInput) {
+    return this.prisma.viewedProject.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        project: data.project && { connect: { id: data.project } },
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} viewedProject`;
+  async remove(id: string) {
+    return this.prisma.viewedProject.delete({ where: { id } });
   }
 }

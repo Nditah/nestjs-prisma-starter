@@ -7,23 +7,48 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class EducationService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateEducationInput) {
-    return 'This action adds a new education';
+  async create(data: CreateEducationInput) {
+    return this.prisma.education.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        schoolName: data.schoolName,
+        title: data.title,
+        startYear: data.startYear,
+        startMonth: data.startMonth,
+        endYear: data.endYear,
+        endMonth: data.endMonth,
+        location: data.location && { connect: { id: data.location } },
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all education`;
+  async findAll() {
+    return this.prisma.education.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} education`;
+  async findOne(id: string) {
+    return this.prisma.education.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateEducationInput) {
-    return `This action updates a #${id} education`;
+  async update(id: string, data: UpdateEducationInput) {
+    return this.prisma.education.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        schoolName: data.schoolName,
+        title: data.title,
+        startYear: data.startYear,
+        startMonth: data.startMonth,
+        endYear: data.endYear,
+        endMonth: data.endMonth,
+        location: data.location && { connect: { id: data.location } },
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} education`;
+  async remove(id: string) {
+    return this.prisma.education.delete({ where: { id } });
   }
 }

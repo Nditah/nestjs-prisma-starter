@@ -7,23 +7,48 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class SettingService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateSettingInput) {
-    return 'This action adds a new setting';
+  async create(data: CreateSettingInput) {
+    return this.prisma.setting.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        privateVisibleToAllTalents: data.privateVisibleToAllTalents,
+        privateVisibleToAllCompanies: data.privateVisibleToAllCompanies,
+        emailPhoneVisibleToAllTalents: data.emailPhoneVisibleToAllTalents,
+        notificationNewConnectionRequest: data.notificationNewConnectionRequest,
+        notificationNewConnectionAccepted:
+          data.notificationNewConnectionAccepted,
+        notificationFeedUpdate: data.notificationFeedUpdate,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all setting`;
+  async findAll() {
+    return this.prisma.setting.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} setting`;
+  async findOne(id: string) {
+    return this.prisma.setting.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateSettingInput) {
-    return `This action updates a #${id} setting`;
+  async update(id: string, data: UpdateSettingInput) {
+    return this.prisma.setting.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        privateVisibleToAllTalents: data.privateVisibleToAllTalents,
+        privateVisibleToAllCompanies: data.privateVisibleToAllCompanies,
+        emailPhoneVisibleToAllTalents: data.emailPhoneVisibleToAllTalents,
+        notificationNewConnectionRequest: data.notificationNewConnectionRequest,
+        notificationNewConnectionAccepted:
+          data.notificationNewConnectionAccepted,
+        notificationFeedUpdate: data.notificationFeedUpdate,
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} setting`;
+  async remove(id: string) {
+    return this.prisma.setting.delete({ where: { id } });
   }
 }

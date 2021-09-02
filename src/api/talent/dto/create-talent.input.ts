@@ -5,7 +5,7 @@ import { User } from 'src/models/user.model';
 @InputType()
 export class CreateTalentInput {
   @Field(() => User, { description: 'Talent user' })
-  user: User;
+  user: string;
 
   @Field(() => Gender, { description: 'Talent gender' })
   gender: Gender;

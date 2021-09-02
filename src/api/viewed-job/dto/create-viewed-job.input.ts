@@ -5,8 +5,8 @@ import { User } from 'src/models/user.model';
 @InputType()
 export class CreateViewedJobInput {
   @Field(() => User, { description: 'Viewed Job user' })
-  user: User;
+  user: string;
 
   @Field(() => Job, { description: 'Viewed Job' })
-  job: Job;
+  job: string;
 }
