@@ -9,8 +9,8 @@ export class SettingResolver {
   constructor(private readonly settingService: SettingService) {}
 
   @Mutation(() => Setting)
-  createSetting(@Args('createSettingInput') createSettingInput: CreateSettingInput) {
-    return this.settingService.create(createSettingInput);
+  createSetting(@Args('data') data: CreateSettingInput) {
+    return this.settingService.create(data);
   }
 
   @Query(() => [Setting], { name: 'setting' })
@@ -24,8 +24,8 @@ export class SettingResolver {
   }
 
   @Mutation(() => Setting)
-  updateSetting(@Args('updateSettingInput') updateSettingInput: UpdateSettingInput) {
-    return this.settingService.update(updateSettingInput.id, updateSettingInput);
+  updateSetting(@Args('data') data: UpdateSettingInput) {
+    return this.settingService.update(data.id, data);
   }
 
   @Mutation(() => Setting)

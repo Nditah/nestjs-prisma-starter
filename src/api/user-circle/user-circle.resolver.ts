@@ -9,8 +9,8 @@ export class UserCircleResolver {
   constructor(private readonly userCircleService: UserCircleService) {}
 
   @Mutation(() => UserCircle)
-  createUserCircle(@Args('createUserCircleInput') createUserCircleInput: CreateUserCircleInput) {
-    return this.userCircleService.create(createUserCircleInput);
+  createUserCircle(@Args('data') data: CreateUserCircleInput) {
+    return this.userCircleService.create(data);
   }
 
   @Query(() => [UserCircle], { name: 'userCircle' })
@@ -24,8 +24,8 @@ export class UserCircleResolver {
   }
 
   @Mutation(() => UserCircle)
-  updateUserCircle(@Args('updateUserCircleInput') updateUserCircleInput: UpdateUserCircleInput) {
-    return this.userCircleService.update(updateUserCircleInput.id, updateUserCircleInput);
+  updateUserCircle(@Args('data') data: UpdateUserCircleInput) {
+    return this.userCircleService.update(data.id, data);
   }
 
   @Mutation(() => UserCircle)

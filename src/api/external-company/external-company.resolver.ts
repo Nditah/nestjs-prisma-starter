@@ -6,11 +6,13 @@ import { UpdateExternalCompanyInput } from './dto/update-external-company.input'
 
 @Resolver(() => ExternalCompany)
 export class ExternalCompanyResolver {
-  constructor(private readonly externalCompanyService: ExternalCompanyService) {}
+  constructor(
+    private readonly externalCompanyService: ExternalCompanyService
+  ) {}
 
   @Mutation(() => ExternalCompany)
-  createExternalCompany(@Args('createExternalCompanyInput') createExternalCompanyInput: CreateExternalCompanyInput) {
-    return this.externalCompanyService.create(createExternalCompanyInput);
+  createExternalCompany(@Args('data') data: CreateExternalCompanyInput) {
+    return this.externalCompanyService.create(data);
   }
 
   @Query(() => [ExternalCompany], { name: 'externalCompany' })
@@ -24,8 +26,8 @@ export class ExternalCompanyResolver {
   }
 
   @Mutation(() => ExternalCompany)
-  updateExternalCompany(@Args('updateExternalCompanyInput') updateExternalCompanyInput: UpdateExternalCompanyInput) {
-    return this.externalCompanyService.update(updateExternalCompanyInput.id, updateExternalCompanyInput);
+  updateExternalCompany(@Args('data') data: UpdateExternalCompanyInput) {
+    return this.externalCompanyService.update(data.id, data);
   }
 
   @Mutation(() => ExternalCompany)

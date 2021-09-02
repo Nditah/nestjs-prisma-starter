@@ -6,11 +6,13 @@ import { UpdateProjectPositionInput } from './dto/update-project-position.input'
 
 @Resolver(() => ProjectPosition)
 export class ProjectPositionResolver {
-  constructor(private readonly projectPositionService: ProjectPositionService) {}
+  constructor(
+    private readonly projectPositionService: ProjectPositionService
+  ) {}
 
   @Mutation(() => ProjectPosition)
-  createProjectPosition(@Args('createProjectPositionInput') createProjectPositionInput: CreateProjectPositionInput) {
-    return this.projectPositionService.create(createProjectPositionInput);
+  createProjectPosition(@Args('data') data: CreateProjectPositionInput) {
+    return this.projectPositionService.create(data);
   }
 
   @Query(() => [ProjectPosition], { name: 'projectPosition' })
@@ -24,8 +26,8 @@ export class ProjectPositionResolver {
   }
 
   @Mutation(() => ProjectPosition)
-  updateProjectPosition(@Args('updateProjectPositionInput') updateProjectPositionInput: UpdateProjectPositionInput) {
-    return this.projectPositionService.update(updateProjectPositionInput.id, updateProjectPositionInput);
+  updateProjectPosition(@Args('data') data: UpdateProjectPositionInput) {
+    return this.projectPositionService.update(data.id, data);
   }
 
   @Mutation(() => ProjectPosition)

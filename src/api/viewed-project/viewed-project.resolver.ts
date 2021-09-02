@@ -9,8 +9,8 @@ export class ViewedProjectResolver {
   constructor(private readonly viewedProjectService: ViewedProjectService) {}
 
   @Mutation(() => ViewedProject)
-  createViewedProject(@Args('createViewedProjectInput') createViewedProjectInput: CreateViewedProjectInput) {
-    return this.viewedProjectService.create(createViewedProjectInput);
+  createViewedProject(@Args('data') data: CreateViewedProjectInput) {
+    return this.viewedProjectService.create(data);
   }
 
   @Query(() => [ViewedProject], { name: 'viewedProject' })
@@ -24,8 +24,8 @@ export class ViewedProjectResolver {
   }
 
   @Mutation(() => ViewedProject)
-  updateViewedProject(@Args('updateViewedProjectInput') updateViewedProjectInput: UpdateViewedProjectInput) {
-    return this.viewedProjectService.update(updateViewedProjectInput.id, updateViewedProjectInput);
+  updateViewedProject(@Args('data') data: UpdateViewedProjectInput) {
+    return this.viewedProjectService.update(data.id, data);
   }
 
   @Mutation(() => ViewedProject)

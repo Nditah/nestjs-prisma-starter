@@ -9,8 +9,8 @@ export class MentorshipUserResolver {
   constructor(private readonly mentorshipUserService: MentorshipUserService) {}
 
   @Mutation(() => MentorshipUser)
-  createMentorshipUser(@Args('createMentorshipUserInput') createMentorshipUserInput: CreateMentorshipUserInput) {
-    return this.mentorshipUserService.create(createMentorshipUserInput);
+  createMentorshipUser(@Args('data') data: CreateMentorshipUserInput) {
+    return this.mentorshipUserService.create(data);
   }
 
   @Query(() => [MentorshipUser], { name: 'mentorshipUser' })
@@ -24,8 +24,8 @@ export class MentorshipUserResolver {
   }
 
   @Mutation(() => MentorshipUser)
-  updateMentorshipUser(@Args('updateMentorshipUserInput') updateMentorshipUserInput: UpdateMentorshipUserInput) {
-    return this.mentorshipUserService.update(updateMentorshipUserInput.id, updateMentorshipUserInput);
+  updateMentorshipUser(@Args('data') data: UpdateMentorshipUserInput) {
+    return this.mentorshipUserService.update(data.id, data);
   }
 
   @Mutation(() => MentorshipUser)

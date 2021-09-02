@@ -6,11 +6,13 @@ import { UpdateBookmarkedProjectInput } from './dto/update-bookmarked-project.in
 
 @Resolver(() => BookmarkedProject)
 export class BookmarkedProjectResolver {
-  constructor(private readonly bookmarkedProjectService: BookmarkedProjectService) {}
+  constructor(
+    private readonly bookmarkedProjectService: BookmarkedProjectService
+  ) {}
 
   @Mutation(() => BookmarkedProject)
-  createBookmarkedProject(@Args('createBookmarkedProjectInput') createBookmarkedProjectInput: CreateBookmarkedProjectInput) {
-    return this.bookmarkedProjectService.create(createBookmarkedProjectInput);
+  createBookmarkedProject(@Args('data') data: CreateBookmarkedProjectInput) {
+    return this.bookmarkedProjectService.create(data);
   }
 
   @Query(() => [BookmarkedProject], { name: 'bookmarkedProject' })
@@ -24,8 +26,8 @@ export class BookmarkedProjectResolver {
   }
 
   @Mutation(() => BookmarkedProject)
-  updateBookmarkedProject(@Args('updateBookmarkedProjectInput') updateBookmarkedProjectInput: UpdateBookmarkedProjectInput) {
-    return this.bookmarkedProjectService.update(updateBookmarkedProjectInput.id, updateBookmarkedProjectInput);
+  updateBookmarkedProject(@Args('data') data: UpdateBookmarkedProjectInput) {
+    return this.bookmarkedProjectService.update(data.id, data);
   }
 
   @Mutation(() => BookmarkedProject)

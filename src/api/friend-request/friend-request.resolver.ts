@@ -9,8 +9,8 @@ export class FriendRequestResolver {
   constructor(private readonly friendRequestService: FriendRequestService) {}
 
   @Mutation(() => FriendRequest)
-  createFriendRequest(@Args('createFriendRequestInput') createFriendRequestInput: CreateFriendRequestInput) {
-    return this.friendRequestService.create(createFriendRequestInput);
+  createFriendRequest(@Args('data') data: CreateFriendRequestInput) {
+    return this.friendRequestService.create(data);
   }
 
   @Query(() => [FriendRequest], { name: 'friendRequest' })
@@ -24,8 +24,8 @@ export class FriendRequestResolver {
   }
 
   @Mutation(() => FriendRequest)
-  updateFriendRequest(@Args('updateFriendRequestInput') updateFriendRequestInput: UpdateFriendRequestInput) {
-    return this.friendRequestService.update(updateFriendRequestInput.id, updateFriendRequestInput);
+  updateFriendRequest(@Args('data') data: UpdateFriendRequestInput) {
+    return this.friendRequestService.update(data.id, data);
   }
 
   @Mutation(() => FriendRequest)

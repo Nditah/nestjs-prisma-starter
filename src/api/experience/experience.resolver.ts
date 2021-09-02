@@ -9,8 +9,8 @@ export class ExperienceResolver {
   constructor(private readonly experienceService: ExperienceService) {}
 
   @Mutation(() => Experience)
-  createExperience(@Args('createExperienceInput') createExperienceInput: CreateExperienceInput) {
-    return this.experienceService.create(createExperienceInput);
+  createExperience(@Args('data') data: CreateExperienceInput) {
+    return this.experienceService.create(data);
   }
 
   @Query(() => [Experience], { name: 'experience' })
@@ -24,8 +24,8 @@ export class ExperienceResolver {
   }
 
   @Mutation(() => Experience)
-  updateExperience(@Args('updateExperienceInput') updateExperienceInput: UpdateExperienceInput) {
-    return this.experienceService.update(updateExperienceInput.id, updateExperienceInput);
+  updateExperience(@Args('data') data: UpdateExperienceInput) {
+    return this.experienceService.update(data.id, data);
   }
 
   @Mutation(() => Experience)

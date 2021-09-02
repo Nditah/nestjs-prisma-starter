@@ -6,11 +6,13 @@ import { UpdateLocationCountryInput } from './dto/update-location-country.input'
 
 @Resolver(() => LocationCountry)
 export class LocationCountryResolver {
-  constructor(private readonly locationCountryService: LocationCountryService) {}
+  constructor(
+    private readonly locationCountryService: LocationCountryService
+  ) {}
 
   @Mutation(() => LocationCountry)
-  createLocationCountry(@Args('createLocationCountryInput') createLocationCountryInput: CreateLocationCountryInput) {
-    return this.locationCountryService.create(createLocationCountryInput);
+  createLocationCountry(@Args('data') data: CreateLocationCountryInput) {
+    return this.locationCountryService.create(data);
   }
 
   @Query(() => [LocationCountry], { name: 'locationCountry' })
@@ -24,8 +26,8 @@ export class LocationCountryResolver {
   }
 
   @Mutation(() => LocationCountry)
-  updateLocationCountry(@Args('updateLocationCountryInput') updateLocationCountryInput: UpdateLocationCountryInput) {
-    return this.locationCountryService.update(updateLocationCountryInput.id, updateLocationCountryInput);
+  updateLocationCountry(@Args('data') data: UpdateLocationCountryInput) {
+    return this.locationCountryService.update(data.id, data);
   }
 
   @Mutation(() => LocationCountry)

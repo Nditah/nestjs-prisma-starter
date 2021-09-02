@@ -9,8 +9,8 @@ export class CircleResolver {
   constructor(private readonly circleService: CircleService) {}
 
   @Mutation(() => Circle)
-  createCircle(@Args('createCircleInput') createCircleInput: CreateCircleInput) {
-    return this.circleService.create(createCircleInput);
+  createCircle(@Args('data') data: CreateCircleInput) {
+    return this.circleService.create(data);
   }
 
   @Query(() => [Circle], { name: 'circle' })
@@ -24,8 +24,8 @@ export class CircleResolver {
   }
 
   @Mutation(() => Circle)
-  updateCircle(@Args('updateCircleInput') updateCircleInput: UpdateCircleInput) {
-    return this.circleService.update(updateCircleInput.id, updateCircleInput);
+  updateCircle(@Args('data') data: UpdateCircleInput) {
+    return this.circleService.update(data.id, data);
   }
 
   @Mutation(() => Circle)

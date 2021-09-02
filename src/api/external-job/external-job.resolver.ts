@@ -9,8 +9,8 @@ export class ExternalJobResolver {
   constructor(private readonly externalJobService: ExternalJobService) {}
 
   @Mutation(() => ExternalJob)
-  createExternalJob(@Args('createExternalJobInput') createExternalJobInput: CreateExternalJobInput) {
-    return this.externalJobService.create(createExternalJobInput);
+  createExternalJob(@Args('data') data: CreateExternalJobInput) {
+    return this.externalJobService.create(data);
   }
 
   @Query(() => [ExternalJob], { name: 'externalJob' })
@@ -24,8 +24,8 @@ export class ExternalJobResolver {
   }
 
   @Mutation(() => ExternalJob)
-  updateExternalJob(@Args('updateExternalJobInput') updateExternalJobInput: UpdateExternalJobInput) {
-    return this.externalJobService.update(updateExternalJobInput.id, updateExternalJobInput);
+  updateExternalJob(@Args('data') data: UpdateExternalJobInput) {
+    return this.externalJobService.update(data.id, data);
   }
 
   @Mutation(() => ExternalJob)

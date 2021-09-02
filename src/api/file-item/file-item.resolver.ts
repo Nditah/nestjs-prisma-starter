@@ -9,8 +9,8 @@ export class FileItemResolver {
   constructor(private readonly fileItemService: FileItemService) {}
 
   @Mutation(() => FileItem)
-  createFileItem(@Args('createFileItemInput') createFileItemInput: CreateFileItemInput) {
-    return this.fileItemService.create(createFileItemInput);
+  createFileItem(@Args('data') data: CreateFileItemInput) {
+    return this.fileItemService.create(data);
   }
 
   @Query(() => [FileItem], { name: 'fileItem' })
@@ -24,8 +24,8 @@ export class FileItemResolver {
   }
 
   @Mutation(() => FileItem)
-  updateFileItem(@Args('updateFileItemInput') updateFileItemInput: UpdateFileItemInput) {
-    return this.fileItemService.update(updateFileItemInput.id, updateFileItemInput);
+  updateFileItem(@Args('data') data: UpdateFileItemInput) {
+    return this.fileItemService.update(data.id, data);
   }
 
   @Mutation(() => FileItem)

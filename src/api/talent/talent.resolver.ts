@@ -9,8 +9,8 @@ export class TalentResolver {
   constructor(private readonly talentService: TalentService) {}
 
   @Mutation(() => Talent)
-  createTalent(@Args('createTalentInput') createTalentInput: CreateTalentInput) {
-    return this.talentService.create(createTalentInput);
+  createTalent(@Args('data') data: CreateTalentInput) {
+    return this.talentService.create(data);
   }
 
   @Query(() => [Talent], { name: 'talent' })
@@ -24,8 +24,8 @@ export class TalentResolver {
   }
 
   @Mutation(() => Talent)
-  updateTalent(@Args('updateTalentInput') updateTalentInput: UpdateTalentInput) {
-    return this.talentService.update(updateTalentInput.id, updateTalentInput);
+  updateTalent(@Args('data') data: UpdateTalentInput) {
+    return this.talentService.update(data.id, data);
   }
 
   @Mutation(() => Talent)

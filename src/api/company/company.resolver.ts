@@ -9,8 +9,8 @@ export class CompanyResolver {
   constructor(private readonly companyService: CompanyService) {}
 
   @Mutation(() => Company)
-  createCompany(@Args('createCompanyInput') createCompanyInput: CreateCompanyInput) {
-    return this.companyService.create(createCompanyInput);
+  createCompany(@Args('data') data: CreateCompanyInput) {
+    return this.companyService.create(data);
   }
 
   @Query(() => [Company], { name: 'company' })
@@ -24,8 +24,8 @@ export class CompanyResolver {
   }
 
   @Mutation(() => Company)
-  updateCompany(@Args('updateCompanyInput') updateCompanyInput: UpdateCompanyInput) {
-    return this.companyService.update(updateCompanyInput.id, updateCompanyInput);
+  updateCompany(@Args('data') data: UpdateCompanyInput) {
+    return this.companyService.update(data.id, data);
   }
 
   @Mutation(() => Company)

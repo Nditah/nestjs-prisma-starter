@@ -6,11 +6,13 @@ import { UpdateProjectApplicationInput } from './dto/update-project-application.
 
 @Resolver(() => ProjectApplication)
 export class ProjectApplicationResolver {
-  constructor(private readonly projectApplicationService: ProjectApplicationService) {}
+  constructor(
+    private readonly projectApplicationService: ProjectApplicationService
+  ) {}
 
   @Mutation(() => ProjectApplication)
-  createProjectApplication(@Args('createProjectApplicationInput') createProjectApplicationInput: CreateProjectApplicationInput) {
-    return this.projectApplicationService.create(createProjectApplicationInput);
+  createProjectApplication(@Args('data') data: CreateProjectApplicationInput) {
+    return this.projectApplicationService.create(data);
   }
 
   @Query(() => [ProjectApplication], { name: 'projectApplication' })
@@ -24,8 +26,8 @@ export class ProjectApplicationResolver {
   }
 
   @Mutation(() => ProjectApplication)
-  updateProjectApplication(@Args('updateProjectApplicationInput') updateProjectApplicationInput: UpdateProjectApplicationInput) {
-    return this.projectApplicationService.update(updateProjectApplicationInput.id, updateProjectApplicationInput);
+  updateProjectApplication(@Args('data') data: UpdateProjectApplicationInput) {
+    return this.projectApplicationService.update(data.id, data);
   }
 
   @Mutation(() => ProjectApplication)

@@ -9,8 +9,8 @@ export class JobApplicationResolver {
   constructor(private readonly jobApplicationService: JobApplicationService) {}
 
   @Mutation(() => JobApplication)
-  createJobApplication(@Args('createJobApplicationInput') createJobApplicationInput: CreateJobApplicationInput) {
-    return this.jobApplicationService.create(createJobApplicationInput);
+  createJobApplication(@Args('data') data: CreateJobApplicationInput) {
+    return this.jobApplicationService.create(data);
   }
 
   @Query(() => [JobApplication], { name: 'jobApplication' })
@@ -24,8 +24,8 @@ export class JobApplicationResolver {
   }
 
   @Mutation(() => JobApplication)
-  updateJobApplication(@Args('updateJobApplicationInput') updateJobApplicationInput: UpdateJobApplicationInput) {
-    return this.jobApplicationService.update(updateJobApplicationInput.id, updateJobApplicationInput);
+  updateJobApplication(@Args('data') data: UpdateJobApplicationInput) {
+    return this.jobApplicationService.update(data.id, data);
   }
 
   @Mutation(() => JobApplication)

@@ -9,8 +9,8 @@ export class EducationResolver {
   constructor(private readonly educationService: EducationService) {}
 
   @Mutation(() => Education)
-  createEducation(@Args('createEducationInput') createEducationInput: CreateEducationInput) {
-    return this.educationService.create(createEducationInput);
+  createEducation(@Args('data') data: CreateEducationInput) {
+    return this.educationService.create(data);
   }
 
   @Query(() => [Education], { name: 'education' })
@@ -24,8 +24,8 @@ export class EducationResolver {
   }
 
   @Mutation(() => Education)
-  updateEducation(@Args('updateEducationInput') updateEducationInput: UpdateEducationInput) {
-    return this.educationService.update(updateEducationInput.id, updateEducationInput);
+  updateEducation(@Args('data') data: UpdateEducationInput) {
+    return this.educationService.update(data.id, data);
   }
 
   @Mutation(() => Education)

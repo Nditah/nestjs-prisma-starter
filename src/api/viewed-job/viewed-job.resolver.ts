@@ -9,8 +9,8 @@ export class ViewedJobResolver {
   constructor(private readonly viewedJobService: ViewedJobService) {}
 
   @Mutation(() => ViewedJob)
-  createViewedJob(@Args('createViewedJobInput') createViewedJobInput: CreateViewedJobInput) {
-    return this.viewedJobService.create(createViewedJobInput);
+  createViewedJob(@Args('data') data: CreateViewedJobInput) {
+    return this.viewedJobService.create(data);
   }
 
   @Query(() => [ViewedJob], { name: 'viewedJob' })
@@ -24,8 +24,8 @@ export class ViewedJobResolver {
   }
 
   @Mutation(() => ViewedJob)
-  updateViewedJob(@Args('updateViewedJobInput') updateViewedJobInput: UpdateViewedJobInput) {
-    return this.viewedJobService.update(updateViewedJobInput.id, updateViewedJobInput);
+  updateViewedJob(@Args('data') data: UpdateViewedJobInput) {
+    return this.viewedJobService.update(data.id, data);
   }
 
   @Mutation(() => ViewedJob)

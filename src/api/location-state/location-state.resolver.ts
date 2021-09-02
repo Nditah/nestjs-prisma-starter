@@ -9,8 +9,8 @@ export class LocationStateResolver {
   constructor(private readonly locationStateService: LocationStateService) {}
 
   @Mutation(() => LocationState)
-  createLocationState(@Args('createLocationStateInput') createLocationStateInput: CreateLocationStateInput) {
-    return this.locationStateService.create(createLocationStateInput);
+  createLocationState(@Args('data') data: CreateLocationStateInput) {
+    return this.locationStateService.create(data);
   }
 
   @Query(() => [LocationState], { name: 'locationState' })
@@ -24,8 +24,8 @@ export class LocationStateResolver {
   }
 
   @Mutation(() => LocationState)
-  updateLocationState(@Args('updateLocationStateInput') updateLocationStateInput: UpdateLocationStateInput) {
-    return this.locationStateService.update(updateLocationStateInput.id, updateLocationStateInput);
+  updateLocationState(@Args('data') data: UpdateLocationStateInput) {
+    return this.locationStateService.update(data.id, data);
   }
 
   @Mutation(() => LocationState)

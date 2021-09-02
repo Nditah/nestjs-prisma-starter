@@ -6,11 +6,15 @@ import { UpdateMentorshipUserFriendInput } from './dto/update-mentorship-user-fr
 
 @Resolver(() => MentorshipUserFriend)
 export class MentorshipUserFriendResolver {
-  constructor(private readonly mentorshipUserFriendService: MentorshipUserFriendService) {}
+  constructor(
+    private readonly mentorshipUserFriendService: MentorshipUserFriendService
+  ) {}
 
   @Mutation(() => MentorshipUserFriend)
-  createMentorshipUserFriend(@Args('createMentorshipUserFriendInput') createMentorshipUserFriendInput: CreateMentorshipUserFriendInput) {
-    return this.mentorshipUserFriendService.create(createMentorshipUserFriendInput);
+  createMentorshipUserFriend(
+    @Args('data') data: CreateMentorshipUserFriendInput
+  ) {
+    return this.mentorshipUserFriendService.create(data);
   }
 
   @Query(() => [MentorshipUserFriend], { name: 'mentorshipUserFriend' })
@@ -24,8 +28,10 @@ export class MentorshipUserFriendResolver {
   }
 
   @Mutation(() => MentorshipUserFriend)
-  updateMentorshipUserFriend(@Args('updateMentorshipUserFriendInput') updateMentorshipUserFriendInput: UpdateMentorshipUserFriendInput) {
-    return this.mentorshipUserFriendService.update(updateMentorshipUserFriendInput.id, updateMentorshipUserFriendInput);
+  updateMentorshipUserFriend(
+    @Args('data') data: UpdateMentorshipUserFriendInput
+  ) {
+    return this.mentorshipUserFriendService.update(data.id, data);
   }
 
   @Mutation(() => MentorshipUserFriend)
