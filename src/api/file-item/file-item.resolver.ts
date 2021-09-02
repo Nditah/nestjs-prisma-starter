@@ -19,7 +19,7 @@ export class FileItemResolver {
   }
 
   @Query(() => FileItem, { name: 'fileItem' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.fileItemService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class FileItemResolver {
   }
 
   @Mutation(() => FileItem)
-  removeFileItem(@Args('id', { type: () => String }) id: number) {
+  removeFileItem(@Args('id', { type: () => String }) id: string) {
     return this.fileItemService.remove(id);
   }
 }

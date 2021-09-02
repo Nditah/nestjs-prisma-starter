@@ -19,7 +19,7 @@ export class TalentResolver {
   }
 
   @Query(() => Talent, { name: 'talent' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.talentService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class TalentResolver {
   }
 
   @Mutation(() => Talent)
-  removeTalent(@Args('id', { type: () => String }) id: number) {
+  removeTalent(@Args('id', { type: () => String }) id: string) {
     return this.talentService.remove(id);
   }
 }

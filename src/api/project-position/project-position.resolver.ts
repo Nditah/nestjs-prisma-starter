@@ -21,7 +21,7 @@ export class ProjectPositionResolver {
   }
 
   @Query(() => ProjectPosition, { name: 'projectPosition' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.projectPositionService.findOne(id);
   }
 
@@ -31,7 +31,7 @@ export class ProjectPositionResolver {
   }
 
   @Mutation(() => ProjectPosition)
-  removeProjectPosition(@Args('id', { type: () => String }) id: number) {
+  removeProjectPosition(@Args('id', { type: () => String }) id: string) {
     return this.projectPositionService.remove(id);
   }
 }

@@ -21,7 +21,7 @@ export class BookmarkedProjectResolver {
   }
 
   @Query(() => BookmarkedProject, { name: 'bookmarkedProject' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.bookmarkedProjectService.findOne(id);
   }
 
@@ -31,7 +31,7 @@ export class BookmarkedProjectResolver {
   }
 
   @Mutation(() => BookmarkedProject)
-  removeBookmarkedProject(@Args('id', { type: () => String }) id: number) {
+  removeBookmarkedProject(@Args('id', { type: () => String }) id: string) {
     return this.bookmarkedProjectService.remove(id);
   }
 }

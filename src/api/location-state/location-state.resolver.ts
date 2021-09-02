@@ -19,7 +19,7 @@ export class LocationStateResolver {
   }
 
   @Query(() => LocationState, { name: 'locationState' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.locationStateService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class LocationStateResolver {
   }
 
   @Mutation(() => LocationState)
-  removeLocationState(@Args('id', { type: () => String }) id: number) {
+  removeLocationState(@Args('id', { type: () => String }) id: string) {
     return this.locationStateService.remove(id);
   }
 }

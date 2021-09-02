@@ -19,7 +19,7 @@ export class FriendRequestResolver {
   }
 
   @Query(() => FriendRequest, { name: 'friendRequest' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.friendRequestService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class FriendRequestResolver {
   }
 
   @Mutation(() => FriendRequest)
-  removeFriendRequest(@Args('id', { type: () => String }) id: number) {
+  removeFriendRequest(@Args('id', { type: () => String }) id: string) {
     return this.friendRequestService.remove(id);
   }
 }

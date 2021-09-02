@@ -19,7 +19,7 @@ export class EducationResolver {
   }
 
   @Query(() => Education, { name: 'education' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.educationService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class EducationResolver {
   }
 
   @Mutation(() => Education)
-  removeEducation(@Args('id', { type: () => String }) id: number) {
+  removeEducation(@Args('id', { type: () => String }) id: string) {
     return this.educationService.remove(id);
   }
 }

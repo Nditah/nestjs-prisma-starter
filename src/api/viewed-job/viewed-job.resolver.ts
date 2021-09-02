@@ -19,7 +19,7 @@ export class ViewedJobResolver {
   }
 
   @Query(() => ViewedJob, { name: 'viewedJob' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.viewedJobService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class ViewedJobResolver {
   }
 
   @Mutation(() => ViewedJob)
-  removeViewedJob(@Args('id', { type: () => String }) id: number) {
+  removeViewedJob(@Args('id', { type: () => String }) id: string) {
     return this.viewedJobService.remove(id);
   }
 }

@@ -19,7 +19,7 @@ export class SettingResolver {
   }
 
   @Query(() => Setting, { name: 'setting' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.settingService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class SettingResolver {
   }
 
   @Mutation(() => Setting)
-  removeSetting(@Args('id', { type: () => String }) id: number) {
+  removeSetting(@Args('id', { type: () => String }) id: string) {
     return this.settingService.remove(id);
   }
 }

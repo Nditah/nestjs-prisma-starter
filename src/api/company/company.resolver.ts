@@ -19,7 +19,7 @@ export class CompanyResolver {
   }
 
   @Query(() => Company, { name: 'company' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.companyService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class CompanyResolver {
   }
 
   @Mutation(() => Company)
-  removeCompany(@Args('id', { type: () => String }) id: number) {
+  removeCompany(@Args('id', { type: () => String }) id: string) {
     return this.companyService.remove(id);
   }
 }

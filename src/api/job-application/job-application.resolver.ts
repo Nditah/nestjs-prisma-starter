@@ -19,7 +19,7 @@ export class JobApplicationResolver {
   }
 
   @Query(() => JobApplication, { name: 'jobApplication' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.jobApplicationService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class JobApplicationResolver {
   }
 
   @Mutation(() => JobApplication)
-  removeJobApplication(@Args('id', { type: () => String }) id: number) {
+  removeJobApplication(@Args('id', { type: () => String }) id: string) {
     return this.jobApplicationService.remove(id);
   }
 }

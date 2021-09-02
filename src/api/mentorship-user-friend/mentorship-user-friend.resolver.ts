@@ -23,7 +23,7 @@ export class MentorshipUserFriendResolver {
   }
 
   @Query(() => MentorshipUserFriend, { name: 'mentorshipUserFriend' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.mentorshipUserFriendService.findOne(id);
   }
 
@@ -35,7 +35,7 @@ export class MentorshipUserFriendResolver {
   }
 
   @Mutation(() => MentorshipUserFriend)
-  removeMentorshipUserFriend(@Args('id', { type: () => String }) id: number) {
+  removeMentorshipUserFriend(@Args('id', { type: () => String }) id: string) {
     return this.mentorshipUserFriendService.remove(id);
   }
 }

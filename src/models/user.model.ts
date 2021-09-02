@@ -22,16 +22,6 @@ import { UserCircle } from 'src/api/user-circle/entities/user-circle.entity';
 import { ViewedJob } from 'src/api/viewed-job/entities/viewed-job.entity';
 import { Project } from 'src/api/project/entities/project.entity';
 
-// export enum Role {
-//   ADMIN = 'ADMIN',
-//   USER = 'USER',
-// }
-
-// registerEnumType(Role, {
-//   name: 'Role',
-//   description: 'User role',
-// });
-
 @ObjectType({ description: 'User model' })
 export class User extends BaseModel {
   @Field(() => String, { description: 'User email address' })

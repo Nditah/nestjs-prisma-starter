@@ -21,7 +21,7 @@ export class ProjectApplicationResolver {
   }
 
   @Query(() => ProjectApplication, { name: 'projectApplication' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.projectApplicationService.findOne(id);
   }
 
@@ -31,7 +31,7 @@ export class ProjectApplicationResolver {
   }
 
   @Mutation(() => ProjectApplication)
-  removeProjectApplication(@Args('id', { type: () => String }) id: number) {
+  removeProjectApplication(@Args('id', { type: () => String }) id: string) {
     return this.projectApplicationService.remove(id);
   }
 }

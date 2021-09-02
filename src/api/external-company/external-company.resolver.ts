@@ -21,7 +21,7 @@ export class ExternalCompanyResolver {
   }
 
   @Query(() => ExternalCompany, { name: 'externalCompany' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.externalCompanyService.findOne(id);
   }
 
@@ -31,7 +31,7 @@ export class ExternalCompanyResolver {
   }
 
   @Mutation(() => ExternalCompany)
-  removeExternalCompany(@Args('id', { type: () => String }) id: number) {
+  removeExternalCompany(@Args('id', { type: () => String }) id: string) {
     return this.externalCompanyService.remove(id);
   }
 }

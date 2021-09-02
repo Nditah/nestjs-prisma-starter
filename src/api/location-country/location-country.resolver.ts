@@ -21,7 +21,7 @@ export class LocationCountryResolver {
   }
 
   @Query(() => LocationCountry, { name: 'locationCountry' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.locationCountryService.findOne(id);
   }
 
@@ -31,7 +31,7 @@ export class LocationCountryResolver {
   }
 
   @Mutation(() => LocationCountry)
-  removeLocationCountry(@Args('id', { type: () => String }) id: number) {
+  removeLocationCountry(@Args('id', { type: () => String }) id: string) {
     return this.locationCountryService.remove(id);
   }
 }

@@ -19,7 +19,7 @@ export class PictureResolver {
   }
 
   @Query(() => Picture, { name: 'picture' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.pictureService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class PictureResolver {
   }
 
   @Mutation(() => Picture)
-  removePicture(@Args('id', { type: () => String }) id: number) {
+  removePicture(@Args('id', { type: () => String }) id: string) {
     return this.pictureService.remove(id);
   }
 }

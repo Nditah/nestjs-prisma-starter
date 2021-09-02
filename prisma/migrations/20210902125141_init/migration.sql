@@ -1,10 +1,6 @@
-/*
-  Warnings:
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('ADMIN', 'USER');
 
-  - You are about to drop the `Post` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
 -- CreateEnum
 CREATE TYPE "AccountStatus" AS ENUM ('Deactivated', 'Blocked', 'Deleted', 'None');
 
@@ -43,15 +39,6 @@ CREATE TYPE "UserCircleStatus" AS ENUM ('None', 'Follow', 'Join', 'Unfollow', 'L
 
 -- CreateEnum
 CREATE TYPE "UserType" AS ENUM ('Talent', 'Company', 'Admin');
-
--- DropForeignKey
-ALTER TABLE "Post" DROP CONSTRAINT "Post_authorId_fkey";
-
--- DropTable
-DROP TABLE "Post";
-
--- DropTable
-DROP TABLE "User";
 
 -- CreateTable
 CREATE TABLE "post" (
@@ -166,7 +153,6 @@ CREATE TABLE "education" (
     "endYear" INTEGER NOT NULL,
     "endMonth" INTEGER NOT NULL,
     "locationId" TEXT,
-    "created" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "createdBy" TEXT,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -290,8 +276,6 @@ CREATE TABLE "job" (
     "posterEmail" TEXT NOT NULL,
     "posterPhone" TEXT NOT NULL,
     "status" "JobStatus" NOT NULL,
-    "created" TIMESTAMP(3) NOT NULL,
-    "updated" TIMESTAMP(3) NOT NULL,
     "finished" TIMESTAMP(3) NOT NULL,
     "externalJobId" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -384,7 +368,6 @@ CREATE TABLE "mentorship_user" (
     "selfDescribe" TEXT NOT NULL,
     "reviewStatus" "ReviewStatus" NOT NULL,
     "paired" BOOLEAN NOT NULL,
-    "updated" TIMESTAMP(3) NOT NULL,
     "isHaveNullableFields" BOOLEAN NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "createdBy" TEXT,

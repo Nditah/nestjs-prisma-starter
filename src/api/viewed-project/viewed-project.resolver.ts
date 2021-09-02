@@ -19,7 +19,7 @@ export class ViewedProjectResolver {
   }
 
   @Query(() => ViewedProject, { name: 'viewedProject' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.viewedProjectService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class ViewedProjectResolver {
   }
 
   @Mutation(() => ViewedProject)
-  removeViewedProject(@Args('id', { type: () => String }) id: number) {
+  removeViewedProject(@Args('id', { type: () => String }) id: string) {
     return this.viewedProjectService.remove(id);
   }
 }

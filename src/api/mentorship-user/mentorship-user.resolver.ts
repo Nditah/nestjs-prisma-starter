@@ -19,7 +19,7 @@ export class MentorshipUserResolver {
   }
 
   @Query(() => MentorshipUser, { name: 'mentorshipUser' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.mentorshipUserService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class MentorshipUserResolver {
   }
 
   @Mutation(() => MentorshipUser)
-  removeMentorshipUser(@Args('id', { type: () => String }) id: number) {
+  removeMentorshipUser(@Args('id', { type: () => String }) id: string) {
     return this.mentorshipUserService.remove(id);
   }
 }

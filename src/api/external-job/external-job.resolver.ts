@@ -19,7 +19,7 @@ export class ExternalJobResolver {
   }
 
   @Query(() => ExternalJob, { name: 'externalJob' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.externalJobService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class ExternalJobResolver {
   }
 
   @Mutation(() => ExternalJob)
-  removeExternalJob(@Args('id', { type: () => String }) id: number) {
+  removeExternalJob(@Args('id', { type: () => String }) id: string) {
     return this.externalJobService.remove(id);
   }
 }

@@ -55,10 +55,10 @@ export class UpdateUserInput {
   youtubeUrl?: string;
 
   @Field(() => Company, { description: 'User Company' })
-  company?: Company;
+  company?: string;
 
   @Field(() => Talent, { description: 'User Talent' })
-  talent?: Talent;
+  talent?: string;
 
   @Field(() => [FileItem], { description: 'User files' })
   files?: FileItem[];
@@ -79,7 +79,7 @@ export class UpdateUserInput {
   accountStatus?: AccountStatus;
 
   @Field(() => Location, { description: 'User location' })
-  location?: Location;
+  location?: string;
 
   @Field(() => String, { description: 'User coverImage' })
   coverImage?: string;

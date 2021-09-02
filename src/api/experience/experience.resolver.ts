@@ -19,7 +19,7 @@ export class ExperienceResolver {
   }
 
   @Query(() => Experience, { name: 'experience' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.experienceService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class ExperienceResolver {
   }
 
   @Mutation(() => Experience)
-  removeExperience(@Args('id', { type: () => String }) id: number) {
+  removeExperience(@Args('id', { type: () => String }) id: string) {
     return this.experienceService.remove(id);
   }
 }

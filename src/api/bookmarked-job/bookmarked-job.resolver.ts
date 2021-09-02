@@ -19,7 +19,7 @@ export class BookmarkedJobResolver {
   }
 
   @Query(() => BookmarkedJob, { name: 'bookmarkedJob' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.bookmarkedJobService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class BookmarkedJobResolver {
   }
 
   @Mutation(() => BookmarkedJob)
-  removeBookmarkedJob(@Args('id', { type: () => String }) id: number) {
+  removeBookmarkedJob(@Args('id', { type: () => String }) id: string) {
     return this.bookmarkedJobService.remove(id);
   }
 }

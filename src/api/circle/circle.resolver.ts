@@ -19,7 +19,7 @@ export class CircleResolver {
   }
 
   @Query(() => Circle, { name: 'circle' })
-  findOne(@Args('id', { type: () => String }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.circleService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class CircleResolver {
   }
 
   @Mutation(() => Circle)
-  removeCircle(@Args('id', { type: () => String }) id: number) {
+  removeCircle(@Args('id', { type: () => String }) id: string) {
     return this.circleService.remove(id);
   }
 }
