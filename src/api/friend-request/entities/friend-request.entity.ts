@@ -1,8 +1,9 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, InputType } from '@nestjs/graphql';
 import { FriendRequestStatus } from 'src/common/enum';
 import { BaseModel } from 'src/models/base.model';
 import { User } from 'src/models/user.model';
 
+@InputType('FriendRequestInput')
 @ObjectType({ description: 'Friend Request model' })
 export class FriendRequest extends BaseModel {
   @Field(() => User, { description: 'Friend Request sender' })

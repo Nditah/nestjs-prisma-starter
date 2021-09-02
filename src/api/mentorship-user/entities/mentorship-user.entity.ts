@@ -1,9 +1,10 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, InputType } from '@nestjs/graphql';
 import { MentorshipUserFriend } from 'src/api/mentorship-user-friend/entities/mentorship-user-friend.entity';
 import { MentorshipUserType, ReviewStatus } from 'src/common/enum';
 import { BaseModel } from 'src/models/base.model';
 import { User } from 'src/models/user.model';
 
+@InputType('MentorshipUserInput')
 @ObjectType({ description: 'MentorshipUser model' })
 export class MentorshipUser extends BaseModel {
   @Field(() => User, { description: 'Mentorship User' })

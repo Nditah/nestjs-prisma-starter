@@ -1,8 +1,9 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
 import { Job } from 'src/api/job/entities/job.entity';
 import { BaseModel } from 'src/models/base.model';
 import { User } from 'src/models/user.model';
 
+@InputType('CompanyInput')
 @ObjectType({ description: 'Company model' })
 export class Company extends BaseModel {
   @Field(() => String, { description: 'Name of the Company' })
@@ -44,6 +45,6 @@ export class Company extends BaseModel {
   @Field(() => User, { description: 'Company owner as User' })
   user: string;
 
-  @Field(() => Job, { description: 'Company owner as User' })
+  // @Field(() => Job, { description: 'Company owner as User' })
   jobs: Job[];
 }

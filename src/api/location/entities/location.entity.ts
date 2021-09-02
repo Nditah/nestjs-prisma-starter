@@ -1,4 +1,4 @@
-import { ObjectType, Field, Float } from '@nestjs/graphql';
+import { ObjectType, Field, Float, InputType } from '@nestjs/graphql';
 import { Education } from 'src/api/education/entities/education.entity';
 import { Experience } from 'src/api/experience/entities/experience.entity';
 import { Job } from 'src/api/job/entities/job.entity';
@@ -8,6 +8,7 @@ import { Project } from 'src/api/project/entities/project.entity';
 import { BaseModel } from 'src/models/base.model';
 import { User } from 'src/models/user.model';
 
+@InputType('LocationInput')
 @ObjectType({ description: 'Location model' })
 export class Location extends BaseModel {
   @Field(() => String, { description: 'Location city' })

@@ -1,6 +1,7 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, InputType } from '@nestjs/graphql';
 import { BaseModel } from 'src/models/base.model';
 
+@InputType('CircleInput')
 @ObjectType({ description: 'Circle model' })
 export class Circle extends BaseModel {
   @Field(() => String, { description: 'Name of the Circle' })

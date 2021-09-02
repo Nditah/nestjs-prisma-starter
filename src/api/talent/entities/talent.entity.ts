@@ -1,8 +1,9 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
 import { Gender } from 'src/common/enum';
 import { BaseModel } from 'src/models/base.model';
 import { User } from 'src/models/user.model';
 
+@InputType('TalentInput')
 @ObjectType({ description: 'Talent model' })
 export class Talent extends BaseModel {
   @Field(() => User, { description: 'Talent user' })
