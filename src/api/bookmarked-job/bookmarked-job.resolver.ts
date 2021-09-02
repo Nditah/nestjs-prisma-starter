@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { BookmarkedJobService } from './bookmarked-job.service';
 import { BookmarkedJob } from './entities/bookmarked-job.entity';
 import { CreateBookmarkedJobInput } from './dto/create-bookmarked-job.input';
@@ -19,7 +19,7 @@ export class BookmarkedJobResolver {
   }
 
   @Query(() => BookmarkedJob, { name: 'bookmarkedJob' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.bookmarkedJobService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class BookmarkedJobResolver {
   }
 
   @Mutation(() => BookmarkedJob)
-  removeBookmarkedJob(@Args('id', { type: () => Int }) id: number) {
+  removeBookmarkedJob(@Args('id', { type: () => String }) id: number) {
     return this.bookmarkedJobService.remove(id);
   }
 }

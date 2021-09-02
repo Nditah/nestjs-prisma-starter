@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ViewedProjectService } from './viewed-project.service';
 import { ViewedProject } from './entities/viewed-project.entity';
 import { CreateViewedProjectInput } from './dto/create-viewed-project.input';
@@ -19,7 +19,7 @@ export class ViewedProjectResolver {
   }
 
   @Query(() => ViewedProject, { name: 'viewedProject' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.viewedProjectService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class ViewedProjectResolver {
   }
 
   @Mutation(() => ViewedProject)
-  removeViewedProject(@Args('id', { type: () => Int }) id: number) {
+  removeViewedProject(@Args('id', { type: () => String }) id: number) {
     return this.viewedProjectService.remove(id);
   }
 }

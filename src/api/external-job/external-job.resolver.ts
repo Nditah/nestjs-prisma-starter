@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ExternalJobService } from './external-job.service';
 import { ExternalJob } from './entities/external-job.entity';
 import { CreateExternalJobInput } from './dto/create-external-job.input';
@@ -19,7 +19,7 @@ export class ExternalJobResolver {
   }
 
   @Query(() => ExternalJob, { name: 'externalJob' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.externalJobService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class ExternalJobResolver {
   }
 
   @Mutation(() => ExternalJob)
-  removeExternalJob(@Args('id', { type: () => Int }) id: number) {
+  removeExternalJob(@Args('id', { type: () => String }) id: number) {
     return this.externalJobService.remove(id);
   }
 }

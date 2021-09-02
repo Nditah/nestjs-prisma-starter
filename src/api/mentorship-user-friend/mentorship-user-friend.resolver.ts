@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { MentorshipUserFriendService } from './mentorship-user-friend.service';
 import { MentorshipUserFriend } from './entities/mentorship-user-friend.entity';
 import { CreateMentorshipUserFriendInput } from './dto/create-mentorship-user-friend.input';
@@ -23,7 +23,7 @@ export class MentorshipUserFriendResolver {
   }
 
   @Query(() => MentorshipUserFriend, { name: 'mentorshipUserFriend' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.mentorshipUserFriendService.findOne(id);
   }
 
@@ -35,7 +35,7 @@ export class MentorshipUserFriendResolver {
   }
 
   @Mutation(() => MentorshipUserFriend)
-  removeMentorshipUserFriend(@Args('id', { type: () => Int }) id: number) {
+  removeMentorshipUserFriend(@Args('id', { type: () => String }) id: number) {
     return this.mentorshipUserFriendService.remove(id);
   }
 }

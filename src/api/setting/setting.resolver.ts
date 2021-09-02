@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { SettingService } from './setting.service';
 import { Setting } from './entities/setting.entity';
 import { CreateSettingInput } from './dto/create-setting.input';
@@ -19,7 +19,7 @@ export class SettingResolver {
   }
 
   @Query(() => Setting, { name: 'setting' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.settingService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class SettingResolver {
   }
 
   @Mutation(() => Setting)
-  removeSetting(@Args('id', { type: () => Int }) id: number) {
+  removeSetting(@Args('id', { type: () => String }) id: number) {
     return this.settingService.remove(id);
   }
 }

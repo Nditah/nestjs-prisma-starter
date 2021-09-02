@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ViewedJobService } from './viewed-job.service';
 import { ViewedJob } from './entities/viewed-job.entity';
 import { CreateViewedJobInput } from './dto/create-viewed-job.input';
@@ -19,7 +19,7 @@ export class ViewedJobResolver {
   }
 
   @Query(() => ViewedJob, { name: 'viewedJob' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.viewedJobService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class ViewedJobResolver {
   }
 
   @Mutation(() => ViewedJob)
-  removeViewedJob(@Args('id', { type: () => Int }) id: number) {
+  removeViewedJob(@Args('id', { type: () => String }) id: number) {
     return this.viewedJobService.remove(id);
   }
 }

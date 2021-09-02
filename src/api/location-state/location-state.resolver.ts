@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { LocationStateService } from './location-state.service';
 import { LocationState } from './entities/location-state.entity';
 import { CreateLocationStateInput } from './dto/create-location-state.input';
@@ -19,7 +19,7 @@ export class LocationStateResolver {
   }
 
   @Query(() => LocationState, { name: 'locationState' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.locationStateService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class LocationStateResolver {
   }
 
   @Mutation(() => LocationState)
-  removeLocationState(@Args('id', { type: () => Int }) id: number) {
+  removeLocationState(@Args('id', { type: () => String }) id: number) {
     return this.locationStateService.remove(id);
   }
 }

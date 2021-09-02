@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { PictureService } from './picture.service';
 import { Picture } from './entities/picture.entity';
 import { CreatePictureInput } from './dto/create-picture.input';
@@ -19,7 +19,7 @@ export class PictureResolver {
   }
 
   @Query(() => Picture, { name: 'picture' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.pictureService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class PictureResolver {
   }
 
   @Mutation(() => Picture)
-  removePicture(@Args('id', { type: () => Int }) id: number) {
+  removePicture(@Args('id', { type: () => String }) id: number) {
     return this.pictureService.remove(id);
   }
 }

@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ProjectPositionService } from './project-position.service';
 import { ProjectPosition } from './entities/project-position.entity';
 import { CreateProjectPositionInput } from './dto/create-project-position.input';
@@ -21,7 +21,7 @@ export class ProjectPositionResolver {
   }
 
   @Query(() => ProjectPosition, { name: 'projectPosition' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.projectPositionService.findOne(id);
   }
 
@@ -31,7 +31,7 @@ export class ProjectPositionResolver {
   }
 
   @Mutation(() => ProjectPosition)
-  removeProjectPosition(@Args('id', { type: () => Int }) id: number) {
+  removeProjectPosition(@Args('id', { type: () => String }) id: number) {
     return this.projectPositionService.remove(id);
   }
 }

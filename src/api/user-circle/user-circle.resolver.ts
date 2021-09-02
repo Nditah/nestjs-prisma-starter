@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UserCircleService } from './user-circle.service';
 import { UserCircle } from './entities/user-circle.entity';
 import { CreateUserCircleInput } from './dto/create-user-circle.input';
@@ -19,7 +19,7 @@ export class UserCircleResolver {
   }
 
   @Query(() => UserCircle, { name: 'userCircle' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.userCircleService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class UserCircleResolver {
   }
 
   @Mutation(() => UserCircle)
-  removeUserCircle(@Args('id', { type: () => Int }) id: number) {
+  removeUserCircle(@Args('id', { type: () => String }) id: number) {
     return this.userCircleService.remove(id);
   }
 }

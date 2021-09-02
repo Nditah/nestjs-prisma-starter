@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { FriendRequestService } from './friend-request.service';
 import { FriendRequest } from './entities/friend-request.entity';
 import { CreateFriendRequestInput } from './dto/create-friend-request.input';
@@ -19,7 +19,7 @@ export class FriendRequestResolver {
   }
 
   @Query(() => FriendRequest, { name: 'friendRequest' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.friendRequestService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class FriendRequestResolver {
   }
 
   @Mutation(() => FriendRequest)
-  removeFriendRequest(@Args('id', { type: () => Int }) id: number) {
+  removeFriendRequest(@Args('id', { type: () => String }) id: number) {
     return this.friendRequestService.remove(id);
   }
 }

@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ExperienceService } from './experience.service';
 import { Experience } from './entities/experience.entity';
 import { CreateExperienceInput } from './dto/create-experience.input';
@@ -19,7 +19,7 @@ export class ExperienceResolver {
   }
 
   @Query(() => Experience, { name: 'experience' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.experienceService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class ExperienceResolver {
   }
 
   @Mutation(() => Experience)
-  removeExperience(@Args('id', { type: () => Int }) id: number) {
+  removeExperience(@Args('id', { type: () => String }) id: number) {
     return this.experienceService.remove(id);
   }
 }

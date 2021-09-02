@@ -3,7 +3,6 @@ import {
   Query,
   Mutation,
   Args,
-  Int,
   ResolveField,
   Parent,
 } from '@nestjs/graphql';
@@ -33,7 +32,7 @@ export class AwardResolver {
   }
 
   @Query(() => Award, { name: 'award' })
-  findOne(@Args('id', { type: () => Int }) id: string) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.awardService.findOne(id);
   }
 
@@ -43,7 +42,7 @@ export class AwardResolver {
   }
 
   @Mutation(() => Award)
-  removeAward(@Args('id', { type: () => Int }) id: string) {
+  removeAward(@Args('id', { type: () => String }) id: string) {
     return this.awardService.remove(id);
   }
 }

@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ExternalCompanyService } from './external-company.service';
 import { ExternalCompany } from './entities/external-company.entity';
 import { CreateExternalCompanyInput } from './dto/create-external-company.input';
@@ -21,7 +21,7 @@ export class ExternalCompanyResolver {
   }
 
   @Query(() => ExternalCompany, { name: 'externalCompany' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.externalCompanyService.findOne(id);
   }
 
@@ -31,7 +31,7 @@ export class ExternalCompanyResolver {
   }
 
   @Mutation(() => ExternalCompany)
-  removeExternalCompany(@Args('id', { type: () => Int }) id: number) {
+  removeExternalCompany(@Args('id', { type: () => String }) id: number) {
     return this.externalCompanyService.remove(id);
   }
 }

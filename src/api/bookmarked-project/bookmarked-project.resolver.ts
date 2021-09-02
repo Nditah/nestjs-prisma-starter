@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { BookmarkedProjectService } from './bookmarked-project.service';
 import { BookmarkedProject } from './entities/bookmarked-project.entity';
 import { CreateBookmarkedProjectInput } from './dto/create-bookmarked-project.input';
@@ -21,7 +21,7 @@ export class BookmarkedProjectResolver {
   }
 
   @Query(() => BookmarkedProject, { name: 'bookmarkedProject' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.bookmarkedProjectService.findOne(id);
   }
 
@@ -31,7 +31,7 @@ export class BookmarkedProjectResolver {
   }
 
   @Mutation(() => BookmarkedProject)
-  removeBookmarkedProject(@Args('id', { type: () => Int }) id: number) {
+  removeBookmarkedProject(@Args('id', { type: () => String }) id: number) {
     return this.bookmarkedProjectService.remove(id);
   }
 }

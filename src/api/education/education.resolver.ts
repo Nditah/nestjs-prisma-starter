@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { EducationService } from './education.service';
 import { Education } from './entities/education.entity';
 import { CreateEducationInput } from './dto/create-education.input';
@@ -19,7 +19,7 @@ export class EducationResolver {
   }
 
   @Query(() => Education, { name: 'education' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.educationService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class EducationResolver {
   }
 
   @Mutation(() => Education)
-  removeEducation(@Args('id', { type: () => Int }) id: number) {
+  removeEducation(@Args('id', { type: () => String }) id: number) {
     return this.educationService.remove(id);
   }
 }

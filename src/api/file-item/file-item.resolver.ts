@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { FileItemService } from './file-item.service';
 import { FileItem } from './entities/file-item.entity';
 import { CreateFileItemInput } from './dto/create-file-item.input';
@@ -19,7 +19,7 @@ export class FileItemResolver {
   }
 
   @Query(() => FileItem, { name: 'fileItem' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: number) {
     return this.fileItemService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class FileItemResolver {
   }
 
   @Mutation(() => FileItem)
-  removeFileItem(@Args('id', { type: () => Int }) id: number) {
+  removeFileItem(@Args('id', { type: () => String }) id: number) {
     return this.fileItemService.remove(id);
   }
 }
