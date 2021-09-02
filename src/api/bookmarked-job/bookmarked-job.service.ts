@@ -17,7 +17,7 @@ export class BookmarkedJobService {
   }
 
   async findAll() {
-    return this.prisma.award.findMany({
+    return this.prisma.bookmarkedJob.findMany({
       include: {
         user: true,
       },
@@ -25,11 +25,11 @@ export class BookmarkedJobService {
   }
 
   async findOne(id: string) {
-    return this.prisma.award.findUnique({ where: { id } });
+    return this.prisma.bookmarkedJob.findUnique({ where: { id } });
   }
 
   async update(id: string, data: UpdateBookmarkedJobInput) {
-    return this.prisma.award.update({
+    return this.prisma.bookmarkedJob.update({
       data: {
         user: data.user && { connect: { id: data.user } },
         job: data.job && { connect: { id: data.job } },
@@ -41,6 +41,6 @@ export class BookmarkedJobService {
   }
 
   async remove(id: string) {
-    return this.prisma.award.delete({ where: { id } });
+    return this.prisma.bookmarkedJob.delete({ where: { id } });
   }
 }

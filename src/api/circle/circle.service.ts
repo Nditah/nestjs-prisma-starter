@@ -7,23 +7,40 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class CircleService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateCircleInput) {
-    return 'This action adds a new circle';
+  async create(data: CreateCircleInput) {
+    return this.prisma.circle.create({
+      data: {
+        name: data.name,
+        title: data.title,
+        logo: data.logo,
+        description: data.description,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all circle`;
+  async findAll() {
+    return this.prisma.circle.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} circle`;
+  async findOne(id: string) {
+    return this.prisma.circle.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateCircleInput) {
-    return `This action updates a #${id} circle`;
+  async update(id: string, data: UpdateCircleInput) {
+    return this.prisma.circle.update({
+      data: {
+        name: data.name,
+        title: data.title,
+        logo: data.logo,
+        description: data.description,
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} circle`;
+  async remove(id: string) {
+    return this.prisma.circle.delete({ where: { id } });
   }
 }

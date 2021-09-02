@@ -7,23 +7,40 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class BookmarkedProjectService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateBookmarkedProjectInput) {
-    return 'This action adds a new bookmarkedProject';
+  async create(data: CreateBookmarkedProjectInput) {
+    return this.prisma.bookmarkedProject.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        project: data.project && { connect: { id: data.project } },
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all bookmarkedProject`;
+  async findAll() {
+    return this.prisma.bookmarkedProject.findMany({
+      include: {
+        user: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} bookmarkedProject`;
+  async findOne(id: string) {
+    return this.prisma.bookmarkedProject.findUnique({ where: { id } });
   }
 
-  update(id: number, data: UpdateBookmarkedProjectInput) {
-    return `This action updates a #${id} bookmarkedProject`;
+  async update(id: string, data: UpdateBookmarkedProjectInput) {
+    return this.prisma.bookmarkedProject.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        project: data.project && { connect: { id: data.project } },
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bookmarkedProject`;
+  async remove(id: string) {
+    return this.prisma.bookmarkedProject.delete({ where: { id } });
   }
 }
