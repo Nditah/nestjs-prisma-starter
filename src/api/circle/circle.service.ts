@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCircleInput } from './dto/create-circle.input';
 import { UpdateCircleInput } from './dto/update-circle.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class CircleService {

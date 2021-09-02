@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { SettingService } from './setting.service';
 import { SettingResolver } from './setting.resolver';
+import { PrismaModule } from '../../prisma/prisma.module';
 
 @Module({
-  providers: [SettingResolver, SettingService]
+  imports: [PrismaModule],
+  providers: [SettingResolver, SettingService],
 })
 export class SettingModule {}

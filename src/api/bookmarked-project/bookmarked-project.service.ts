@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBookmarkedProjectInput } from './dto/create-bookmarked-project.input';
 import { UpdateBookmarkedProjectInput } from './dto/update-bookmarked-project.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class BookmarkedProjectService {

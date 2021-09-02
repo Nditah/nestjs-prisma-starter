@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMentorshipUserFriendInput } from './dto/create-mentorship-user-friend.input';
 import { UpdateMentorshipUserFriendInput } from './dto/update-mentorship-user-friend.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class MentorshipUserFriendService {

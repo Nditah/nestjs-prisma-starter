@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTalentInput } from './dto/create-talent.input';
 import { UpdateTalentInput } from './dto/update-talent.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class TalentService {

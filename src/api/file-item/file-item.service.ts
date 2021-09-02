@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFileItemInput } from './dto/create-file-item.input';
 import { UpdateFileItemInput } from './dto/update-file-item.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class FileItemService {

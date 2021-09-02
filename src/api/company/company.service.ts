@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCompanyInput } from './dto/create-company.input';
 import { UpdateCompanyInput } from './dto/update-company.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class CompanyService {

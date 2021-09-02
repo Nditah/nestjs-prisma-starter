@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProjectPositionInput } from './dto/create-project-position.input';
 import { UpdateProjectPositionInput } from './dto/update-project-position.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class ProjectPositionService {

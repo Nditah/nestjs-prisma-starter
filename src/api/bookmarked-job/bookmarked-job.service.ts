@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBookmarkedJobInput } from './dto/create-bookmarked-job.input';
 import { UpdateBookmarkedJobInput } from './dto/update-bookmarked-job.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class BookmarkedJobService {

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePictureInput } from './dto/create-picture.input';
 import { UpdatePictureInput } from './dto/update-picture.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class PictureService {

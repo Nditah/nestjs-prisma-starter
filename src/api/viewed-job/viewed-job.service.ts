@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateViewedJobInput } from './dto/create-viewed-job.input';
 import { UpdateViewedJobInput } from './dto/update-viewed-job.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class ViewedJobService {

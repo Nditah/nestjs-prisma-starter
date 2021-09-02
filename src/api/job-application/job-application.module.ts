@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { JobApplicationService } from './job-application.service';
 import { JobApplicationResolver } from './job-application.resolver';
+import { PrismaModule } from '../../prisma/prisma.module';
 
 @Module({
-  providers: [JobApplicationResolver, JobApplicationService]
+  imports: [PrismaModule],
+  providers: [JobApplicationResolver, JobApplicationService],
 })
 export class JobApplicationModule {}

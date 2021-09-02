@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateExternalJobInput } from './dto/create-external-job.input';
 import { UpdateExternalJobInput } from './dto/update-external-job.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class ExternalJobService {

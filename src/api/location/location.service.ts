@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateLocationInput } from './dto/create-location.input';
 import { UpdateLocationInput } from './dto/update-location.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class LocationService {
