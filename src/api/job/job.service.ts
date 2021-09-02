@@ -5,7 +5,9 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class JobService {
-  create(createJobInput: CreateJobInput) {
+  constructor(private prisma: PrismaService) {}
+
+  create(data: CreateJobInput) {
     return 'This action adds a new job';
   }
 
@@ -17,7 +19,7 @@ export class JobService {
     return `This action returns a #${id} job`;
   }
 
-  update(id: number, updateJobInput: UpdateJobInput) {
+  update(id: number, data: UpdateJobInput) {
     return `This action updates a #${id} job`;
   }
 

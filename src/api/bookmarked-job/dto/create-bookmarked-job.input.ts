@@ -1,12 +1,18 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
-import { Job } from 'src/api/job/entities/job.entity';
-import { User } from 'src/models/user.model';
+import { InputType, Field } from '@nestjs/graphql';
+import { IsNotEmpty, IsUUID } from 'class-validator';
 
 @InputType()
 export class CreateBookmarkedJobInput {
-  @Field(() => User, { description: 'User who Bookmarked the Job' })
-  user: User;
+  @IsUUID()
+  @IsNotEmpty()
+  @Field(() => String, {
+    description: 'BookmarkedJob by User',
+  })
+  user: string;
 
-  @Field(() => Job, { description: 'Job Bookmarked by User' })
-  job: Job;
+  @IsNotEmpty()
+  @Field(() => String, {
+    description: 'Job Bookmarked by User',
+  })
+  job: string;
 }

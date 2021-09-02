@@ -5,7 +5,9 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class BookmarkedProjectService {
-  create(createBookmarkedProjectInput: CreateBookmarkedProjectInput) {
+  constructor(private prisma: PrismaService) {}
+
+  create(data: CreateBookmarkedProjectInput) {
     return 'This action adds a new bookmarkedProject';
   }
 
@@ -17,7 +19,7 @@ export class BookmarkedProjectService {
     return `This action returns a #${id} bookmarkedProject`;
   }
 
-  update(id: number, updateBookmarkedProjectInput: UpdateBookmarkedProjectInput) {
+  update(id: number, data: UpdateBookmarkedProjectInput) {
     return `This action updates a #${id} bookmarkedProject`;
   }
 

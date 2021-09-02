@@ -1,8 +1,13 @@
+import { InputType, Field, PartialType } from '@nestjs/graphql';
+import { IsNotEmpty, IsUUID } from 'class-validator';
 import { CreateJobApplicationInput } from './create-job-application.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateJobApplicationInput extends PartialType(CreateJobApplicationInput) {
-  @Field(() => Int)
-  id: number;
+export class UpdateJobApplicationInput extends PartialType(
+  CreateJobApplicationInput
+) {
+  @IsUUID()
+  @IsNotEmpty()
+  @Field(() => String, { description: 'PrimaryKey' })
+  id: string;
 }

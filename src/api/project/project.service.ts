@@ -5,7 +5,9 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class ProjectService {
-  create(createProjectInput: CreateProjectInput) {
+  constructor(private prisma: PrismaService) {}
+
+  create(data: CreateProjectInput) {
     return 'This action adds a new project';
   }
 
@@ -17,7 +19,7 @@ export class ProjectService {
     return `This action returns a #${id} project`;
   }
 
-  update(id: number, updateProjectInput: UpdateProjectInput) {
+  update(id: number, data: UpdateProjectInput) {
     return `This action updates a #${id} project`;
   }
 

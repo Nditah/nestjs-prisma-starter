@@ -1,8 +1,11 @@
-import { CreateExperienceInput } from './create-experience.input';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { IsNotEmpty, IsUUID } from 'class-validator';
+import { CreateExperienceInput } from './create-experience.input';
 
 @InputType()
 export class UpdateExperienceInput extends PartialType(CreateExperienceInput) {
-  @Field(() => Int)
-  id: number;
+  @IsUUID()
+  @IsNotEmpty()
+  @Field(() => String, { description: 'PrimaryKey' })
+  id: string;
 }

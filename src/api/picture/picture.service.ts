@@ -5,7 +5,9 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class PictureService {
-  create(createPictureInput: CreatePictureInput) {
+  constructor(private prisma: PrismaService) {}
+
+  create(data: CreatePictureInput) {
     return 'This action adds a new picture';
   }
 
@@ -17,7 +19,7 @@ export class PictureService {
     return `This action returns a #${id} picture`;
   }
 
-  update(id: number, updatePictureInput: UpdatePictureInput) {
+  update(id: number, data: UpdatePictureInput) {
     return `This action updates a #${id} picture`;
   }
 

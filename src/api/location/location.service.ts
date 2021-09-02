@@ -5,7 +5,9 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class LocationService {
-  create(createLocationInput: CreateLocationInput) {
+  constructor(private prisma: PrismaService) {}
+
+  create(data: CreateLocationInput) {
     return 'This action adds a new location';
   }
 
@@ -17,7 +19,7 @@ export class LocationService {
     return `This action returns a #${id} location`;
   }
 
-  update(id: number, updateLocationInput: UpdateLocationInput) {
+  update(id: number, data: UpdateLocationInput) {
     return `This action updates a #${id} location`;
   }
 

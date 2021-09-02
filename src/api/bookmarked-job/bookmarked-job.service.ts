@@ -5,23 +5,42 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class BookmarkedJobService {
-  create(createBookmarkedJobInput: CreateBookmarkedJobInput) {
-    return 'This action adds a new bookmarkedJob';
+  constructor(private prisma: PrismaService) {}
+
+  async create(data: CreateBookmarkedJobInput) {
+    return this.prisma.bookmarkedJob.create({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        job: data.job && { connect: { id: data.job } },
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all bookmarkedJob`;
+  async findAll() {
+    return this.prisma.award.findMany({
+      include: {
+        user: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} bookmarkedJob`;
+  async findOne(id: string) {
+    return this.prisma.award.findUnique({ where: { id } });
   }
 
-  update(id: number, updateBookmarkedJobInput: UpdateBookmarkedJobInput) {
-    return `This action updates a #${id} bookmarkedJob`;
+  async update(id: string, data: UpdateBookmarkedJobInput) {
+    return this.prisma.award.update({
+      data: {
+        user: data.user && { connect: { id: data.user } },
+        job: data.job && { connect: { id: data.job } },
+      },
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bookmarkedJob`;
+  async remove(id: string) {
+    return this.prisma.award.delete({ where: { id } });
   }
 }

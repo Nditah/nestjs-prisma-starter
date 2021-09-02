@@ -5,7 +5,9 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class MentorshipUserFriendService {
-  create(createMentorshipUserFriendInput: CreateMentorshipUserFriendInput) {
+  constructor(private prisma: PrismaService) {}
+
+  create(data: CreateMentorshipUserFriendInput) {
     return 'This action adds a new mentorshipUserFriend';
   }
 
@@ -17,7 +19,7 @@ export class MentorshipUserFriendService {
     return `This action returns a #${id} mentorshipUserFriend`;
   }
 
-  update(id: number, updateMentorshipUserFriendInput: UpdateMentorshipUserFriendInput) {
+  update(id: number, data: UpdateMentorshipUserFriendInput) {
     return `This action updates a #${id} mentorshipUserFriend`;
   }
 

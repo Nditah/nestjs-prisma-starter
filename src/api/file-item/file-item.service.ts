@@ -5,7 +5,9 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class FileItemService {
-  create(createFileItemInput: CreateFileItemInput) {
+  constructor(private prisma: PrismaService) {}
+
+  create(data: CreateFileItemInput) {
     return 'This action adds a new fileItem';
   }
 
@@ -17,7 +19,7 @@ export class FileItemService {
     return `This action returns a #${id} fileItem`;
   }
 
-  update(id: number, updateFileItemInput: UpdateFileItemInput) {
+  update(id: number, data: UpdateFileItemInput) {
     return `This action updates a #${id} fileItem`;
   }
 

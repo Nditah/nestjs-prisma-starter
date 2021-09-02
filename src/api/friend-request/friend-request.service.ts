@@ -5,7 +5,9 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class FriendRequestService {
-  create(createFriendRequestInput: CreateFriendRequestInput) {
+  constructor(private prisma: PrismaService) {}
+
+  create(data: CreateFriendRequestInput) {
     return 'This action adds a new friendRequest';
   }
 
@@ -17,7 +19,7 @@ export class FriendRequestService {
     return `This action returns a #${id} friendRequest`;
   }
 
-  update(id: number, updateFriendRequestInput: UpdateFriendRequestInput) {
+  update(id: number, data: UpdateFriendRequestInput) {
     return `This action updates a #${id} friendRequest`;
   }
 

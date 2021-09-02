@@ -5,7 +5,9 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class UserCircleService {
-  create(createUserCircleInput: CreateUserCircleInput) {
+  constructor(private prisma: PrismaService) {}
+
+  create(data: CreateUserCircleInput) {
     return 'This action adds a new userCircle';
   }
 
@@ -17,7 +19,7 @@ export class UserCircleService {
     return `This action returns a #${id} userCircle`;
   }
 
-  update(id: number, updateUserCircleInput: UpdateUserCircleInput) {
+  update(id: number, data: UpdateUserCircleInput) {
     return `This action updates a #${id} userCircle`;
   }
 
