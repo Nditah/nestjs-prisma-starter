@@ -1,8 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { AccountStatus, AuthProvider, Role, UserType } from 'src/common/enum';
-import { Company } from 'src/api/company/entities/company.entity';
-import { Experience } from 'src/api/experience/entities/experience.entity';
-import { FileItem } from 'src/api/file-item/entities/file-item.entity';
 import { Location } from 'src/api/location/entities/location.entity';
 import { Setting } from 'src/api/setting/entities/setting.entity';
 import { Talent } from 'src/api/talent/entities/talent.entity';
@@ -54,17 +51,8 @@ export class UpdateUserInput {
   @Field(() => String, { description: 'User youtube URL' })
   youtubeUrl?: string;
 
-  @Field(() => Company, { description: 'User Company' })
-  company?: string;
-
   @Field(() => Talent, { description: 'User Talent' })
   talent?: string;
-
-  @Field(() => [FileItem], { description: 'User files' })
-  files?: FileItem[];
-
-  @Field(() => [Experience], { description: 'User experiences' })
-  experiences?: Experience[];
 
   @Field(() => String, { description: 'User settings' })
   settings?: Setting[];

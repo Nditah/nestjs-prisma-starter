@@ -11,7 +11,6 @@ export class JobService {
     return this.prisma.job.create({
       data: {
         status: data.status,
-        company: data.company && { connect: { id: data.company } },
         category: data.category,
         title: data.title,
         employmentType: data.employmentType,
@@ -24,7 +23,6 @@ export class JobService {
         experienceLevel: data.experienceLevel,
         screeningQuestions: data.screeningQuestions,
         tags: data.tags,
-        documents: { create: data.documents },
         posterDepartment: data.posterDepartment,
         posterFirstName: data.posterFirstName,
         posterLastName: data.posterLastName,
@@ -48,7 +46,6 @@ export class JobService {
     return this.prisma.job.update({
       data: {
         status: data.status,
-        company: data.company && { connect: { id: data.company } },
         category: data.category,
         title: data.title,
         employmentType: data.employmentType,
@@ -61,7 +58,6 @@ export class JobService {
         experienceLevel: data.experienceLevel,
         screeningQuestions: data.screeningQuestions,
         tags: data.tags,
-        documents: { create: data.documents },
         posterDepartment: data.posterDepartment,
         posterFirstName: data.posterFirstName,
         posterLastName: data.posterLastName,
