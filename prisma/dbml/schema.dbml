@@ -13,199 +13,8 @@ Table Post {
   authorId String
 }
 
-Table Award {
-  id String [pk]
-  user User
-  userId String
-  title String [not null]
-  organization String [not null]
-  issuedYear Int [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table BookmarkedJob {
-  id String [pk]
-  user User
-  userId String
-  job Job
-  jobId String
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table BookmarkedProject {
-  id String [pk]
-  user User
-  userId String
-  project Project
-  projectId String
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table Circle {
-  id String [pk]
-  name String [not null]
-  title String [not null]
-  logo String [not null]
-  description String [not null]
-  userCircles UserCircle [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table Company {
-  id String [pk]
-  name String [not null]
-  industry String [not null]
-  website String [not null]
-  contactorName String [not null]
-  contactorEmail String [not null]
-  contactorPhone String [not null]
-  contactorJobTitle String [not null]
-  contactorDepartment String [not null]
-  introduction String [not null]
-  employees Int [not null]
-  skills String [not null]
-  fields String [not null]
-  user User
-  jobs Job [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table Education {
-  id String [pk]
-  user User
-  userId String
-  schoolName String [not null]
-  title String [not null]
-  startYear Int [not null]
-  startMonth Int [not null]
-  endYear Int [not null]
-  endMonth Int [not null]
-  location Location
-  locationId String
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table Experience {
-  id String [pk]
-  user User
-  userId String
-  type String [not null]
-  title String [not null]
-  company String [not null]
-  role String [not null]
-  description String [not null]
-  startYear Int [not null]
-  startMonth Int [not null]
-  endYear Int [not null]
-  endMonth Int [not null]
-  location Location
-  locationId String
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table ExternalCompany {
-  id String [pk]
-  logoLink String [not null]
-  companyName String [not null]
-  externalJobs ExternalJob [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table ExternalJob {
-  id String [pk]
-  categories String [not null]
-  jobLink String [not null]
-  jobs Job [not null]
-  externalCompany ExternalCompany
-  externalCompanyId String
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table FileItem {
-  id String [pk]
-  name String [not null]
-  link String [not null]
-  fileType FileType [not null]
-  user User
-  userId String
-  project Project
-  projectId String
-  job Job
-  jobId String
-  jobApplication JobApplication
-  projectApplication ProjectApplication
-  projectApplicationId String
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table FriendRequest {
-  id String [pk]
-  requester User
-  requesterId String
-  receiver User
-  receiverId String
-  status FriendRequestStatus [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
 Table Job {
   id String [pk]
-  company Company
   companyId String
   category String [not null]
   title String [not null]
@@ -220,8 +29,6 @@ Table Job {
   experienceLevel String [not null]
   screeningQuestions String [not null]
   tags String [not null]
-  documents FileItem [not null]
-  applications JobApplication [not null]
   posterDepartment String [not null]
   posterFirstName String [not null]
   posterLastName String [not null]
@@ -229,30 +36,7 @@ Table Job {
   posterPhone String [not null]
   status JobStatus [not null]
   finished DateTime [not null]
-  externalJob ExternalJob
   externalJobId String
-  bookmarkedJobs BookmarkedJob [not null]
-  viewedJobs ViewedJob [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table JobApplication {
-  id String [pk]
-  user User
-  userId String
-  job Job
-  jobId String
-  coverLetter String [not null]
-  cv FileItem
-  cvId String
-  screeningAnswers String [not null]
-  status ApplicationStatus [not null]
-  saved Boolean [not null]
   createdAt DateTime [default: `now()`, not null]
   createdBy String
   updatedAt DateTime [not null]
@@ -272,9 +56,6 @@ Table Location {
   countryId String
   users User [not null]
   jobs Job [not null]
-  experiences Experience [not null]
-  educations Education [not null]
-  projects Project [not null]
   createdAt DateTime [default: `now()`, not null]
   createdBy String
   updatedAt DateTime [not null]
@@ -302,131 +83,6 @@ Table LocationState {
   name String [not null]
   abbreviation String [not null]
   locations Location [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table MentorshipUser {
-  id String [pk]
-  user User
-  userId String
-  userType MentorshipUserType [not null]
-  professionalSelfDescribe String [not null]
-  professionalLevel String [not null]
-  quarterStart String [not null]
-  selfDescribe String [not null]
-  reviewStatus ReviewStatus [not null]
-  paired Boolean [not null]
-  isHaveNullableFields Boolean [not null]
-  mentorshipUserFriendsAsRequester MentorshipUserFriend [not null]
-  mentorshipUserFriendsAsReceiver MentorshipUserFriend [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table MentorshipUserFriend {
-  id String [pk]
-  requester MentorshipUser
-  requesterId String
-  receiver MentorshipUser
-  receiverId String
-  status FriendRequestStatus [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table Picture {
-  id String [pk]
-  page String [not null]
-  pictureLink String [not null]
-  redirectLink String [not null]
-  numberPosition Int [not null]
-  title String [not null]
-  description String [not null]
-  isVideo Boolean [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table Project {
-  id String [pk]
-  user User
-  userId String
-  coverImage String [not null]
-  title String [not null]
-  type String [not null]
-  description String [not null]
-  keywords String [not null]
-  paid Boolean [not null]
-  location Location
-  locationId String
-  status JobStatus [not null]
-  projectPositions ProjectPosition [not null]
-  documents FileItem [not null]
-  schedule String [not null]
-  housingDetails String [not null]
-  childElderDetails String [not null]
-  finished DateTime [not null]
-  viewedProjects ViewedProject [not null]
-  projectApplications ProjectApplication [not null]
-  bookmarkedProjects BookmarkedProject [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table ProjectApplication {
-  id String [pk]
-  user User
-  userId String
-  projectPosition ProjectPosition
-  projectPositionId String
-  project Project
-  projectId String
-  coverLetter String [not null]
-  cv FileItem
-  status ApplicationStatus [not null]
-  saved Boolean [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table ProjectPosition {
-  id String [pk]
-  project Project
-  projectId String
-  type String [not null]
-  roleDescription String [not null]
-  gender Gender [not null]
-  additionalRequirements String [not null]
-  minAge Int [not null]
-  maxAge Int [not null]
-  status PositionStatus [not null]
-  finished DateTime [not null]
-  projectApplications ProjectApplication [not null]
   createdAt DateTime [default: `now()`, not null]
   createdBy String
   updatedAt DateTime [not null]
@@ -502,11 +158,8 @@ Table User {
   twitterUrl String
   website String
   youtubeUrl String
-  company Company
   companyId String
   talent Talent
-  files FileItem [not null]
-  experiences Experience [not null]
   settings Setting
   address String
   phoneNumber String
@@ -518,63 +171,7 @@ Table User {
   sendbirdJoined Boolean
   permissions String
   restorePasswordCode String
-  awards Award [not null]
   posts Post [not null]
-  educations Education [not null]
-  bookmarkedJobs BookmarkedJob [not null]
-  viewedProjects ViewedProject [not null]
-  bookmarkedProjects BookmarkedProject [not null]
-  projectApplications ProjectApplication [not null]
-  friendRequestsAsRequester FriendRequest [not null]
-  friendRequestsAsReceiver FriendRequest [not null]
-  jobApplications JobApplication [not null]
-  mentorshipUsers MentorshipUser [not null]
-  userCircles UserCircle [not null]
-  viewedJobs ViewedJob [not null]
-  projects Project [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table UserCircle {
-  id String [pk]
-  user User
-  userId String
-  circle Circle
-  circleId String
-  status UserCircleStatus [not null]
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table ViewedJob {
-  id String [pk]
-  user User
-  userId String
-  job Job
-  jobId String
-  createdAt DateTime [default: `now()`, not null]
-  createdBy String
-  updatedAt DateTime [not null]
-  updatedBy String
-  deletedAt DateTime
-  deletedBy String
-}
-
-Table ViewedProject {
-  id String [pk]
-  user User
-  userId String
-  project Project
-  projectId String
   createdAt DateTime [default: `now()`, not null]
   createdBy String
   updatedAt DateTime [not null]
@@ -686,88 +283,14 @@ Enum UserType {
 
 Ref: Post.authorId > User.id
 
-Ref: Award.userId > User.id
-
-Ref: BookmarkedJob.userId > User.id
-
-Ref: BookmarkedJob.jobId > Job.id
-
-Ref: BookmarkedProject.userId > User.id
-
-Ref: BookmarkedProject.projectId > Project.id
-
-Ref: Education.userId > User.id
-
-Ref: Education.locationId > Location.id
-
-Ref: Experience.userId > User.id
-
-Ref: Experience.locationId > Location.id
-
-Ref: ExternalJob.externalCompanyId > ExternalCompany.id
-
-Ref: FileItem.userId > User.id
-
-Ref: FileItem.projectId > Project.id
-
-Ref: FileItem.jobId > Job.id
-
-Ref: FileItem.projectApplicationId - ProjectApplication.id
-
-Ref: FriendRequest.requesterId > User.id
-
-Ref: FriendRequest.receiverId > User.id
-
-Ref: Job.companyId > Company.id
-
 Ref: Job.locationId > Location.id
-
-Ref: Job.externalJobId > ExternalJob.id
-
-Ref: JobApplication.userId > User.id
-
-Ref: JobApplication.jobId > Job.id
-
-Ref: JobApplication.cvId - FileItem.id
 
 Ref: Location.stateId > LocationState.id
 
 Ref: Location.countryId > LocationCountry.id
 
-Ref: MentorshipUser.userId > User.id
-
-Ref: MentorshipUserFriend.requesterId > MentorshipUser.id
-
-Ref: MentorshipUserFriend.receiverId > MentorshipUser.id
-
-Ref: Project.userId > User.id
-
-Ref: Project.locationId > Location.id
-
-Ref: ProjectApplication.userId > User.id
-
-Ref: ProjectApplication.projectPositionId > ProjectPosition.id
-
-Ref: ProjectApplication.projectId > Project.id
-
-Ref: ProjectPosition.projectId > Project.id
-
 Ref: Setting.userId - User.id
 
 Ref: Talent.userId - User.id
 
-Ref: User.companyId - Company.id
-
 Ref: User.locationId > Location.id
-
-Ref: UserCircle.userId > User.id
-
-Ref: UserCircle.circleId > Circle.id
-
-Ref: ViewedJob.userId > User.id
-
-Ref: ViewedJob.jobId > Job.id
-
-Ref: ViewedProject.userId > User.id
-
-Ref: ViewedProject.projectId > Project.id

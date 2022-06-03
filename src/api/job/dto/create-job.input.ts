@@ -1,15 +1,9 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 import { JobStatus } from 'src/common/enum';
-import { Company } from 'src/api/company/entities/company.entity';
-import { ExternalJob } from 'src/api/external-job/entities/external-job.entity';
-import { FileItem } from 'src/api/file-item/entities/file-item.entity';
-import { JobApplication } from 'src/api/job-application/entities/job-application.entity';
 import { Location } from 'src/api/location/entities/location.entity';
 
 @InputType()
 export class CreateJobInput {
-  @Field(() => Company, { description: 'Job company' })
-  company: string;
 
   @Field(() => String, { description: 'Job category' })
   category: string;
@@ -46,12 +40,6 @@ export class CreateJobInput {
 
   @Field(() => String, { description: 'Job tags' })
   tags: string;
-
-  @Field(() => [FileItem], { description: 'Job documents' })
-  documents: FileItem[];
-
-  @Field(() => [JobApplication], { description: 'Job applications' })
-  applications: JobApplication[];
 
   @Field(() => String, { description: 'Job poster department' })
   posterDepartment: string;

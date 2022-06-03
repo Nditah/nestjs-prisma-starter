@@ -9,7 +9,7 @@ async function main() {
 
   const user1 = await prisma.user.create({
     data: {
-      email: 'ada@ensemble.com',
+      email: 'ada@telixia.com',
       username: 'Adaeze',
       firstName: 'Ada',
       lastName: 'Omolara',
@@ -27,7 +27,7 @@ async function main() {
 
   const user2 = await prisma.user.create({
     data: {
-      email: 'obi@ensemble.com',
+      email: 'obi@telixia.com',
       username: 'Obinna',
       firstName: 'Obi',
       lastName: 'Ebuka',
@@ -37,7 +37,7 @@ async function main() {
         create: [
           {
             title: 'Build Your Team & Create Your Dream',
-            content: 'https://www.createensemble.com/',
+            content: 'https://www.createtelixia.com/',
             published: true,
           },
           {
